@@ -29,6 +29,11 @@
 
 .sprite {
   image-rendering: pixelated;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 
 .race-block {
@@ -51,4 +56,37 @@
   width: 120px;
   height: 128px;
   top: 0px;
+}
+
+.race-finish {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: race-finish-anim;
+  animation-duration: 0.5s;
+}
+
+.race-finish-button {
+  position: fixed;
+  top: 75%;
+  left: 50%;
+  width: 50%;
+  height: 64px;
+  transform: translate(-50%, -50%);
+  animation-name: race-finish-anim;
+  animation-duration: 0.5s;
+  animation-delay: 1s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes race-finish-anim {
+  from {
+    transform: translate(-50%, -50%) scale(0, 0);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1, 1);
+    opacity: 1;
+  }
 }

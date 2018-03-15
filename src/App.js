@@ -5,11 +5,20 @@ import './App.css';
 import Button from 'react-bootstrap/lib/Button';
 
 import chocoImg from './res/gfx/choco.png';
+import finishImg from './res/gfx/finish.png';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      raceFinished: false
+    };
+  }
+
   componentWillMount() {
     this.props = {
-      racers: this.getRacers()
+      racers: this.getRacers(),
     };
   }
 
@@ -31,8 +40,11 @@ class App extends Component {
     ];
   }
 
-  onRaceStart() {
+  onRaceStart = () => {
     console.log('Race start!')
+    this.setState({
+      raceFinished: true
+    });
   }
 
   // TODO
@@ -55,6 +67,13 @@ class App extends Component {
             </div>
           )
         })}
+        {this.state.raceFinished ? (
+          <div>
+            <img src={finishImg} className="race-finish" />
+            <Button bsStyle="primary" className="race-finish-button" onClick={this.onRaceStart}>Continue</Button>
+          </div>
+          ) : null
+        }
 
       </div>
     );
