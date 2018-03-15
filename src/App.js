@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/lib/Button';
 import chocoImg from './res/gfx/choco.png';
 import finishImg from './res/gfx/finish.png';
 
-class App extends Component {
+class RaceTrackView extends Component {
   constructor() {
     super();
 
@@ -17,9 +17,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.props = {
-      racers: this.getRacers(),
-    };
+    this.racers = this.props.racers || this.getRacers();
   }
 
   // TODO
@@ -47,6 +45,16 @@ class App extends Component {
     });
   }
 
+  onFinishContinue = () => {
+    this.props.app.setView('raceFinish', {
+      winners: {
+        '1': {name: 'player'},
+        '2': {name: 'choco'},
+        '3': {name: 'test'}
+      }
+    });
+  }
+
   // TODO
   getRacerPercentage(racer) {
     return Math.random() * 100;
@@ -54,12 +62,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <header className="App-header">
           <h1 className="App-title">Race</h1>
         </header>
         <Button bsStyle="primary" onClick={this.onRaceStart}>Start</Button>
-        {this.props.racers.map((racer, i) => {
+        {this.racers.map((racer, i) => {
           return (
             <div key={i} className="race-block">
               <img src={chocoImg} className="sprite choco-racer" style={{left: `${this.getRacerPercentage()}%`}}/>
@@ -70,11 +78,70 @@ class App extends Component {
         {this.state.raceFinished ? (
           <div>
             <img src={finishImg} className="race-finish" />
-            <Button bsStyle="primary" className="race-finish-button" onClick={this.onRaceStart}>Continue</Button>
+            <Button bsStyle="primary" className="race-finish-button" onClick={this.onFinishContinue}>Continue</Button>
           </div>
           ) : null
         }
 
+      </div>
+    );
+  }
+}
+
+class RaceFinishView extends Component {
+  render() {
+    return (
+      <div>
+        <h1>
+        Winners
+        </h1>
+        <h2>
+          1st place: {this.props.winners['1'].name}
+        </h2>
+        <h3>
+          2nd place: {this.props.winners['2'].name}
+        </h3>
+        <h3>
+          3rd place: {this.props.winners['3'].name}
+        </h3>
+      </div>
+    )
+  }
+}
+
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      view: 'raceTrack',
+      viewProps: {}
+    };
+  }
+
+  componentWillMount() {
+  }
+
+  setView(viewName, viewProps) {
+    this.setState({
+      view: viewName,
+      viewProps: viewProps
+    })
+  }
+
+  renderView() {
+    let v = this.state.view;
+    if (v === 'raceTrack')
+      return <RaceTrackView app={this} {...this.state.viewProps}/>
+    else if (v === 'raceFinish')
+      return <RaceFinishView app={this} {...this.state.viewProps}/>
+    return null;
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {this.renderView()}
       </div>
     );
   }
