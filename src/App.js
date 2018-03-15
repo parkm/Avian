@@ -1,22 +1,61 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
 
 import Button from 'react-bootstrap/lib/Button';
 
+import chocoImg from './res/gfx/choco.png';
+
 class App extends Component {
+  componentWillMount() {
+    this.props = {
+      racers: this.getRacers()
+    };
+  }
+
+  // TODO
+  getRacers() {
+    return [{
+        name: 'player'
+      },  {
+        name: 'another guy'
+      }, {
+        name: 'more'
+      }, {
+        name: 'people'
+      }, {
+        name: 'test'
+      }, {
+        name: 'choco'
+      }
+    ];
+  }
+
+  onRaceStart() {
+    console.log('Race start!')
+  }
+
+  // TODO
+  getRacerPercentage(racer) {
+    return Math.random() * 100;
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Race</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Button bsStyle="primary">test</Button>
+        <Button bsStyle="primary" onClick={this.onRaceStart}>Start</Button>
+        {this.props.racers.map((racer, i) => {
+          return (
+            <div key={i} className="race-block">
+              <img src={chocoImg} className="sprite choco-racer" style={{left: `${this.getRacerPercentage()}%`}}/>
+              <div className="race-line" />
+            </div>
+          )
+        })}
+
       </div>
     );
   }

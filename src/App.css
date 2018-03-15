@@ -26,3 +26,29 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.sprite {
+  image-rendering: pixelated;
+}
+
+.race-block {
+  position: relative;
+  height: 128px;
+  margin: 32px;
+  margin-right: 32px;
+}
+
+.race-line {
+  border-top: 5px dashed black;
+  position: absolute;
+  width: 100%;
+  margin-top: 105px;
+  z-index: -100;
+}
+
+.choco-racer {
+  position: absolute;
+  width: 120px;
+  height: 128px;
+  top: 0px;
+}
