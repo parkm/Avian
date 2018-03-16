@@ -90,3 +90,14 @@
     opacity: 1;
   }
 }
+
+.race-finish-overlay {
+  border: 1px solid rgb(50, 50, 50);
+  background-color: rgba(150, 150, 150, 1);
+  position: fixed;
+  width: 95%;
+  height: 95%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
