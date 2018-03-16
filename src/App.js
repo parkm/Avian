@@ -20,6 +20,13 @@ class App extends Component {
       view: 'world',
       viewProps: RaceFinishView.debugProps()
     };
+
+    this.views = {
+      'raceTrack': RaceTrackView,
+      'raceFinish': RaceFinishView,
+      'raceSelection': RaceSelectionView,
+      'world': WorldView
+    }
   }
 
   setView(viewName, viewProps) {
@@ -30,16 +37,11 @@ class App extends Component {
   }
 
   renderView() {
-    let v = this.state.view;
-    if (v === 'raceTrack')
-      return <RaceTrackView app={this} {...this.state.viewProps}/>
-    else if (v === 'raceFinish')
-      return <RaceFinishView app={this} {...this.state.viewProps}/>
-    else if (v === 'raceSelection')
-      return <RaceSelectionView app={this} {...this.state.viewProps}/>
-    else if (v === 'world')
-      return <WorldView app={this} {...this.state.viewProps}/>
-    return (<div>View not found</div>);
+    let View = this.views[this.state.view];
+    if (View)
+      return <View app={this} {...this.state.viewProps}/>
+    else
+      return (<div>View not found</div>);
   }
 
   render() {
