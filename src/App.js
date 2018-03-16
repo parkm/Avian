@@ -9,13 +9,15 @@ import finishImg from './res/gfx/finish.png';
 
 import RaceTrackView from './views/RaceTrackView';
 import RaceFinishView from './views/RaceFinishView';
+import RaceSelectionView from './views/RaceSelectionView';
+import WorldView from './views/WorldView';
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      view: 'raceTrack',
+      view: 'world',
       viewProps: RaceFinishView.debugProps()
     };
   }
@@ -33,7 +35,11 @@ class App extends Component {
       return <RaceTrackView app={this} {...this.state.viewProps}/>
     else if (v === 'raceFinish')
       return <RaceFinishView app={this} {...this.state.viewProps}/>
-    return null;
+    else if (v === 'raceSelection')
+      return <RaceSelectionView app={this} {...this.state.viewProps}/>
+    else if (v === 'world')
+      return <WorldView app={this} {...this.state.viewProps}/>
+    return (<div>View not found</div>);
   }
 
   render() {
