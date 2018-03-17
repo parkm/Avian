@@ -11,6 +11,7 @@ import RaceTrackView from './views/RaceTrackView';
 import RaceFinishView from './views/RaceFinishView';
 import RaceSelectionView from './views/RaceSelectionView';
 import WorldView from './views/WorldView';
+import StablesView from './views/StablesView';
 
 import GameMaster from './GameMaster';
 
@@ -29,7 +30,8 @@ class App extends Component {
       'raceTrack': RaceTrackView,
       'raceFinish': RaceFinishView,
       'raceSelection': RaceSelectionView,
-      'world': WorldView
+      'world': WorldView,
+      'stables': StablesView
     }
   }
 

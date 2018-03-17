@@ -1,6 +1,13 @@
+import Bird from './game/Bird';
+
 export default class GameMaster {
   constructor() {
     this.money = 0;
+
+    this.ownedBirds = [
+      new Bird('PlayerBird', 400),
+      new Bird('PlayerBird2', 200)
+    ];
 
     let tmpRacers = [{
         name: 'player',

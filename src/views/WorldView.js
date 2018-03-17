@@ -21,6 +21,10 @@ export default class WorldView extends Component {
     this.props.app.setView('raceSelection');
   }
 
+  onStablesClick = () => {
+    this.props.app.setView('stables');
+  }
+
   render() {
     return (
       <div>
@@ -28,7 +32,10 @@ export default class WorldView extends Component {
           Current Money: {this.props.app.gm.money}
         </div>
         <Button bsStyle='info' onClick={this.onRacesClick}>
-          <img src={chocoImg} />
+          Races <img src={chocoImg} />
+        </Button>
+        <Button bsStyle='primary' onClick={this.onStablesClick}>
+          Stables <img src={chocoImg} />
         </Button>
       </div>
     )
