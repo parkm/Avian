@@ -20,28 +20,38 @@ export default class RaceSelectionView extends Component {
   constructor() {
     super();
     this.state = {
-      selectedRace: null
+      selectedRace: null,
+      playerBird: null
     };
   }
 
   componentWillMount() {
     this.availableRaces = this.props.app.gm.availableRaces;
+    this.playerBirds = this.props.app.gm.ownedBirds;
   }
 
   onRaceItemClick = (race) => {
     this.setState({
-      selectedRace: race
+      selectedRace: race,
+      playerBird: null
     });
   }
 
   onRaceStartClick = () => {
     this.props.app.setView('raceTrack', {
-      race: this.state.selectedRace
+      race: this.state.selectedRace,
+      playerBird: this.state.playerBird
     });
   }
 
   onLeaveClick = () => {
     this.props.app.setView('world');
+  }
+
+  onPlayerBirdItemClick = (bird) => {
+    this.setState({
+      playerBird: bird
+    });
   }
 
   renderRaceDetails() {
@@ -54,7 +64,16 @@ export default class RaceSelectionView extends Component {
         <div>
           Reward: {this.state.selectedRace.moneyReward}
         </div>
-        <Button bsStyle='primary' onClick={this.onRaceStartClick}>Start</Button>
+        <ListGroup>
+          {
+            this.playerBirds.map((b, i) => {
+              return (
+                <ListGroupItem key={i} onClick={_ => this.onPlayerBirdItemClick(b)}>{b.name}</ListGroupItem>
+              );
+            })
+          }
+        </ListGroup>
+        {this.state.playerBird ? (<Button bsStyle='primary' onClick={this.onRaceStartClick}>Start</Button>) : null}
       </div>
     );
   }

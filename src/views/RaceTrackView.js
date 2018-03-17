@@ -20,7 +20,7 @@ export default class RaceTrackView extends Component {
 
   componentWillMount() {
     this.racers = this.props.race.racers;
-    this.controller = new RaceController(this.props.race, this.racers);
+    this.controller = new RaceController(this.props.race, this.racers, this.props.playerBird);
   }
 
   raceLoop = () => {

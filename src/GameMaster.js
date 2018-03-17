@@ -6,13 +6,11 @@ export default class GameMaster {
 
     this.ownedBirds = [
       new Bird('PlayerBird', 400),
-      new Bird('PlayerBird2', 200)
+      new Bird('PlayerBird2', 200),
+      new Bird('SuperBird', 1000)
     ];
 
     let tmpRacers = [{
-        name: 'player',
-        speed: 400
-      },  {
         name: 'another guy',
         speed: 250
       }, {
