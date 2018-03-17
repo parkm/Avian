@@ -25,6 +25,7 @@ export default class RaceTrackView extends Component {
 
   raceLoop = () => {
     this.controller.frameUpdate(Date.now() - this.loopStartTime);
+    this.forceUpdate()
     if (!this.state.raceFinished) {
       this.loopStartTime = Date.now();
       requestAnimationFrame(this.raceLoop);
@@ -36,6 +37,10 @@ export default class RaceTrackView extends Component {
 
     this.loopStartTime = Date.now();
     requestAnimationFrame(this.raceLoop);
+  }
+
+  onRaceSkip = () => {
+    this.onRaceFinish();
   }
 
   onRaceFinish() {
@@ -55,11 +60,6 @@ export default class RaceTrackView extends Component {
     });
   }
 
-  // TODO
-  getRacerPercentage(racer) {
-    return Math.random() * 100;
-  }
-
   render() {
     return (
       <div>
@@ -67,10 +67,11 @@ export default class RaceTrackView extends Component {
           <h1 className="App-title">Race</h1>
         </header>
         <Button bsStyle="primary" onClick={this.onRaceStart}>Start</Button>
-        {this.racers.map((racer, i) => {
+        <Button bsStyle="primary" onClick={this.onRaceSkip}>Skip</Button>
+        {this.controller.racers.map((racer, i) => {
           return (
             <div key={i} className="race-block">
-              <img src={chocoImg} className="sprite choco-racer" style={{left: `${this.getRacerPercentage()}%`}}/>
+              <img src={chocoImg} className="sprite choco-racer" style={{left: `${racer.getProgressPercent(this.props.race.length) * 100}%`}}/>
               <div className="race-line" />
             </div>
           )

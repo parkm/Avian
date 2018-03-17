@@ -4,26 +4,26 @@ export default class GameMaster {
 
     let tmpRacers = [{
         name: 'player',
-        speed: 60
+        speed: 400
       },  {
         name: 'another guy',
-        speed: 25
+        speed: 250
       }, {
         name: 'more',
-        speed: 20
+        speed: 200
       }, {
         name: 'people',
-        speed: 10
+        speed: 100
       }, {
         name: 'test',
-        speed: 23
+        speed: 230
       }, {
         name: 'choco',
-        speed: 28
+        speed: 280
       }
     ];
     let tmpRacers2 = Array.from(tmpRacers);
-    tmpRacers2.push({name: 'onemore'});
+    tmpRacers2.push({name: 'super', speed: 200});
     this.availableRaces = [
       {
         name: 'First Race',
