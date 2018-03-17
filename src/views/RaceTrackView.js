@@ -25,6 +25,10 @@ export default class RaceTrackView extends Component {
 
   raceLoop = () => {
     this.controller.frameUpdate(Date.now() - this.loopStartTime);
+    if (this.controller.raceCompleted) {
+      this.onRaceFinish();
+    }
+
     this.forceUpdate()
     if (!this.state.raceFinished) {
       this.loopStartTime = Date.now();

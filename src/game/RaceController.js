@@ -9,6 +9,7 @@ export default class RaceController {
     this.racers.push(new BirdRacer(playerBird.name, playerBird.mph, true));
     this.start = null;
     this.placingCounter = 0;
+    this.raceCompleted = false;
   }
 
   frameUpdate(delta) {
@@ -20,6 +21,9 @@ export default class RaceController {
       if (r.elapsedDistance >= this.length) {
         r.placing = ++this.placingCounter;
         r.completed = true;
+        if (r.isPlayer) {
+          this.raceCompleted = true;
+        }
       }
     });
   }
