@@ -25,16 +25,14 @@ export default class RaceFinishView extends Component {
       moneyEarned: 0,
       moneyTotal: 0
     };
-
   }
 
   componentWillMount() {
     this.setState({
-      moneyEarned: this.props.moneyEarned,
-      moneyTotal: this.props.moneyCurrent
+      moneyEarned: this.props.race.moneyReward,
+      moneyTotal: this.props.app.gm.money
     });
     this.moneyCountdown = setInterval(_ => {
-      console.log('hi');
       let moneyEarned = this.state.moneyEarned-1;
       this.setState({
         moneyEarned: moneyEarned,
@@ -50,11 +48,12 @@ export default class RaceFinishView extends Component {
     clearInterval(this.moneyCountdown);
     this.setState({
       moneyEarned: 0,
-      moneyTotal: this.props.moneyEarned + this.props.moneyCurrent
+      moneyTotal: this.props.race.moneyReward + this.props.app.gm.money
     });
   }
 
   onContinueClick = () => {
+    this.props.app.gm.onRaceComplete(this.props.race, 1);
     this.props.app.setView('raceSelection');
   }
 

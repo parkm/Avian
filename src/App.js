@@ -12,9 +12,13 @@ import RaceFinishView from './views/RaceFinishView';
 import RaceSelectionView from './views/RaceSelectionView';
 import WorldView from './views/WorldView';
 
+import GameMaster from './GameMaster';
+
 class App extends Component {
   constructor() {
     super();
+
+    this.gm = new GameMaster();
 
     this.state = {
       view: 'world',

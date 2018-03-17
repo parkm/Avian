@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/lib/Button';
 import chocoImg from '../res/gfx/choco.png';
 import finishImg from '../res/gfx/finish.png';
 
+import RaceController from '../game/RaceController';
+
 export default class RaceTrackView extends Component {
   constructor() {
     super();
@@ -17,25 +19,8 @@ export default class RaceTrackView extends Component {
   }
 
   componentWillMount() {
-    this.racers = this.props.racers || this.getRacers();
-  }
-
-  // TODO
-  getRacers() {
-    return [{
-        name: 'player'
-      },  {
-        name: 'another guy'
-      }, {
-        name: 'more'
-      }, {
-        name: 'people'
-      }, {
-        name: 'test'
-      }, {
-        name: 'choco'
-      }
-    ];
+    this.racers = this.props.race.racers;
+    this.controller = new RaceController(this.racers);
   }
 
   onRaceStart = () => {
@@ -47,6 +32,7 @@ export default class RaceTrackView extends Component {
 
   onFinishContinue = () => {
     this.props.app.setView('raceFinish', {
+      race: this.props.race,
       winners: {
         '1': {name: 'player'},
         '2': {name: 'choco'},

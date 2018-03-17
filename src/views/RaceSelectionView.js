@@ -24,16 +24,20 @@ export default class RaceSelectionView extends Component {
     };
   }
 
-  onRaceItemClick = () => {
+  componentWillMount() {
+    this.availableRaces = this.props.app.gm.availableRaces;
+  }
+
+  onRaceItemClick = (race) => {
     this.setState({
-      selectedRace: {
-        name: 'the race'
-      }
+      selectedRace: race
     });
   }
 
   onRaceStartClick = () => {
-    this.props.app.setView('raceTrack');
+    this.props.app.setView('raceTrack', {
+      race: this.state.selectedRace
+    });
   }
 
   onLeaveClick = () => {
@@ -45,7 +49,10 @@ export default class RaceSelectionView extends Component {
     return (
       <div>
         <div>
-        Name: {this.state.selectedRace.name}
+          Name: {this.state.selectedRace.name}
+        </div>
+        <div>
+          Reward: {this.state.selectedRace.moneyReward}
         </div>
         <Button bsStyle='primary' onClick={this.onRaceStartClick}>Start</Button>
       </div>
@@ -58,8 +65,13 @@ export default class RaceSelectionView extends Component {
         <Grid>
           <Col xs={12} md={8}>
             <ListGroup>
-              <ListGroupItem onClick={this.onRaceItemClick}>Race 1</ListGroupItem>
-              <ListGroupItem onClick={this.onRaceItemClick}>Race 2</ListGroupItem>
+              {
+                this.availableRaces.map((r, i) => {
+                  return (
+                    <ListGroupItem key={i} onClick={_ => this.onRaceItemClick(r)}>{r.name}</ListGroupItem>
+                  );
+                })
+              }
             </ListGroup>
           </Col>
           <Col xs={6} md={4}>

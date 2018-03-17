@@ -25,7 +25,7 @@ export default class WorldView extends Component {
     return (
       <div>
         <div>
-          Current Money: 0
+          Current Money: {this.props.app.gm.money}
         </div>
         <Button bsStyle='info' onClick={this.onRacesClick}>
           <img src={chocoImg} />
