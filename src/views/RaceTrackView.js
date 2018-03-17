@@ -20,11 +20,25 @@ export default class RaceTrackView extends Component {
 
   componentWillMount() {
     this.racers = this.props.race.racers;
-    this.controller = new RaceController(this.racers);
+    this.controller = new RaceController(this.props.race, this.racers);
+  }
+
+  raceLoop = () => {
+    this.controller.frameUpdate(Date.now() - this.loopStartTime);
+    if (!this.state.raceFinished) {
+      this.loopStartTime = Date.now();
+      requestAnimationFrame(this.raceLoop);
+    }
   }
 
   onRaceStart = () => {
     console.log('Race start!')
+
+    this.loopStartTime = Date.now();
+    requestAnimationFrame(this.raceLoop);
+  }
+
+  onRaceFinish() {
     this.setState({
       raceFinished: true
     });

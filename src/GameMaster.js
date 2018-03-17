@@ -4,7 +4,7 @@ export default class GameMaster {
 
     let tmpRacers = [{
         name: 'player',
-        speed: 30
+        speed: 60
       },  {
         name: 'another guy',
         speed: 25
@@ -28,11 +28,13 @@ export default class GameMaster {
       {
         name: 'First Race',
         moneyReward: 100,
-        racers: tmpRacers
+        racers: tmpRacers,
+        length: 0.5
       }, {
         name: 'Second Race',
         moneyReward: 200,
-        racers: tmpRacers2
+        racers: tmpRacers2,
+        length: 1
       }
     ];
   }
