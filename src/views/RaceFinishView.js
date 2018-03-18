@@ -23,7 +23,7 @@ export default class RaceFinishView extends Component {
       moneyTotal: this.props.app.gm.money
     });
 
-    if (this.state.moneyEarned > 0) {
+    if (this.props.race.getMoneyReward(this.props.playerPlacing) > 0) {
       this.moneyCountdown = setInterval(_ => {
         let moneyEarned = this.state.moneyEarned-1;
         this.setState({

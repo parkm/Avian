@@ -5,7 +5,7 @@ export default class RaceController {
     this.racers = racersData.map(r => {
       return new BirdRacer(r.name, r.speed, false);
     });
-    this.playerRacer = new BirdRacer(playerBird.name, playerBird.mph, true)
+    this.playerRacer = new BirdRacer(playerBird.name, playerBird.stats.topMph, true)
     this.racers.push(this.playerRacer);
 
     this.length = raceData.length;

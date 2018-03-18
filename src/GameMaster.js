@@ -1,4 +1,5 @@
 import Bird from './game/Bird';
+import BirdStats from './game/BirdStats';
 import Race from './game/Race';
 
 export default class GameMaster {
@@ -6,9 +7,24 @@ export default class GameMaster {
     this.money = 0;
 
     this.ownedBirds = [
-      new Bird('PlayerBird', 400),
-      new Bird('PlayerBird2', 200),
-      new Bird('SuperBird', 1000)
+      new Bird('PlayerBird', new BirdStats({
+        topMph: 400,
+        accel: 10,
+        stamina: 10,
+        vigor: 10
+      })),
+      new Bird('PlayerBird2', new BirdStats({
+        topMph: 200,
+        accel: 10,
+        stamina: 10,
+        vigor: 10
+      })),
+      new Bird('SuperBird', new BirdStats({
+        topMph: 1000,
+        accel: 30,
+        stamina: 30,
+        vigor: 30
+      }))
     ];
 
     let tmpRacers = [{

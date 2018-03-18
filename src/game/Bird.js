@@ -1,6 +1,6 @@
 export default class Bird {
-  constructor(name, mph) {
+  constructor(name, stats) {
     this.name = name;
-    this.mph = mph;
+    this.stats = stats;
   }
 }

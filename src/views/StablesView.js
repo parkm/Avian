@@ -46,7 +46,7 @@ export default class StablesView extends Component {
           Name: {this.state.selectedBird.name}
         </div>
         <div>
-          Speed: {this.state.selectedBird.mph} MPH
+          Speed: {this.state.selectedBird.stats.topMph} MPH
         </div>
       </div>
     );
