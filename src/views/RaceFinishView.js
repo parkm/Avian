@@ -4,6 +4,8 @@ import '../App.css';
 
 import Button from 'react-bootstrap/lib/Button';
 
+import Util from '../Util';
+
 import chocoImg from '../res/gfx/choco.png';
 
 export default class RaceFinishView extends Component {
@@ -20,16 +22,19 @@ export default class RaceFinishView extends Component {
       moneyEarned: this.props.race.getMoneyReward(this.props.playerPlacing),
       moneyTotal: this.props.app.gm.money
     });
-    this.moneyCountdown = setInterval(_ => {
-      let moneyEarned = this.state.moneyEarned-1;
-      this.setState({
-        moneyEarned: moneyEarned,
-        moneyTotal: this.state.moneyTotal+1
-      });
-      if (moneyEarned <= 0) {
-        clearInterval(this.moneyCountdown);
-      }
-    }, 10)
+
+    if (this.state.moneyEarned > 0) {
+      this.moneyCountdown = setInterval(_ => {
+        let moneyEarned = this.state.moneyEarned-1;
+        this.setState({
+          moneyEarned: moneyEarned,
+          moneyTotal: this.state.moneyTotal+1
+        });
+        if (moneyEarned <= 0) {
+          clearInterval(this.moneyCountdown);
+        }
+      }, 10)
+    }
   }
 
   onMainDivClick = () => {
@@ -61,7 +66,7 @@ export default class RaceFinishView extends Component {
           3rd place: {this.props.placings['3'].name}
         </h3>
         <div className="race-finish-overlay">
-          <h1>You placed 1st</h1>
+          <h1>You placed {Util.toOrdinal(this.props.playerPlacing)}</h1>
           <div>Earnings: {this.state.moneyEarned}</div>
           <div>Money: {this.state.moneyTotal}</div>
           <Button bsStyle='primary' onClick={this.onContinueClick}>Continue</Button>
