@@ -40,13 +40,24 @@ export default class StablesView extends Component {
 
   renderBirdDetails() {
     if (!this.state.selectedBird) return null;
+    let topSpeed = this.state.selectedBird.stats.topMph;
+    let accel = this.state.selectedBird.stats.accel;
     return (
       <div>
         <div>
           Name: {this.state.selectedBird.name}
         </div>
         <div>
-          Speed: {this.state.selectedBird.stats.topMph} MPH
+          Top Speed: {topSpeed} MPH
+        </div>
+        <div>
+          Acceleration: {accel} MPH gained per second
+        </div>
+        <div>
+          0 to {topSpeed} MPH: {Number(topSpeed / accel).toFixed(2)} seconds
+        </div>
+        <div>
+          0 to 60 MPH: {Number(60 / accel).toFixed(2)} seconds
         </div>
       </div>
     );
