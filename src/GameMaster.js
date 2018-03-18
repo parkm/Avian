@@ -24,6 +24,12 @@ export default class GameMaster {
         accel: 30,
         stamina: 30,
         vigor: 30
+      })),
+      new Bird('The Winner', new BirdStats({
+        topMph: 5000,
+        accel: 5000,
+        stamina: 30,
+        vigor: 30
       }))
     ];
 
@@ -31,7 +37,7 @@ export default class GameMaster {
         name: 'another guy',
         stats: new BirdStats({
           topMph: 250,
-          accel: 30,
+          accel: 10,
           stamina: 30,
           vigor: 30
         })
@@ -39,7 +45,7 @@ export default class GameMaster {
         name: 'more',
         stats: new BirdStats({
           topMph: 150,
-          accel: 30,
+          accel: 11,
           stamina: 30,
           vigor: 30
         })
@@ -47,7 +53,7 @@ export default class GameMaster {
         name: 'people',
         stats: new BirdStats({
           topMph: 100,
-          accel: 30,
+          accel: 20,
           stamina: 30,
           vigor: 30
         })
@@ -55,7 +61,7 @@ export default class GameMaster {
         name: 'test',
         stats: new BirdStats({
           topMph: 230,
-          accel: 30,
+          accel: 5,
           stamina: 30,
           vigor: 30
         })
@@ -72,7 +78,7 @@ export default class GameMaster {
     let tmpRacers2 = Array.from(tmpRacers);
     tmpRacers2.push({name: 'super', stats: new BirdStats({
       topMph: 800,
-      accel: 30,
+      accel: 40,
       stamina: 30,
       vigor: 30
     })});

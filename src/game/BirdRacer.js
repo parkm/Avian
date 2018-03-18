@@ -6,10 +6,19 @@ export default class BirdRacer {
     this.completed = false;
     this.placing = null;
     this.isPlayer = isPlayer;
+
+    this.currentMph = 0;
   }
 
   frameUpdate(delta) {
-    let milesPerMs = this.stats.topMph / 60 / 60 / 1000;
+    let accelPerMs = this.stats.accel / 1000;
+    this.currentMph += accelPerMs * delta;
+
+    if (this.currentMph >= this.stats.topMph) {
+      this.currentMph = this.stats.topMph
+    }
+
+    let milesPerMs = this.currentMph / 60 / 60 / 1000;
     let distance = milesPerMs * delta;
     this.elapsedDistance += distance;
   }
