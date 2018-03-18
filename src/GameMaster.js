@@ -1,6 +1,7 @@
 import Bird from './game/Bird';
 import BirdStats from './game/BirdStats';
 import Race from './game/Race';
+import RaceEvent from './game/RaceEvent';
 
 export default class GameMaster {
   constructor() {
@@ -103,6 +104,18 @@ export default class GameMaster {
         },
         '3': {
           money: 20
+        }
+      })
+    ];
+
+    this.availableEvents = [
+      new RaceEvent({
+        name: 'Open Track Day',
+        restrictions: {},
+        races: ['firstRace'],
+        unlocks: ['secondRace'],
+        rewards: {
+          money: 5000
         }
       })
     ];
