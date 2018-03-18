@@ -17,9 +17,8 @@ export default class RaceController {
   frameUpdate(delta) {
     this.racers.forEach(r => {
       if (r.completed) return;
-      let milesPerMs = r.stats.topMph / 60 / 60 / 1000;
-      let distance = milesPerMs * delta;
-      r.elapsedDistance += distance;
+
+      r.frameUpdate(delta);
       if (r.elapsedDistance >= this.length) {
         r.placing = ++this.placingCounter;
         r.completed = true;

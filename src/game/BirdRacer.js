@@ -8,6 +8,12 @@ export default class BirdRacer {
     this.isPlayer = isPlayer;
   }
 
+  frameUpdate(delta) {
+    let milesPerMs = this.stats.topMph / 60 / 60 / 1000;
+    let distance = milesPerMs * delta;
+    this.elapsedDistance += distance;
+  }
+
   // Returns progress as a decimal percentage
   getProgressPercent(raceLength) {
     return this.elapsedDistance / raceLength;
