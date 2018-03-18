@@ -7,18 +7,6 @@ import Button from 'react-bootstrap/lib/Button';
 import chocoImg from '../res/gfx/choco.png';
 
 export default class RaceFinishView extends Component {
-  static debugProps() {
-    return {
-      winners: {
-        '1': {name: 'player'},
-        '2': {name: 'choco'},
-        '3': {name: 'test'}
-      },
-      moneyEarned: 1000,
-      moneyCurrent: 5000
-    }
-  }
-
   constructor() {
     super();
     this.state = {
@@ -29,7 +17,7 @@ export default class RaceFinishView extends Component {
 
   componentWillMount() {
     this.setState({
-      moneyEarned: this.props.race.moneyReward,
+      moneyEarned: this.props.race.getMoneyReward(this.props.playerPlacing),
       moneyTotal: this.props.app.gm.money
     });
     this.moneyCountdown = setInterval(_ => {
@@ -48,12 +36,12 @@ export default class RaceFinishView extends Component {
     clearInterval(this.moneyCountdown);
     this.setState({
       moneyEarned: 0,
-      moneyTotal: this.props.race.moneyReward + this.props.app.gm.money
+      moneyTotal: this.props.race.getMoneyReward(this.props.playerPlacing) + this.props.app.gm.money
     });
   }
 
   onContinueClick = () => {
-    this.props.app.gm.onRaceComplete(this.props.race, 1);
+    this.props.app.gm.onRaceComplete(this.props.race, this.props.playerPlacing);
     this.props.app.setView('raceSelection');
   }
 
@@ -64,13 +52,13 @@ export default class RaceFinishView extends Component {
         Winners
         </h1>
         <h2>
-          1st place: {this.props.winners['1'].name}
+          1st place: {this.props.placings['1'].name}
         </h2>
         <h3>
-          2nd place: {this.props.winners['2'].name}
+          2nd place: {this.props.placings['2'].name}
         </h3>
         <h3>
-          3rd place: {this.props.winners['3'].name}
+          3rd place: {this.props.placings['3'].name}
         </h3>
         <div className="race-finish-overlay">
           <h1>You placed 1st</h1>

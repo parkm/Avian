@@ -62,7 +62,7 @@ export default class RaceSelectionView extends Component {
           Name: {this.state.selectedRace.name}
         </div>
         <div>
-          Reward: {this.state.selectedRace.moneyReward}
+          Reward: {this.state.selectedRace.getMoneyReward('1')}
         </div>
         <ListGroup>
           {

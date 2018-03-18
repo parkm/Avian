@@ -23,7 +23,7 @@ class App extends Component {
 
     this.state = {
       view: 'world',
-      viewProps: RaceFinishView.debugProps()
+      viewProps: {}
     };
 
     this.views = {

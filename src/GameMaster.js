@@ -1,4 +1,5 @@
 import Bird from './game/Bird';
+import Race from './game/Race';
 
 export default class GameMaster {
   constructor() {
@@ -30,21 +31,32 @@ export default class GameMaster {
     let tmpRacers2 = Array.from(tmpRacers);
     tmpRacers2.push({name: 'super', speed: 200});
     this.availableRaces = [
-      {
-        name: 'First Race',
-        moneyReward: 100,
-        racers: tmpRacers,
-        length: 0.5
-      }, {
-        name: 'Second Race',
-        moneyReward: 200,
-        racers: tmpRacers2,
-        length: 1
-      }
+      new Race('First Race', tmpRacers, 0.5, {
+        '1': {
+          money: 100
+        },
+        '2': {
+          money: 25
+        },
+        '3': {
+          money: 10
+        }
+      }),
+      new Race('Second Race', tmpRacers2, 1, {
+        '1': {
+          money: 200
+        },
+        '2': {
+          money: 50
+        },
+        '3': {
+          money: 20
+        }
+      })
     ];
   }
 
   onRaceComplete(race, placing) {
-    this.money += race.moneyReward;
+    this.money += race.getMoneyReward(placing);
   }
 }

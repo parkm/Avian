@@ -44,6 +44,7 @@ export default class RaceTrackView extends Component {
   }
 
   onRaceSkip = () => {
+    this.controller.playerRacer.placing = 1;
     this.onRaceFinish();
   }
 
@@ -56,11 +57,8 @@ export default class RaceTrackView extends Component {
   onFinishContinue = () => {
     this.props.app.setView('raceFinish', {
       race: this.props.race,
-      winners: {
-        '1': {name: 'player'},
-        '2': {name: 'choco'},
-        '3': {name: 'test'}
-      }
+      placings: this.controller.getPlacings(),
+      playerPlacing: this.controller.playerRacer.placing
     });
   }
 
