@@ -29,23 +29,53 @@ export default class GameMaster {
 
     let tmpRacers = [{
         name: 'another guy',
-        speed: 250
+        stats: new BirdStats({
+          topMph: 250,
+          accel: 30,
+          stamina: 30,
+          vigor: 30
+        })
       }, {
         name: 'more',
-        speed: 200
+        stats: new BirdStats({
+          topMph: 150,
+          accel: 30,
+          stamina: 30,
+          vigor: 30
+        })
       }, {
         name: 'people',
-        speed: 100
+        stats: new BirdStats({
+          topMph: 100,
+          accel: 30,
+          stamina: 30,
+          vigor: 30
+        })
       }, {
         name: 'test',
-        speed: 230
+        stats: new BirdStats({
+          topMph: 230,
+          accel: 30,
+          stamina: 30,
+          vigor: 30
+        })
       }, {
         name: 'choco',
-        speed: 280
+        stats: new BirdStats({
+          topMph: 280,
+          accel: 30,
+          stamina: 30,
+          vigor: 30
+        })
       }
     ];
     let tmpRacers2 = Array.from(tmpRacers);
-    tmpRacers2.push({name: 'super', speed: 200});
+    tmpRacers2.push({name: 'super', stats: new BirdStats({
+      topMph: 800,
+      accel: 30,
+      stamina: 30,
+      vigor: 30
+    })});
     this.availableRaces = [
       new Race('First Race', tmpRacers, 0.5, {
         '1': {

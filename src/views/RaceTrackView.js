@@ -44,7 +44,6 @@ export default class RaceTrackView extends Component {
   }
 
   onRaceSkip = () => {
-    this.controller.playerRacer.placing = 1;
     this.onRaceFinish();
   }
 

@@ -3,9 +3,9 @@ import BirdRacer from './BirdRacer';
 export default class RaceController {
   constructor(raceData, racersData, playerBird) {
     this.racers = racersData.map(r => {
-      return new BirdRacer(r.name, r.speed, false);
+      return new BirdRacer(r.name, r.stats, false);
     });
-    this.playerRacer = new BirdRacer(playerBird.name, playerBird.stats.topMph, true)
+    this.playerRacer = new BirdRacer(playerBird.name, playerBird.stats, true)
     this.racers.push(this.playerRacer);
 
     this.length = raceData.length;
@@ -17,7 +17,7 @@ export default class RaceController {
   frameUpdate(delta) {
     this.racers.forEach(r => {
       if (r.completed) return;
-      let milesPerMs = r.speed / 60 / 60 / 1000;
+      let milesPerMs = r.stats.topMph / 60 / 60 / 1000;
       let distance = milesPerMs * delta;
       r.elapsedDistance += distance;
       if (r.elapsedDistance >= this.length) {

@@ -1,7 +1,7 @@
 export default class BirdRacer {
-  constructor(name, speed, isPlayer) {
+  constructor(name, stats, isPlayer) {
     this.name = name;
-    this.speed = speed;
+    this.stats = stats;
     this.elapsedDistance = 0;
     this.completed = false;
     this.placing = null;
