@@ -20,19 +20,28 @@ export default class RaceSelectionView extends Component {
   constructor() {
     super();
     this.state = {
+      selectedEvent: null,
       selectedRace: null,
       playerBird: null
     };
   }
 
   componentWillMount() {
-    this.availableRaces = this.props.app.gm.availableRaces;
+    this.events = this.props.app.gm.raceEvents;
     this.playerBirds = this.props.app.gm.ownedBirds;
   }
 
   onRaceItemClick = (race) => {
     this.setState({
       selectedRace: race,
+      playerBird: null
+    });
+  }
+
+  onEventItemClick = (event) => {
+    this.setState({
+      selectedEvent: event,
+      selectedRace: null,
       playerBird: null
     });
   }
@@ -78,6 +87,29 @@ export default class RaceSelectionView extends Component {
     );
   }
 
+  renderEventDetails() {
+    if (!this.state.selectedEvent) return null;
+    return (
+      <div>
+        <div>
+          Name: {this.state.selectedEvent.name}
+        </div>
+        <div>
+          Reward: {this.state.selectedEvent.rewards.money}
+        </div>
+        <ListGroup>
+          {
+            Object.values(this.state.selectedEvent.races).map((r, i) => {
+              return (
+                <ListGroupItem key={i} onClick={_ => this.onRaceItemClick(r)}>{r.name}</ListGroupItem>
+              );
+            })
+          }
+        </ListGroup>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -85,21 +117,31 @@ export default class RaceSelectionView extends Component {
           <Col xs={12} md={8}>
             <ListGroup>
               {
-                this.availableRaces.map((r, i) => {
+                Object.values(this.events).map((e, i) => {
                   return (
-                    <ListGroupItem key={i} onClick={_ => this.onRaceItemClick(r)}>{r.name}</ListGroupItem>
+                    <ListGroupItem key={i} onClick={_ => this.onEventItemClick(e)}>{e.name}</ListGroupItem>
                   );
                 })
               }
             </ListGroup>
           </Col>
           <Col xs={6} md={4}>
-            <h1>
-              Race Details
-            </h1>
-            <div>
-              {this.renderRaceDetails()}
-            </div>
+            <Row>
+              <h1>
+                Event Details
+              </h1>
+              <div>
+                {this.renderEventDetails()}
+              </div>
+            </Row>
+            <Row>
+              <h1>
+                Race Details
+              </h1>
+              <div>
+                {this.renderRaceDetails()}
+              </div>
+            </Row>
           </Col>
         </Grid>
         <Button onClick={this.onLeaveClick}>Leave</Button>

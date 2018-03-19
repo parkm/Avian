@@ -2,6 +2,7 @@ import Bird from './game/Bird';
 import BirdStats from './game/BirdStats';
 import Race from './game/Race';
 import RaceEvent from './game/RaceEvent';
+import genRaceEventsData from './game/data/races';
 
 export default class GameMaster {
   constructor() {
@@ -83,42 +84,7 @@ export default class GameMaster {
       stamina: 30,
       vigor: 30
     })});
-    this.availableRaces = [
-      new Race('First Race', tmpRacers, 0.5, {
-        '1': {
-          money: 100
-        },
-        '2': {
-          money: 25
-        },
-        '3': {
-          money: 10
-        }
-      }),
-      new Race('Second Race', tmpRacers2, 1, {
-        '1': {
-          money: 200
-        },
-        '2': {
-          money: 50
-        },
-        '3': {
-          money: 20
-        }
-      })
-    ];
-
-    this.availableEvents = [
-      new RaceEvent({
-        name: 'Open Track Day',
-        restrictions: {},
-        races: ['firstRace'],
-        unlocks: ['secondRace'],
-        rewards: {
-          money: 5000
-        }
-      })
-    ];
+    this.raceEvents = genRaceEventsData();
   }
 
   onRaceComplete(race, placing) {

@@ -1,6 +1,7 @@
 import Bird from '../Bird';
 import BirdStats from '../BirdStats';
-import Race from '../game/Race';
+import Race from '../Race';
+import RaceEvent from '../RaceEvent';
 
 export default function genRaceEventsData() {
 let events = {};
