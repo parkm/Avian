@@ -11,12 +11,41 @@ import Col from 'react-bootstrap/lib/Col';
 
 import chocoImg from '../res/gfx/choco.png';
 
-export default class RaceSelectionView extends Component {
-  static debugProps() {
-    return {
-    }
+class RaceEventButton extends Component {
+  render() {
+    let raceCount = Object.keys(this.props.raceEvent.races).length;
+    return (
+      <Button bsClass="btn btn-default race-event-btn" onClick={this.props.onClick}>
+        <h1>
+          {this.props.raceEvent.name}
+        </h1>
+        <Grid fluid={true}>
+          <Col sm={4}>
+            <div>
+              Rewards
+            </div>
+            <div>
+              {this.props.raceEvent.rewards.money}
+            </div>
+          </Col>
+          <Col sm={4}>
+            {raceCount} {raceCount === 1 ? 'Race' : 'Races'}
+          </Col>
+          <Col sm={4}>
+            <div>
+              Restrictions
+            </div>
+            <div>
+              None
+            </div>
+          </Col>
+        </Grid>
+      </Button>
+    );
   }
+}
 
+export default class RaceSelectionView extends Component {
   constructor() {
     super();
     this.state = {
@@ -33,8 +62,7 @@ export default class RaceSelectionView extends Component {
 
   onRaceItemClick = (race) => {
     this.setState({
-      selectedRace: race,
-      playerBird: null
+      selectedRace: race
     });
   }
 
@@ -67,22 +95,18 @@ export default class RaceSelectionView extends Component {
     if (!this.state.selectedRace) return null;
     return (
       <div>
+        <h1>
+          Race Details
+        </h1>
         <div>
           Name: {this.state.selectedRace.name}
         </div>
         <div>
+          {this.state.selectedRace.length} {this.state.selectedRace.length == 1 ? 'Mile' : 'Miles'}
+        </div>
+        <div>
           Reward: {this.state.selectedRace.getMoneyReward('1')}
         </div>
-        <ListGroup>
-          {
-            this.playerBirds.map((b, i) => {
-              return (
-                <ListGroupItem key={i} onClick={_ => this.onPlayerBirdItemClick(b)}>{b.name}</ListGroupItem>
-              );
-            })
-          }
-        </ListGroup>
-        {this.state.playerBird ? (<Button bsStyle='primary' onClick={this.onRaceStartClick}>Start</Button>) : null}
       </div>
     );
   }
@@ -91,21 +115,66 @@ export default class RaceSelectionView extends Component {
     if (!this.state.selectedEvent) return null;
     return (
       <div>
-        <div>
-          Name: {this.state.selectedEvent.name}
-        </div>
+        <h1>
+          {this.state.selectedEvent.name}
+        </h1>
         <div>
           Reward: {this.state.selectedEvent.rewards.money}
         </div>
-        <ListGroup>
-          {
-            Object.values(this.state.selectedEvent.races).map((r, i) => {
-              return (
-                <ListGroupItem key={i} onClick={_ => this.onRaceItemClick(r)}>{r.name}</ListGroupItem>
-              );
-            })
-          }
-        </ListGroup>
+      </div>
+    );
+  }
+
+  renderEventSelection() {
+    return (
+      <div>
+        <h1>Race Events</h1>
+        {
+          Object.values(this.events).map((e, i) => {
+            return (
+              <RaceEventButton key={i} onClick={_ => this.onEventItemClick(e)} raceEvent={e} />
+            );
+          })
+        }
+        <div>
+          <Button onClick={this.onLeaveClick}>Leave</Button>
+        </div>
+      </div>
+    );
+  }
+
+  renderRaceSelection() {
+    return (
+      <div>
+        <Grid>
+          <Col xs={12} md={8}>
+            <h2>Select a Race</h2>
+            <ListGroup>
+              {
+                Object.values(this.state.selectedEvent.races).map((r, i) => {
+                  return (
+                    <ListGroupItem key={i} onClick={_ => this.onRaceItemClick(r)}>{r.name}</ListGroupItem>
+                  );
+                })
+              }
+            </ListGroup>
+            <h2>Select a Bird</h2>
+            <ListGroup>
+              {
+                this.playerBirds.map((b, i) => {
+                  return (
+                    <ListGroupItem key={i} onClick={_ => this.onPlayerBirdItemClick(b)}>{b.name}</ListGroupItem>
+                  );
+                })
+              }
+            </ListGroup>
+          </Col>
+          <Col xs={6} md={4}>
+            {this.state.selectedRace ? this.renderRaceDetails() : this.renderEventDetails()}
+          </Col>
+        </Grid>
+        <Button onClick={_ => this.setState({selectedEvent: null})}>Back</Button>
+        {this.state.selectedRace && this.state.playerBird ? (<Button bsStyle='primary' onClick={this.onRaceStartClick}>Start</Button>) : null}
       </div>
     );
   }
@@ -113,38 +182,7 @@ export default class RaceSelectionView extends Component {
   render() {
     return (
       <div>
-        <Grid>
-          <Col xs={12} md={8}>
-            <ListGroup>
-              {
-                Object.values(this.events).map((e, i) => {
-                  return (
-                    <ListGroupItem key={i} onClick={_ => this.onEventItemClick(e)}>{e.name}</ListGroupItem>
-                  );
-                })
-              }
-            </ListGroup>
-          </Col>
-          <Col xs={6} md={4}>
-            <Row>
-              <h1>
-                Event Details
-              </h1>
-              <div>
-                {this.renderEventDetails()}
-              </div>
-            </Row>
-            <Row>
-              <h1>
-                Race Details
-              </h1>
-              <div>
-                {this.renderRaceDetails()}
-              </div>
-            </Row>
-          </Col>
-        </Grid>
-        <Button onClick={this.onLeaveClick}>Leave</Button>
+        {this.state.selectedEvent ? this.renderRaceSelection() : this.renderEventSelection()}
       </div>
     )
   }

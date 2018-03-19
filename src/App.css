@@ -101,3 +101,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.race-event-btn {
+  width: 80%;
+  height: 200px;
+}

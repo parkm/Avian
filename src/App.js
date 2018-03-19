@@ -22,7 +22,7 @@ class App extends Component {
     this.gm = new GameMaster();
 
     this.state = {
-      view: 'world',
+      view: 'raceSelection',
       viewProps: {}
     };
 
