@@ -72,6 +72,7 @@ export default class RaceTrackView extends Component {
         {this.controller.racers.map((racer, i) => {
           return (
             <div key={i} className="race-block">
+              <h4 className="race-block-name">{racer.name}</h4>
               <img src={chocoImg} className="sprite choco-racer" style={{left: `${racer.getProgressPercent(this.props.race.length) * 100}%`}}/>
               <div className="race-line" />
             </div>
