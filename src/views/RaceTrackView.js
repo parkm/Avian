@@ -102,6 +102,9 @@ export default class RaceTrackView extends Component {
                       <ProgressBar active bsStyle="warning" now={racer.getStaminaPercent() * 100} />
                     </div>
                   </Col>
+                  <Col sm={2}>
+                    <h4>{racer.currentMph.toFixed(2)} MPH</h4>
+                  </Col>
                 </Grid>
               </div>
             </div>
