@@ -61,6 +61,17 @@ export default class RaceTrackView extends Component {
     });
   }
 
+  RACER_SPRITE_WIDTH = 120;
+  getRacerProgressPercent(racer) {
+    let perc = racer.getProgressPercent(this.props.race.length);
+    if (this.cachedRaceBlock) {
+      let length = this.cachedRaceBlock.clientWidth;
+      return `${(length - this.RACER_SPRITE_WIDTH) * perc}px`;
+    } else {
+      return '0px';
+    }
+  }
+
   render() {
     return (
       <div>
@@ -71,9 +82,9 @@ export default class RaceTrackView extends Component {
         <Button bsStyle="primary" onClick={this.onRaceSkip}>Skip</Button>
         {this.controller.racers.map((racer, i) => {
           return (
-            <div key={i} className="race-block">
+            <div key={i} ref={r => this.cachedRaceBlock = r} className="race-block">
               <h4 className="race-block-name">{racer.name}</h4>
-              <img src={chocoImg} className="sprite choco-racer" style={{left: `${racer.getProgressPercent(this.props.race.length) * 100}%`}}/>
+              <img src={chocoImg} className="sprite choco-racer" style={{left: this.getRacerProgressPercent(racer)}}/>
               <div className="race-line" />
             </div>
           )
