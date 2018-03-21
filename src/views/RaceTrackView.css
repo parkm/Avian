@@ -1,14 +1,24 @@
 .race-block {
   position: relative;
   height: 128px;
-  margin: 32px;
-  margin-right: 32px;
+  margin: 8px;
   background: linear-gradient(white, rgb(230, 230, 240));
+}
+
+.racer-container-info {
+  padding-left: 8px;
+}
+
+.racer-container {
+  border: 1px solid rgb(180, 180, 180);
+  border-bottom: 1px solid rgb(130, 130, 130);
+  margin: 5px;
 }
 
 .race-block-name {
   position: relative;
   top: 50%;
+  text-align: left;
 }
 
 .race-line {
