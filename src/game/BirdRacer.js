@@ -7,6 +7,9 @@ export default class BirdRacer {
     this.placing = null;
     this.isPlayer = isPlayer;
 
+    this.staminaMax = this.stats.stamina;
+    this.stamina = this.staminaMax;
+
     this.currentMph = 0;
   }
 
@@ -18,6 +21,8 @@ export default class BirdRacer {
       this.currentMph = this.stats.topMph
     }
 
+    this.stamina -= 0.01;
+
     let milesPerMs = this.currentMph / 60 / 60 / 1000;
     let distance = milesPerMs * delta;
     this.elapsedDistance += distance;
@@ -26,5 +31,9 @@ export default class BirdRacer {
   // Returns progress as a decimal percentage
   getProgressPercent(raceLength) {
     return this.elapsedDistance / raceLength;
+  }
+
+  getStaminaPercent() {
+    return this.stamina / this.staminaMax;
   }
 }

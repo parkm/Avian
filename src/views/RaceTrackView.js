@@ -3,6 +3,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './RaceTrackView.css';
 
 import Button from 'react-bootstrap/lib/Button';
+import ProgressBar from 'react-bootstrap/lib/ProgressBar';
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
 
 import chocoImg from '../res/gfx/choco.png';
 import finishImg from '../res/gfx/finish.png';
@@ -83,13 +87,22 @@ export default class RaceTrackView extends Component {
         <Button bsStyle="primary" onClick={this.onRaceSkip}>Skip</Button>
         {this.controller.racers.map((racer, i) => {
           return (
-            <div className="racer-container">
-              <div key={i} ref={r => this.cachedRaceBlock = r} className="race-block">
+            <div key={i} className="racer-container">
+              <div ref={r => this.cachedRaceBlock = r} className="race-block">
                 <img src={chocoImg} className="sprite choco-racer" style={{left: this.getRacerProgressPercent(racer)}}/>
                 <div className="race-line" />
               </div>
               <div className="racer-container-info">
-                <h4 className="race-block-name">{racer.name}</h4>
+                <Grid fluid={true}>
+                  <Col sm={1}>
+                    <h4 className="race-block-name">{racer.name}</h4>
+                  </Col>
+                  <Col sm={2}>
+                    <div className="stamina-bar-wrapper">
+                      <ProgressBar active bsStyle="warning" now={racer.getStaminaPercent() * 100} />
+                    </div>
+                  </Col>
+                </Grid>
               </div>
             </div>
           )
