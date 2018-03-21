@@ -11,8 +11,8 @@ export default class GameMaster {
     this.ownedBirds = [
       new Bird('PlayerBird', new BirdStats({
         topMph: 400,
-        accel: 10,
-        stamina: 10,
+        accel: 100,
+        stamina: 3,
         vigor: 10
       })),
       new Bird('PlayerBird2', new BirdStats({

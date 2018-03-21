@@ -81,7 +81,7 @@ export default class RaceTrackView extends Component {
   }
 
   onMovementChange = (movement) => {
-    this.controller.playerRacer.updateMovement(movement);
+    this.controller.playerRacer.setMovement(movement);
   }
 
   render() {
@@ -116,7 +116,7 @@ export default class RaceTrackView extends Component {
                     {racer.isPlayer ? (
                       <div>
                         <ButtonToolbar>
-                          <ToggleButtonGroup onChange={this.onMovementChange}type="radio" name="movement" defaultValue={'sprint'}>
+                          <ToggleButtonGroup onChange={this.onMovementChange}type="radio" name="movement" value={this.controller.playerRacer.movement}>
                             <ToggleButton value={'trot'}>Trot</ToggleButton>
                             <ToggleButton value={'sprint'}>Sprint</ToggleButton>
                           </ToggleButtonGroup>

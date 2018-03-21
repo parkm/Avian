@@ -13,25 +13,63 @@ export default class BirdRacer {
     this.stamina = this.staminaMax;
 
     this.currentMph = 0;
+
+    this.deaccelSpeed = null;
   }
 
   frameUpdate(delta) {
-    let accelPerMs = this.stats.accel / 1000;
-    this.currentMph += accelPerMs * delta;
+    let topMph = this.getTopMph();
 
-    if (this.currentMph >= this.stats.topMph) {
-      this.currentMph = this.stats.topMph
+    if (this.currentMph >= topMph) {
+      if (this.deaccelSpeed) {
+        let deaccel = this.deaccelSpeed * 0.75;
+        this.currentMph -= (deaccel / 1000) * delta;
+      } else {
+        this.currentMph = topMph;
+      }
+    } else {
+      if (this.deaccelSpeed !== null) this.deaccelSpeed = null;
+      let accelPerMs = this.stats.accel / 1000;
+      this.currentMph += accelPerMs * delta;
     }
 
-    this.stamina -= 0.01;
+    this.updateStamina(delta);
 
     let milesPerMs = this.currentMph / 60 / 60 / 1000;
     let distance = milesPerMs * delta;
     this.elapsedDistance += distance;
   }
 
-  updateMovement(movement) {
+  updateStamina(delta) {
+    if (this.movement === 'trot') {
+      // TODO: implement vigor stat
+      if (this.stamina < this.staminaMax)
+        this.stamina += delta / 2000;
+      else
+        this.stamina = this.staminaMax;
+    } else if (this.movement === 'sprint') {
+      this.stamina -= delta / 1000;
+    }
+
+    if (this.stamina <= 0 && this.movement !== 'trot') {
+      this.setMovement('trot');
+    }
+  }
+
+  getTopMph() {
+    if (this.movement === 'trot') {
+      return this.stats.topMph * 0.25;
+    } else if (this.movement === 'sprint') {
+      return this.stats.topMph;
+    }
+  }
+
+  setMovement(movement) {
     this.movement = movement;
+
+    if (this.currentMph > this.getTopMph()) {
+      this.deaccelSpeed = this.currentMph;
+    }
   }
 
   // Returns progress as a decimal percentage
