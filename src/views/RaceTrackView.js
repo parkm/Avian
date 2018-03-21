@@ -7,6 +7,9 @@ import ProgressBar from 'react-bootstrap/lib/ProgressBar';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import ToggleButtonGroup from 'react-bootstrap/lib/ToggleButtonGroup';
+import ToggleButton from 'react-bootstrap/lib/ToggleButton';
 
 import chocoImg from '../res/gfx/choco.png';
 import finishImg from '../res/gfx/finish.png';
@@ -77,6 +80,10 @@ export default class RaceTrackView extends Component {
     }
   }
 
+  onMovementChange = (movement) => {
+    this.controller.playerRacer.updateMovement(movement);
+  }
+
   render() {
     return (
       <div>
@@ -104,6 +111,18 @@ export default class RaceTrackView extends Component {
                   </Col>
                   <Col sm={2}>
                     <h4>{racer.currentMph.toFixed(2)} MPH</h4>
+                  </Col>
+                  <Col sm={3}>
+                    {racer.isPlayer ? (
+                      <div>
+                        <ButtonToolbar>
+                          <ToggleButtonGroup onChange={this.onMovementChange}type="radio" name="movement" defaultValue={'sprint'}>
+                            <ToggleButton value={'trot'}>Trot</ToggleButton>
+                            <ToggleButton value={'sprint'}>Sprint</ToggleButton>
+                          </ToggleButtonGroup>
+                        </ButtonToolbar>
+                      </div>
+                    ) : null}
                   </Col>
                 </Grid>
               </div>
