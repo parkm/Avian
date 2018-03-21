@@ -13,6 +13,10 @@
   margin-bottom: 0px;
 }
 
+.stamina-bar-wrapper > .progress > .progress-bar {
+  transition: unset;
+}
+
 .racer-container {
   border: 1px solid rgb(180, 180, 180);
   border-bottom: 1px solid rgb(130, 130, 130);

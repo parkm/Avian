@@ -88,10 +88,10 @@ export default class RaceTrackView extends Component {
     return (
       <div>
         <header className="App-header">
-          <h1 className="App-title">Race</h1>
+          <Button bsStyle="primary" onClick={this.onRaceStart}>Start</Button>
+          <Button bsStyle="primary" onClick={this.onRaceSkip}>Skip</Button>
         </header>
-        <Button bsStyle="primary" onClick={this.onRaceStart}>Start</Button>
-        <Button bsStyle="primary" onClick={this.onRaceSkip}>Skip</Button>
+
         {this.controller.racers.map((racer, i) => {
           return (
             <div key={i} className="racer-container">
@@ -106,7 +106,7 @@ export default class RaceTrackView extends Component {
                   </Col>
                   <Col sm={2}>
                     <div className="stamina-bar-wrapper">
-                      <ProgressBar active bsStyle="warning" now={racer.getStaminaPercent() * 100} />
+                      <ProgressBar active bsStyle="warning" now={racer.getStaminaPercent()} min={0} max={1} />
                     </div>
                   </Col>
                   <Col sm={2}>
