@@ -50,6 +50,9 @@ export default class StablesView extends Component {
           Top Speed: {topSpeed} MPH
         </div>
         <div>
+          Stamina: Maintains sprint for {this.state.selectedBird.stats.stamina} seconds
+        </div>
+        <div>
           Acceleration: {accel} MPH gained per second
         </div>
         <div>
