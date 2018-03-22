@@ -53,6 +53,9 @@ export default class StablesView extends Component {
           Stamina: Maintains sprint for {this.state.selectedBird.stats.stamina} seconds
         </div>
         <div>
+          Vigor: Regenerates {this.state.selectedBird.stats.vigor}% of stamina per second
+        </div>
+        <div>
           Acceleration: {accel} MPH gained per second
         </div>
         <div>

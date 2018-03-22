@@ -15,6 +15,8 @@ export default class BirdRacer {
     this.currentMph = 0;
 
     this.deaccelSpeed = null;
+
+    this.staminaGainPerSecond = this.staminaMax * (this.stats.vigor / 100);
   }
 
   frameUpdate(delta) {
@@ -44,7 +46,7 @@ export default class BirdRacer {
     if (this.movement === 'trot') {
       // TODO: implement vigor stat
       if (this.stamina < this.staminaMax)
-        this.stamina += delta / 2000;
+        this.stamina += (this.staminaGainPerSecond / 1000) * delta;
       else
         this.stamina = this.staminaMax;
     } else if (this.movement === 'sprint') {

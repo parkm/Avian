@@ -13,7 +13,7 @@ export default class GameMaster {
         topMph: 400,
         accel: 100,
         stamina: 4,
-        vigor: 10
+        vigor: 5
       })),
       new Bird('PlayerBird2', new BirdStats({
         topMph: 200,
