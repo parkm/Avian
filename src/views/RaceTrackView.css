@@ -39,10 +39,17 @@
 
 .choco-racer {
   position: absolute;
-  width: 120px;
-  height: 128px;
   top: 0px;
   z-index: 2;
+  width: 30px;
+  height: 32px;
+  transform: scale(3, 3) translate(50%, 50%);
+  background: url('../res/gfx/choco-run.png') left center;
+  animation: choco-racer-run-anim 0.4s steps(4) infinite;
+}
+
+@keyframes choco-racer-run-anim {
+   100% { background-position: -120px; }
 }
 
 .race-finish {

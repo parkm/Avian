@@ -68,7 +68,7 @@ export default class RaceTrackView extends Component {
     });
   }
 
-  RACER_SPRITE_WIDTH = 120;
+  RACER_SPRITE_WIDTH = 110;
   getRacerProgressPercent(racer) {
     let perc = racer.getProgressPercent(this.props.race.length);
     if (perc > 1) perc = 1;
@@ -96,7 +96,7 @@ export default class RaceTrackView extends Component {
           return (
             <div key={i} className="racer-container">
               <div ref={r => this.cachedRaceBlock = r} className="race-block">
-                <img src={chocoImg} className="sprite choco-racer" style={{left: this.getRacerProgressPercent(racer)}}/>
+                <div className="sprite choco-racer" style={{left: this.getRacerProgressPercent(racer)}}/>
                 <div className="race-line" />
               </div>
               <div className="racer-container-info">
