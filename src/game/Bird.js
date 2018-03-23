@@ -7,4 +7,14 @@ export default class Bird {
     this.genes = genes;
     this.stats = stats;
   }
+
+  // Returns finalized stats
+  getStats() {
+    return this.stats;
+  }
+
+  // Returns stats that were issued on birth
+  getBirthStats() {
+    return this.stats;
+  }
 }

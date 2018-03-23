@@ -42,9 +42,10 @@ export default class StablesView extends Component {
 
   renderBirdDetails() {
     if (!this.state.selectedBird) return null;
-    let topSpeed = this.state.selectedBird.stats.topMph;
-    let accel = this.state.selectedBird.stats.accel;
     let bird = this.state.selectedBird;
+    let stats = bird.getStats();
+    let topSpeed = stats.topMph;
+    let accel = stats.accel;
     return (
       <div>
         <h1>
@@ -74,7 +75,7 @@ export default class StablesView extends Component {
               Stamina
             </h4>
             <div>
-              {bird.stats.stamina} seconds
+              {stats.stamina} seconds
             </div>
           </ListGroupItem>
           <ListGroupItem>
@@ -82,7 +83,7 @@ export default class StablesView extends Component {
               Vigor
             </h4>
             <div>
-              {bird.stats.vigor}% Stamina per second
+              {stats.vigor}% Stamina per second
             </div>
           </ListGroupItem>
           <ListGroupItem>
