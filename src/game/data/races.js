@@ -145,5 +145,69 @@ events['rookieWeek'] = new RaceEvent({
   }
 });
 
+let eliteRacesRacers = [{
+    name: 'Teioh',
+    stats: new BirdStats({
+      topMph: 250,
+      accel: 25,
+      stamina: 50,
+      vigor: 20
+    })
+  }, {
+    name: 'Hyperion',
+    stats: new BirdStats({
+      topMph: 250,
+      accel: 26,
+      stamina: 30,
+      vigor: 20
+    })
+  }, {
+    name: 'Omega',
+    stats: new BirdStats({
+      topMph: 400,
+      accel: 120,
+      stamina: 10,
+      vigor: 2
+    })
+  }, {
+    name: 'Ultima',
+    stats: new BirdStats({
+      topMph: 200,
+      accel: 60,
+      stamina: 5,
+      vigor: 100
+    })
+  }, {
+    name: 'Yiazmat',
+    stats: new BirdStats({
+      topMph: 300,
+      accel: 28,
+      stamina: 25,
+      vigor: 30
+    })
+  }
+];
+events['eliteRaces'] = new RaceEvent({
+  name: 'Elite Races',
+  restrictions: {},
+  races: {
+    '0': new Race('First Race', eliteRacesRacers, 5, {
+      '1': {
+        money: 20000
+      },
+      '2': {
+        money: 5000
+      },
+      '3': {
+        money: 2000
+      }
+    }),
+  },
+  unlocks: [],
+  rewards: {
+    money: 500000
+  }
+});
+
 return events;
 }
