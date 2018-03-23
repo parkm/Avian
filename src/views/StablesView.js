@@ -7,6 +7,8 @@ import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import Nav from 'react-bootstrap/lib/Nav';
+import NavItem from 'react-bootstrap/lib/NavItem';
 
 import chocoImg from '../res/gfx/choco.png';
 
@@ -19,7 +21,8 @@ export default class StablesView extends Component {
   constructor() {
     super();
     this.state = {
-      selectedBird: null
+      selectedBird: null,
+      activeNavKey: null
     };
   }
 
@@ -41,29 +44,62 @@ export default class StablesView extends Component {
     if (!this.state.selectedBird) return null;
     let topSpeed = this.state.selectedBird.stats.topMph;
     let accel = this.state.selectedBird.stats.accel;
+    let bird = this.state.selectedBird;
     return (
       <div>
+        <h1>
+          {bird.name}
+        </h1>
         <div>
-          Name: {this.state.selectedBird.name}
+          <Grid>
+            <Col sm={6}>
+              {bird.sex}
+            </Col>
+            <Col sm={6}>
+              {bird.genes} genes
+            </Col>
+          </Grid>
         </div>
-        <div>
-          Top Speed: {topSpeed} MPH
-        </div>
-        <div>
-          Stamina: Maintains sprint for {this.state.selectedBird.stats.stamina} seconds
-        </div>
-        <div>
-          Vigor: Regenerates {this.state.selectedBird.stats.vigor}% of stamina per second
-        </div>
-        <div>
-          Acceleration: {accel} MPH gained per second
-        </div>
-        <div>
-          0 to {topSpeed} MPH: {Number(topSpeed / accel).toFixed(2)} seconds
-        </div>
-        <div>
-          0 to 60 MPH: {Number(60 / accel).toFixed(2)} seconds
-        </div>
+        <ListGroup>
+          <ListGroupItem>
+            <h4>
+              Top Speed
+            </h4>
+            <div>
+              {topSpeed} mph
+            </div>
+          </ListGroupItem>
+          <ListGroupItem>
+            <h4>
+              Stamina
+            </h4>
+            <div>
+              {bird.stats.stamina} seconds
+            </div>
+          </ListGroupItem>
+          <ListGroupItem>
+            <h4>
+              Vigor
+            </h4>
+            <div>
+              {bird.stats.vigor}% Stamina per second
+            </div>
+          </ListGroupItem>
+          <ListGroupItem>
+            <h4>
+              Acceleration
+            </h4>
+            <div>
+              {accel} mph per second
+            </div>
+            <div>
+              0 to {topSpeed} mph in {Number(topSpeed / accel).toFixed(2)} seconds
+            </div>
+            <div>
+              0 to 60 mph in {Number(60 / accel).toFixed(2)} seconds
+            </div>
+          </ListGroupItem>
+        </ListGroup>
       </div>
     );
   }
@@ -71,28 +107,30 @@ export default class StablesView extends Component {
   render() {
     return (
       <div>
-        <Grid>
-          <Col xs={12} md={8}>
-            <ListGroup>
+        <Grid fluid={true}>
+          <Col sm={1}>
+            <Nav bsStyle="pills" stacked activeKey={this.state.activeNavKey} onSelect={k => this.setState({activeNavKey: k})}>
               {
                 this.birds.map((b, i) => {
                   return (
-                    <ListGroupItem key={i} onClick={_ => this.onBirdItemClick(b)}>{b.name}</ListGroupItem>
+                    <NavItem eventKey={i} key={i} onClick={_ => this.onBirdItemClick(b)}>
+                      <img src={chocoImg} />
+                      <div>
+                        {b.name}
+                      </div>
+                    </NavItem>
                   );
                 })
               }
-            </ListGroup>
+            </Nav>
+            <Button onClick={this.onLeaveClick}>Leave</Button>
           </Col>
-          <Col xs={6} md={4}>
-            <h1>
-              Bird Details
-            </h1>
+          <Col sm={11}>
             <div>
               {this.renderBirdDetails()}
             </div>
           </Col>
         </Grid>
-        <Button onClick={this.onLeaveClick}>Leave</Button>
       </div>
     )
   }

@@ -22,7 +22,7 @@ export default class GameMaster {
         vigor: 10
       })),
       new Bird('SuperBird', 'male', 'wonderful', new BirdStats({
-        topMph: 1000,
+        topMph: 300,
         accel: 30,
         stamina: 30,
         vigor: 30
