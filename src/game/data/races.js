@@ -7,44 +7,44 @@ export default function genRaceEventsData() {
 let events = {};
 
 let openTrackDayRacers = [{
-    name: 'another guy',
+    name: 'Aimee',
     stats: new BirdStats({
-      topMph: 250,
-      accel: 10,
-      stamina: 30,
-      vigor: 30
+      topMph: 15,
+      accel: 5.25,
+      stamina: 5,
+      vigor: 10
     })
   }, {
-    name: 'more',
+    name: 'Knight',
     stats: new BirdStats({
-      topMph: 150,
-      accel: 11,
-      stamina: 30,
-      vigor: 30
+      topMph: 18,
+      accel: 4.80,
+      stamina: 6,
+      vigor: 10
     })
   }, {
-    name: 'people',
+    name: 'Robin',
     stats: new BirdStats({
-      topMph: 100,
-      accel: 20,
-      stamina: 30,
-      vigor: 30
+      topMph: 20,
+      accel: 2,
+      stamina: 10,
+      vigor: 10
     })
   }, {
-    name: 'test',
+    name: 'Edward',
     stats: new BirdStats({
-      topMph: 230,
+      topMph: 17,
       accel: 5,
-      stamina: 30,
-      vigor: 30
+      stamina: 5,
+      vigor: 10
     })
   }, {
-    name: 'choco',
+    name: 'Cid',
     stats: new BirdStats({
-      topMph: 280,
-      accel: 30,
-      stamina: 30,
-      vigor: 30
+      topMph: 16,
+      accel: 8,
+      stamina: 2,
+      vigor: 20
     })
   }
 ];
@@ -52,7 +52,7 @@ events['openTrackDay'] = new RaceEvent({
   name: 'Open Track Day',
   restrictions: {},
   races: {
-    'firstRace': new Race('First Race', openTrackDayRacers, 0.5, {
+    'firstRace': new Race('First Race', openTrackDayRacers, 0.1, {
       '1': {
         money: 100
       },
@@ -63,7 +63,7 @@ events['openTrackDay'] = new RaceEvent({
         money: 10
       }
     }),
-    'somethingHarder': new Race('Something Harder', openTrackDayRacers, 1.0, {
+    'somethingHarder': new Race('Something Harder', openTrackDayRacers, 0.2, {
       '1': {
         money: 150
       },
@@ -81,18 +81,53 @@ events['openTrackDay'] = new RaceEvent({
   }
 });
 
-let rookieWeekRacers = Array.from(openTrackDayRacers);
-rookieWeekRacers.push({name: 'super', stats: new BirdStats({
-  topMph: 800,
-  accel: 40,
-  stamina: 30,
-  vigor: 30
-})});
+let rookieWeekRacers = [{
+    name: 'Ari',
+    stats: new BirdStats({
+      topMph: 35,
+      accel: 5.25,
+      stamina: 5,
+      vigor: 10
+    })
+  }, {
+    name: 'Knight',
+    stats: new BirdStats({
+      topMph: 36,
+      accel: 4.80,
+      stamina: 6,
+      vigor: 10
+    })
+  }, {
+    name: 'Robin',
+    stats: new BirdStats({
+      topMph: 40,
+      accel: 2,
+      stamina: 10,
+      vigor: 10
+    })
+  }, {
+    name: 'Fox',
+    stats: new BirdStats({
+      topMph: 34,
+      accel: 5,
+      stamina: 5,
+      vigor: 10
+    })
+  }, {
+    name: 'Sara',
+    stats: new BirdStats({
+      topMph: 30,
+      accel: 8,
+      stamina: 2,
+      vigor: 20
+    })
+  }
+];
 events['rookieWeek'] = new RaceEvent({
   name: 'Rookie Week',
   restrictions: {},
   races: {
-    '0': new Race('First Race', rookieWeekRacers, 1, {
+    '0': new Race('First Race', rookieWeekRacers, 0.25, {
       '1': {
         money: 200
       },

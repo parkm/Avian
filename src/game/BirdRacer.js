@@ -40,6 +40,16 @@ export default class BirdRacer {
     let milesPerMs = this.currentMph / 60 / 60 / 1000;
     let distance = milesPerMs * delta;
     this.elapsedDistance += distance;
+
+    if (!this.isPlayer) {
+      this.handleAi(delta);
+    }
+  }
+
+  handleAi() {
+    if (this.movement === 'trot' && this.stamina >= this.staminaMax) {
+      this.setMovement('sprint');
+    }
   }
 
   updateStamina(delta) {
