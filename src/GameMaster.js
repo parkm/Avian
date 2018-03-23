@@ -2,11 +2,17 @@ import Bird from './game/Bird';
 import BirdStats from './game/BirdStats';
 import Race from './game/Race';
 import RaceEvent from './game/RaceEvent';
+import Inventory from './game/Inventory';
 import genRaceEventsData from './game/data/races';
+import genItemData from './game/data/items';
 
 export default class GameMaster {
   constructor() {
     this.money = 0;
+    this.items = genItemData();
+    this.inventory = new Inventory();
+
+    this.inventory.addItem(this.items.gysahlGreens, 99);
 
     this.ownedBirds = [
       new Bird('PlayerBird', 'male', 'average', new BirdStats({
