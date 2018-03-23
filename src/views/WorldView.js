@@ -8,7 +8,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
-import chocoImg from '../res/gfx/choco.png';
+import chocoImg from 'res/gfx/choco.png';
 
 export default class WorldView extends Component {
   static debugProps() {

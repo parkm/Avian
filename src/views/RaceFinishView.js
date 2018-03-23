@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/lib/Button';
 
 import Util from '../Util';
 
-import chocoImg from '../res/gfx/choco.png';
+import chocoImg from 'res/gfx/choco.png';
 
 export default class RaceFinishView extends Component {
   constructor() {

@@ -10,7 +10,9 @@ import Col from 'react-bootstrap/lib/Col';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 
-import chocoImg from '../res/gfx/choco.png';
+import BirdStatsDisplay from 'views/components/BirdStatsDisplay';
+
+import chocoImg from 'res/gfx/choco.png';
 
 export default class StablesView extends Component {
   static debugProps() {
@@ -61,46 +63,7 @@ export default class StablesView extends Component {
             </Col>
           </Grid>
         </div>
-        <ListGroup>
-          <ListGroupItem>
-            <h4>
-              Top Speed
-            </h4>
-            <div>
-              {topSpeed} mph
-            </div>
-          </ListGroupItem>
-          <ListGroupItem>
-            <h4>
-              Stamina
-            </h4>
-            <div>
-              {stats.stamina} seconds
-            </div>
-          </ListGroupItem>
-          <ListGroupItem>
-            <h4>
-              Vigor
-            </h4>
-            <div>
-              {stats.vigor}% Stamina per second
-            </div>
-          </ListGroupItem>
-          <ListGroupItem>
-            <h4>
-              Acceleration
-            </h4>
-            <div>
-              {accel} mph per second
-            </div>
-            <div>
-              0 to {topSpeed} mph in {Number(topSpeed / accel).toFixed(2)} seconds
-            </div>
-            <div>
-              0 to 60 mph in {Number(60 / accel).toFixed(2)} seconds
-            </div>
-          </ListGroupItem>
-        </ListGroup>
+        <BirdStatsDisplay stats={stats} />
       </div>
     );
   }

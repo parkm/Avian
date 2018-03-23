@@ -11,10 +11,10 @@ import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import ToggleButtonGroup from 'react-bootstrap/lib/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/lib/ToggleButton';
 
-import chocoImg from '../res/gfx/choco.png';
-import finishImg from '../res/gfx/finish.png';
+import chocoImg from 'res/gfx/choco.png';
+import finishImg from 'res/gfx/finish.png';
 
-import RaceController from '../game/RaceController';
+import RaceController from 'game/RaceController';
 
 export default class RaceTrackView extends Component {
   constructor() {
