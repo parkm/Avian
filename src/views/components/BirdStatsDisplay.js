@@ -13,44 +13,39 @@ export default class BirdStatsDisplay extends Component {
     let stats = this.props.stats;
     let topSpeed = stats.topMph;
     let accel = stats.accel;
+    let bsStyle = this.props.bsStyle || null;
     return (
       <ListGroup>
-        <ListGroupItem>
+        <ListGroupItem bsStyle={bsStyle}>
           <h4>
             Top Speed
           </h4>
           <div>
-            {topSpeed} mph
+            {topSpeed.toFixed(2)} mph
           </div>
         </ListGroupItem>
-        <ListGroupItem>
+        <ListGroupItem bsStyle={bsStyle}>
           <h4>
             Stamina
           </h4>
           <div>
-            {stats.stamina} seconds
+            {stats.stamina.toFixed(2)} seconds
           </div>
         </ListGroupItem>
-        <ListGroupItem>
+        <ListGroupItem bsStyle={bsStyle}>
           <h4>
             Vigor
           </h4>
           <div>
-            {stats.vigor}% Stamina per second
+            {stats.vigor.toFixed(2)}% Stamina per second
           </div>
         </ListGroupItem>
-        <ListGroupItem>
+        <ListGroupItem bsStyle={bsStyle}>
           <h4>
             Acceleration
           </h4>
           <div>
-            {accel} mph per second
-          </div>
-          <div>
-            0 to {topSpeed} mph in {Number(topSpeed / accel).toFixed(2)} seconds
-          </div>
-          <div>
-            0 to 60 mph in {Number(60 / accel).toFixed(2)} seconds
+            {accel.toFixed(2)} mph per second
           </div>
         </ListGroupItem>
       </ListGroup>

@@ -45,9 +45,11 @@ export default class StablesView extends Component {
   renderBirdDetails() {
     if (!this.state.selectedBird) return null;
     let bird = this.state.selectedBird;
-    let stats = bird.getStats();
-    let topSpeed = stats.topMph;
-    let accel = stats.accel;
+    let growth = bird.getLatentGrowth();
+
+    let currentStats = bird.getStats();
+    let growthMax = bird.getLatentGrowthMax();
+
     return (
       <div>
         <h1>
@@ -63,7 +65,59 @@ export default class StablesView extends Component {
             </Col>
           </Grid>
         </div>
-        <BirdStatsDisplay stats={stats} />
+        <Grid fluid={true}>
+          <Col sm={4}>
+            <h3>Birth</h3>
+            <BirdStatsDisplay stats={bird.getBirthStats()} />
+          </Col>
+          <Col sm={4}>
+            <h3>Current</h3>
+            <BirdStatsDisplay bsStyle="warning" stats={bird.getStats()} />
+          </Col>
+          <Col sm={4}>
+            <h3>Potential</h3>
+            <BirdStatsDisplay bsStyle="danger" stats={bird.getMaxStats()} />
+          </Col>
+        </Grid>
+        <Grid fluid={true}>
+          <Col sm={12}>
+            <h3>Latent Growth</h3>
+            <ListGroup>
+              <ListGroupItem bsStyle={'success'}>
+                <h4>
+                  Top Speed
+                </h4>
+                <div>
+                  +{growth.topMph.toFixed(2)} / {growthMax.topMph.toFixed(2)} mph
+                </div>
+              </ListGroupItem>
+              <ListGroupItem bsStyle={'success'}>
+                <h4>
+                  Stamina
+                </h4>
+                <div>
+                  +{growth.stamina.toFixed(2)} / {growthMax.stamina.toFixed(2)} seconds
+                </div>
+              </ListGroupItem>
+              <ListGroupItem bsStyle={'success'}>
+                <h4>
+                  Vigor
+                </h4>
+                <div>
+                  +{growth.vigor.toFixed(2)} / {growthMax.vigor.toFixed(2)} Stamina per second
+                </div>
+              </ListGroupItem>
+              <ListGroupItem bsStyle={'success'}>
+                <h4>
+                  Acceleration
+                </h4>
+                <div>
+                  +{growth.accel.toFixed(2)} / {growthMax.accel.toFixed(2)} mph per second
+                </div>
+              </ListGroupItem>
+            </ListGroup>
+          </Col>
+        </Grid>
       </div>
     );
   }
