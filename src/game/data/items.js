@@ -2,7 +2,7 @@ import InventoryItem from '../InventoryItem';
 
 export default function genItemData() {
   let items = {
-    gysahlGreens: {name: 'Gysahl Greens', type: 'greens'}
+    gysahlGreens: {name: 'Gysahl Greens', type: 'feed'}
   }
 
   for (let id in items) {
