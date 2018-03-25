@@ -9,8 +9,11 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
+import PanelGroup from 'react-bootstrap/lib/PanelGroup';
+import Panel from 'react-bootstrap/lib/Panel';
 
 import BirdStatsDisplay from 'views/components/BirdStatsDisplay';
+import FeedDisplay from 'views/components/FeedDisplay';
 
 import chocoImg from 'res/gfx/choco.png';
 
@@ -30,6 +33,7 @@ export default class StablesView extends Component {
 
   componentWillMount() {
     this.birds = this.props.app.gm.ownedBirds;
+    this.inventory = this.props.app.gm.inventory;
   }
 
   onBirdItemClick = (bird) => {
@@ -79,45 +83,7 @@ export default class StablesView extends Component {
             <BirdStatsDisplay bsStyle="danger" stats={bird.getMaxStats()} />
           </Col>
         </Grid>
-        <Grid fluid={true}>
-          <Col sm={12}>
-            <h3>Latent Growth</h3>
-            <ListGroup>
-              <ListGroupItem bsStyle={'success'}>
-                <h4>
-                  Top Speed
-                </h4>
-                <div>
-                  +{growth.topMph.toFixed(2)} / {growthMax.topMph.toFixed(2)} mph
-                </div>
-              </ListGroupItem>
-              <ListGroupItem bsStyle={'success'}>
-                <h4>
-                  Stamina
-                </h4>
-                <div>
-                  +{growth.stamina.toFixed(2)} / {growthMax.stamina.toFixed(2)} seconds
-                </div>
-              </ListGroupItem>
-              <ListGroupItem bsStyle={'success'}>
-                <h4>
-                  Vigor
-                </h4>
-                <div>
-                  +{growth.vigor.toFixed(2)} / {growthMax.vigor.toFixed(2)} Stamina per second
-                </div>
-              </ListGroupItem>
-              <ListGroupItem bsStyle={'success'}>
-                <h4>
-                  Acceleration
-                </h4>
-                <div>
-                  +{growth.accel.toFixed(2)} / {growthMax.accel.toFixed(2)} mph per second
-                </div>
-              </ListGroupItem>
-            </ListGroup>
-          </Col>
-        </Grid>
+        <FeedDisplay growth={growth} growthMax={growthMax} />
       </div>
     );
   }
