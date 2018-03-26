@@ -10,9 +10,49 @@ import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
 
 export default class FeedDisplay extends Component {
+  constructor() {
+    super();
+    this.state = {
+      selectedFeedItem: null,
+      selectedFeed: null,
+      feedAmount: 1
+    };
+  }
+
+  onFeedClick = (item) => {
+    this.setState({
+      selectedFeedItem: item,
+      selectedFeed: this.props.feeds[item.id]
+    });
+  }
+
+  onFeedAmountChange = (e) => {
+    this.setState({feedAmount: e.target.value});
+  }
+
+  onApplyClick = (e) => {
+    this.props.onApply(this.state.selectedFeedItem, this.state.selectedFeed, this.state.feedAmount);
+    this.setState({
+      selectedFeedItem: null,
+      selectedFeed: null,
+      feedAmount: 1
+    });
+  }
+
+  onCancelClick = (e) => {
+    this.setState({
+      selectedFeedItem: null,
+      selectedFeed: null,
+      feedAmount: 1
+    });
+  }
+
   render() {
     let growth = this.props.growth;
     let growthMax = this.props.growthMax;
+    if (this.state.selectedFeed) {
+      growth = this.state.selectedFeed.getStatsEffect().scale(this.state.feedAmount).add(growth).limit(growthMax);
+    }
     return (
       <Grid fluid={true}>
         <Col sm={6}>
@@ -57,21 +97,28 @@ export default class FeedDisplay extends Component {
           <Grid fluid={true}>
             <Col sm={6}>
               <ListGroup>
-                <ListGroupItem>Item 1</ListGroupItem>
-                <ListGroupItem>Item 2</ListGroupItem>
-                <ListGroupItem>Item 3</ListGroupItem>
-                <ListGroupItem>Item 4</ListGroupItem>
-                <ListGroupItem>Item 5</ListGroupItem>
+                {
+                  this.props.feedItems.map(item => {
+                    return <ListGroupItem key={item.id} onClick={_ => this.onFeedClick(item)}>{item.name} x{item.count}</ListGroupItem>;
+                  })
+                }
               </ListGroup>
             </Col>
             <Col sm={6}>
-              <h4>Gysahl Greens</h4>
-              <div>+0.10 Top Speed</div>
-              <div>+0.05 Stamina</div>
-              <div>+0.10 Vigor</div>
-              <div>+0.05 Acceleration</div>
-              <FormControl type="number" max={99} min={1} defaultValue={1} />
-              <Button bsStyle="success">Apply</Button>
+              {
+                this.state.selectedFeedItem ? (
+                  <div>
+                    <h4>{this.state.selectedFeedItem.name}</h4>
+                    <div>+{this.state.selectedFeed.effect.topMph.toFixed(2)} Top Speed</div>
+                    <div>+{this.state.selectedFeed.effect.stamina.toFixed(2)} Stamina</div>
+                    <div>+{this.state.selectedFeed.effect.vigor.toFixed(2)} Vigor</div>
+                    <div>+{this.state.selectedFeed.effect.accel.toFixed(2)} Acceleration</div>
+                    <FormControl type="number" max={this.state.selectedFeedItem.count} min={1} value={this.state.feedAmount} onChange={this.onFeedAmountChange} />
+                    <Button bsStyle="success" onClick={this.onApplyClick}>Apply</Button>
+                    <Button bsStyle="danger" onClick={this.onCancelClick}>Cancel</Button>
+                  </div>
+                ) : null
+              }
             </Col>
           </Grid>
         </Col>

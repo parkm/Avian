@@ -33,6 +33,7 @@ export default class StablesView extends Component {
 
   componentWillMount() {
     this.birds = this.props.app.gm.ownedBirds;
+    this.feeds = this.props.app.gm.feeds;
     this.inventory = this.props.app.gm.inventory;
   }
 
@@ -44,6 +45,11 @@ export default class StablesView extends Component {
 
   onLeaveClick = () => {
     this.props.app.setView('world');
+  }
+
+  onFeedApply = (feedItem, feed, amount) => {
+    this.props.app.gm.onFeedApplyToBird(this.state.selectedBird, feedItem, feed, amount);
+    this.setState({});
   }
 
   renderBirdDetails() {
@@ -83,7 +89,7 @@ export default class StablesView extends Component {
             <BirdStatsDisplay bsStyle="danger" stats={bird.getMaxStats()} />
           </Col>
         </Grid>
-        <FeedDisplay growth={growth} growthMax={growthMax} />
+        <FeedDisplay growth={growth} growthMax={growthMax} feeds={this.feeds} feedItems={this.inventory.getItemsByType('feed')} onApply={this.onFeedApply} />
       </div>
     );
   }

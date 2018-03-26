@@ -26,6 +26,15 @@ export default class BirdStats {
     return new BirdStats(stats);
   }
 
+  // Returns a new set of stats of the sum of current stats and the provided stats.
+  add(stats) {
+    let sum = new BirdStats({});
+    this.forEachStat((name, value) => {
+      sum[name] = value + stats[name];
+    });
+    return sum;
+  }
+
   // Returns a new set of stats of the current stats subtracted by the provided stats.
   subtract(stats) {
     let diff = new BirdStats({});
@@ -33,6 +42,19 @@ export default class BirdStats {
       diff[name] = value - stats[name];
     });
     return diff;
+  }
+
+  // Returns a new set of stats that do not exceed and are limited by the provided stats
+  limit(maxStats) {
+    let stats = new BirdStats({});
+    this.forEachStat((name, value) => {
+      if (value > maxStats[name]) {
+        stats[name] = maxStats[name];
+      } else {
+        stats[name] = value;
+      }
+    });
+    return stats;
   }
 
   // Returns a duplicate of bird stats

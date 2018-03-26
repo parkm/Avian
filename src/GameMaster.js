@@ -49,4 +49,9 @@ export default class GameMaster {
   onRaceComplete(race, placing) {
     this.money += race.getMoneyReward(placing);
   }
+
+  onFeedApplyToBird(bird, feedItem, feed, amount) {
+    this.inventory.removeItem(feedItem, amount);
+    bird.latentGrowth = feed.getStatsEffect().scale(amount).add(bird.latentGrowth).limit(bird.getLatentGrowthMax());
+  }
 }
