@@ -1,34 +1,45 @@
 export default class Inventory {
   constructor() {
-    this.itemCounts = new Map();
+    this.itemsMap = new Map();
   }
 
   hasItem(inventoryItem) {
-    return this.itemCounts.has(inventoryItem.id);
+    return this.itemsMap.has(inventoryItem.id);
   }
 
   getItemCount(inventoryItem) {
-    return this.itemCounts.get(inventoryItem.id);
+    return this.itemsMap.get(inventoryItem.id).count;
+  }
+
+  getItemsByType(type) {
+    let items = [];
+    this.itemsMap.forEach(item => {
+      if (item.type === type) {
+        items.push(item);
+      }
+    });
+    return items;
   }
 
   addItem(inventoryItem, count) {
     let id = inventoryItem.id;
-    if (this.itemCounts.has(id)) {
-      this.itemCounts.set(id, this.itemCounts.get(id) + count);
+    if (this.itemsMap.has(id)) {
+      this.itemsMap.get(inventoryItem.id).count += count;
     } else {
-      this.itemCounts.set(id, count);
+      let item = Object.assign({}, inventoryItem);
+      item.count = count;
+      this.itemsMap.set(id, item);
     }
   }
 
   removeItem(inventoryItem, count) {
     let id = inventoryItem.id;
-    if (!this.itemCounts.has(id)) return;
+    if (!this.itemsMap.has(id)) return;
 
-    let setTo = this.itemCounts.get(id) - count;
-    if (setTo <= 0) {
-      this.itemCounts.delete(id);
-    } else {
-      this.itemCounts.set(id, setTo);
+    let item = this.itemsMap.get(inventoryItem.id);
+    item.count -= count;
+    if (item.count <= 0) {
+      this.itemsMap.delete(id);
     }
   }
 }
