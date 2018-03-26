@@ -11,17 +11,16 @@ import Col from 'react-bootstrap/lib/Col';
 import chocoImg from 'res/gfx/choco.png';
 
 export default class WorldView extends Component {
-  static debugProps() {
-    return {
-    }
-  }
-
   onRacesClick = () => {
     this.props.app.setView('raceSelection');
   }
 
   onStablesClick = () => {
     this.props.app.setView('stables');
+  }
+
+  onTrainingClick = () => {
+    this.props.app.setView('training');
   }
 
   render() {
@@ -35,6 +34,9 @@ export default class WorldView extends Component {
         </Button>
         <Button bsStyle='primary' onClick={this.onStablesClick}>
           Stables <img src={chocoImg} />
+        </Button>
+        <Button bsStyle='success' onClick={this.onTrainingClick}>
+          Training <img src={chocoImg} />
         </Button>
       </div>
     )
