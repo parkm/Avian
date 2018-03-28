@@ -13,6 +13,7 @@ import RaceSelectionView from './views/RaceSelectionView';
 import WorldView from './views/WorldView';
 import StablesView from './views/StablesView';
 import TrainingView from './views/TrainingView';
+import TrainingFinishView from './views/TrainingFinishView';
 
 import GameMaster from './GameMaster';
 
@@ -36,7 +37,8 @@ class App extends Component {
       'raceSelection': RaceSelectionView,
       'world': WorldView,
       'stables': StablesView,
-      'training': TrainingView
+      'training': TrainingView,
+      'trainingFinish': TrainingFinishView
     }
   }
 

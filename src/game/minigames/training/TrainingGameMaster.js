@@ -1,6 +1,13 @@
 import * as PIXI from 'pixi.js';
 import chocoImg from 'res/gfx/choco.png';
+import chocoRunImg from 'res/gfx/choco-run.png';
 import grassImg from 'res/gfx/grass.png';
+import orbImg from 'res/gfx/orb.png';
+import redStarImg from 'res/gfx/red-star.png';
+
+import Bird from './Bird.js';
+import Orb from './Orb.js';
+import Spawner from './Spawner.js';
 
 export default class TrainingGameMaster {
   constructor(canvas) {
@@ -10,18 +17,122 @@ export default class TrainingGameMaster {
       height: 800
     });
 
-
     let renderer = this.pixiApp.renderer;
 
-    let sprite = new PIXI.Sprite(this.createTexture(chocoImg));
     let grass = new PIXI.extras.TilingSprite(this.createTexture(grassImg), renderer.width, renderer.height);
     this.pixiApp.stage.addChild(grass);
-    this.pixiApp.stage.addChild(sprite);
+
+    this.pixiApp.ticker.add(this.gameLoop);
+    canvas.tabIndex = 0;
+    canvas.focus();
+    canvas.addEventListener('keydown', this.onKeyDown);
+
+    this.bird = new Bird(this, this.createAnimationTextures(chocoRunImg, 4));
+    this.bird.addToStage(this.pixiApp.stage);
+
+    this.orbTex = this.createTexture(orbImg);
+    this.badGuyTex = this.createTexture(redStarImg);
+    this.spawner = new Spawner(this);
+
+    this.orbCounts = {
+      speed: 0,
+      stamina: 0,
+      accel: 0,
+      vigor: 0,
+      speedMax: 20,
+      staminaMax: 20,
+      accelMax: 20,
+      vigorMax: 20
+    };
+
+    this.orbStatusText = new PIXI.Text('');
+    this.pixiApp.stage.addChild(this.orbStatusText);
+  }
+
+  // Returns true if some progress was made during the training
+  anyProgress() {
+    let oc = this.orbCounts;
+    return (oc.speed > 0 || oc.stamina > 0 || oc.accel > 0 || oc.vigor > 0);
+  }
+
+  getResults() {
+    return {
+      speed: this.orbCounts.speed / this.orbCounts.speedMax,
+      stamina: this.orbCounts.stamina / this.orbCounts.staminaMax,
+      accel: this.orbCounts.accel / this.orbCounts.accelMax,
+      vigor: this.orbCounts.vigor / this.orbCounts.vigorMax
+    }
+  }
+
+  onKeyDown = (e) => {
+    if (e.key === 'd') {
+      this.bird.moving = 'right';
+    } else if (e.key === 's') {
+      this.bird.moving = 'down';
+    } else if (e.key === 'a') {
+      this.bird.moving = 'left';
+    } else if (e.key === 'w') {
+      this.bird.moving = 'up';
+    }
+  }
+
+  gameLoop = () => {
+    let delta = this.pixiApp.ticker.elapsedMS;
+    this.bird.onLoopUpdate(delta);
+    this.spawner.onLoopUpdate(delta);
+
+    this.orbStatusText.text = `
+      Speed: ${this.orbCounts.speed/this.orbCounts.speedMax*100}%
+      \nStamina: ${this.orbCounts.stamina/this.orbCounts.staminaMax*100}%
+      \nAcceleration: ${this.orbCounts.accel/this.orbCounts.accelMax*100}%
+      \nVigor: ${this.orbCounts.vigor/this.orbCounts.vigorMax*100}%
+    `.trim();
+
+    this.spawner.orbs.forEach(orb => {
+      if (this.spriteOverlap(orb.sprite, this.bird.sprite)) {
+        this.bird.onOrbCollide(orb);
+        this.spawner.orbSpawnTime = this.spawner.initOrbSpawnTime - ((this.bird.speed / this.bird.maxSpeed) * (this.spawner.initOrbSpawnTime - this.spawner.minOrbSpawnTime));
+        this.spawner.removeOrb(orb);
+      }
+    });
+
+    this.spawner.bads.forEach(bad => {
+      if (this.spriteOverlap(bad.sprite, this.bird.sprite)) {
+        this.spawner.orbSpawnTime = this.spawner.initOrbSpawnTime;
+        this.bird.speed *= 0.3;
+        if (this.bird.speed < this.bird.initSpeed) this.bird.speed = this.bird.initSpeed;
+        this.spawner.removeBad(bad);
+        return;
+      }
+      bad.onLoopUpdate(delta);
+      if (bad.sprite.y <= 0) this.spawner.removeBad(bad);
+    });
+  }
+
+  createBaseTexture(imgSrc, scaleMode=PIXI.SCALE_MODES.NEAREST) {
+    let img = document.createElement('img');
+    img.src = imgSrc;
+    return new PIXI.BaseTexture(img, scaleMode);
   }
 
   createTexture(imgSrc) {
-    let img = document.createElement('img');
-    img.src = imgSrc;
-    return new PIXI.Texture(new PIXI.BaseTexture(img));
+    return new PIXI.Texture(this.createBaseTexture(imgSrc));
+  }
+
+  createAnimationTextures(imgSrc, count) {
+    let baseTex = this.createBaseTexture(imgSrc);
+    let texs = [];
+    let cellWidth = baseTex.width / count;
+    for (let i=0; i<count; ++i) {
+      texs.push(new PIXI.Texture(baseTex, new PIXI.Rectangle(cellWidth * i, 0, cellWidth, baseTex.height)));
+    }
+    return texs;
+  }
+
+  // Returns true if the two sprites overlap
+  spriteOverlap(a, b) {
+    let ab = a.getBounds();
+    let bb = b.getBounds();
+    return ab.x + ab.width > bb.x && ab.x < bb.x + bb.width && ab.y + ab.height > bb.y && ab.y < bb.y + bb.height;
   }
 }

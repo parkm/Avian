@@ -17,31 +17,23 @@ import FeedDisplay from 'views/components/FeedDisplay';
 
 import TrainingGameMaster from 'game/minigames/training/TrainingGameMaster';
 
-export default class TrainingView extends Component {
+export default class TrainingFinishView extends Component {
   constructor() {
     super();
   }
 
-  onLeaveClick = () => {
-    if (this.gm.anyProgress()) {
-      this.props.app.setView('trainingFinish', {
-        trainingResults: this.gm.getResults()
-      });
-    } else {
-      this.props.app.setView('world');
-    }
+  onContinueClick = () => {
+    this.props.app.setView('world');
   }
 
   componentDidMount() {
-    this.gm = new TrainingGameMaster(this.canvas);
   }
 
   render() {
     return (
       <div>
-        Training
-        <canvas ref={r => this.canvas=r}></canvas>
-        <Button onClick={this.onLeaveClick}>Leave</Button>
+        Training Completed
+        <Button onClick={this.onContinueClick}>Continue</Button>
       </div>
     )
   }
