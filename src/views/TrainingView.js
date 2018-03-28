@@ -15,17 +15,26 @@ import Panel from 'react-bootstrap/lib/Panel';
 import BirdStatsDisplay from 'views/components/BirdStatsDisplay';
 import FeedDisplay from 'views/components/FeedDisplay';
 
-import chocoImg from 'res/gfx/choco.png';
+import TrainingGameMaster from 'game/minigames/training/TrainingGameMaster';
 
 export default class StablesView extends Component {
+  constructor() {
+    super();
+  }
+
   onLeaveClick = () => {
     this.props.app.setView('world');
+  }
+
+  componentDidMount() {
+    this.gm = new TrainingGameMaster(this.canvas);
   }
 
   render() {
     return (
       <div>
         Training
+        <canvas ref={r => this.canvas=r}></canvas>
         <Button onClick={this.onLeaveClick}>Leave</Button>
       </div>
     )
