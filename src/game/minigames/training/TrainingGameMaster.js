@@ -33,6 +33,35 @@ export default class TrainingGameMaster {
     this.orbTex = this.createTexture(orbImg);
     this.badGuyTex = this.createTexture(redStarImg);
     this.spawner = new Spawner(this);
+
+    this.orbCounts = {
+      speed: 0,
+      stamina: 0,
+      accel: 0,
+      vigor: 0,
+      speedMax: 20,
+      staminaMax: 20,
+      accelMax: 20,
+      vigorMax: 20
+    };
+
+    this.orbStatusText = new PIXI.Text('');
+    this.pixiApp.stage.addChild(this.orbStatusText);
+  }
+
+  // Returns true if some progress was made during the training
+  anyProgress() {
+    let oc = this.orbCounts;
+    return (oc.speed > 0 || oc.stamina > 0 || oc.accel > 0 || oc.vigor > 0);
+  }
+
+  getResults() {
+    return {
+      speed: this.orbCounts.speed / this.orbCounts.speedMax,
+      stamina: this.orbCounts.stamina / this.orbCounts.staminaMax,
+      accel: this.orbCounts.accel / this.orbCounts.accelMax,
+      vigor: this.orbCounts.vigor / this.orbCounts.vigorMax
+    }
   }
 
   onKeyDown = (e) => {
@@ -51,6 +80,13 @@ export default class TrainingGameMaster {
     let delta = this.pixiApp.ticker.elapsedMS;
     this.bird.onLoopUpdate(delta);
     this.spawner.onLoopUpdate(delta);
+
+    this.orbStatusText.text = `
+      Speed: ${this.orbCounts.speed/this.orbCounts.speedMax*100}%
+      \nStamina: ${this.orbCounts.stamina/this.orbCounts.staminaMax*100}%
+      \nAcceleration: ${this.orbCounts.accel/this.orbCounts.accelMax*100}%
+      \nVigor: ${this.orbCounts.vigor/this.orbCounts.vigorMax*100}%
+    `.trim();
 
     this.spawner.orbs.forEach(orb => {
       if (this.spriteOverlap(orb.sprite, this.bird.sprite)) {

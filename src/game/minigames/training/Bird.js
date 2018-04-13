@@ -49,5 +49,6 @@ export default class Bird {
     if (this.speed > this.maxSpeed) {
       this.speed = this.maxSpeed;
     }
+    this.gm.orbCounts[orb.type]++;
   }
 }
