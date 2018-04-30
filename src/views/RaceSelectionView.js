@@ -56,7 +56,7 @@ export default class RaceSelectionView extends Component {
   }
 
   componentWillMount() {
-    this.events = this.props.app.gm.raceEvents;
+    this.events = this.props.app.gm.getUnlockedEvents();
     this.playerBirds = this.props.app.gm.ownedBirds;
   }
 

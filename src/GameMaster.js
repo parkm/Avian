@@ -44,16 +44,42 @@ export default class GameMaster {
     ];
 
     this.completedRaces = {};
+    this.completedEvents = {};
 
     this.raceEvents = genRaceEventsData();
+    this.unlockedEventIds = {'openTrackDay': true};
+  }
+
+  getAllEvents() {
+    return Object.values(this.raceEvents);
+  }
+
+  getUnlockedEvents() {
+    return Object.keys(this.unlockedEventIds).map(id => {
+      return this.raceEvents[id];
+    });
+  }
+
+  isEventComplete(raceEvent) {
+    let completedRaces = this.completedRaces[raceEvent.id];
+    return Object.keys(raceEvent.races).every(raceId => {
+      return (completedRaces[raceId] == true)
+    });
   }
 
   onRaceComplete(race, placing) {
     this.money += race.getMoneyReward(placing);
 
-    let raceEvent = race.raceEvent;
-    if (!this.completedRaces[raceEvent.id]) this.completedRaces[raceEvent.id] = {};
-    this.completedRaces[raceEvent.id][race.id] = true;
+    if (placing === 1) {
+      let raceEvent = race.raceEvent;
+      if (!this.completedRaces[raceEvent.id]) this.completedRaces[raceEvent.id] = {};
+      this.completedRaces[raceEvent.id][race.id] = true;
+
+      if (this.isEventComplete(raceEvent)) {
+        this.completedEvents[raceEvent.id] = true;
+        raceEvent.unlocks.forEach(eventId => this.unlockedEventIds[eventId] = true);
+      }
+    }
   }
 
   onFeedApplyToBird(bird, feedItem, feed, amount) {
