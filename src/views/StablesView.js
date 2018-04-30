@@ -14,6 +14,7 @@ import Panel from 'react-bootstrap/lib/Panel';
 
 import BirdStatsDisplay from 'views/components/BirdStatsDisplay';
 import FeedDisplay from 'views/components/FeedDisplay';
+import BirdSelect from 'views/components/BirdSelect';
 
 import chocoImg from 'res/gfx/choco.png';
 
@@ -26,8 +27,7 @@ export default class StablesView extends Component {
   constructor() {
     super();
     this.state = {
-      selectedBird: null,
-      activeNavKey: null
+      selectedBird: null
     };
   }
 
@@ -99,20 +99,7 @@ export default class StablesView extends Component {
       <div>
         <Grid fluid={true}>
           <Col sm={1}>
-            <Nav bsStyle="pills" stacked activeKey={this.state.activeNavKey} onSelect={k => this.setState({activeNavKey: k})}>
-              {
-                this.birds.map((b, i) => {
-                  return (
-                    <NavItem eventKey={i} key={i} onClick={_ => this.onBirdItemClick(b)}>
-                      <img src={chocoImg} />
-                      <div>
-                        {b.name}
-                      </div>
-                    </NavItem>
-                  );
-                })
-              }
-            </Nav>
+            <BirdSelect birds={this.birds} onSelect={b => this.setState({selectedBird: b})}/>
             <Button onClick={this.onLeaveClick}>Leave</Button>
           </Col>
           <Col sm={11}>
