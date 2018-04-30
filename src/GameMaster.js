@@ -43,11 +43,17 @@ export default class GameMaster {
       }))
     ];
 
+    this.completedRaces = {};
+
     this.raceEvents = genRaceEventsData();
   }
 
   onRaceComplete(race, placing) {
     this.money += race.getMoneyReward(placing);
+
+    let raceEvent = race.raceEvent;
+    if (!this.completedRaces[raceEvent.id]) this.completedRaces[raceEvent.id] = {};
+    this.completedRaces[raceEvent.id][race.id] = true;
   }
 
   onFeedApplyToBird(bird, feedItem, feed, amount) {

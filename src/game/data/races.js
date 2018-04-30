@@ -6,6 +6,10 @@ import RaceEvent from '../RaceEvent';
 export default function genRaceEventsData() {
 let events = {};
 
+let newRaceEvent = (eventId, data) => {
+  events[eventId] = new RaceEvent(eventId, data);
+};
+
 let openTrackDayRacers = [{
     name: 'Aimee',
     stats: new BirdStats({
@@ -48,7 +52,7 @@ let openTrackDayRacers = [{
     })
   }
 ];
-events['openTrackDay'] = new RaceEvent({
+newRaceEvent('openTrackDay', {
   name: 'Open Track Day',
   restrictions: {},
   races: {
@@ -123,7 +127,7 @@ let rookieWeekRacers = [{
     })
   }
 ];
-events['rookieWeek'] = new RaceEvent({
+newRaceEvent('rookieWeek', {
   name: 'Rookie Week',
   restrictions: {},
   races: {
@@ -187,7 +191,7 @@ let eliteRacesRacers = [{
     })
   }
 ];
-events['eliteRaces'] = new RaceEvent({
+newRaceEvent('eliteRaces', {
   name: 'Elite Races',
   restrictions: {},
   races: {
