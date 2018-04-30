@@ -12,6 +12,7 @@ import RaceFinishView from './views/RaceFinishView';
 import RaceSelectionView from './views/RaceSelectionView';
 import WorldView from './views/WorldView';
 import StablesView from './views/StablesView';
+import TrainingStartView from './views/TrainingStartView';
 import TrainingView from './views/TrainingView';
 import TrainingFinishView from './views/TrainingFinishView';
 
@@ -24,7 +25,7 @@ class App extends Component {
     this.gm = new GameMaster();
 
     this.state = {
-      view: 'training',
+      view: 'trainingStart',
       viewProps: {
         race: this.gm.raceEvents['openTrackDay'].races['firstRace'],
         playerBird: this.gm.ownedBirds[0]
@@ -37,6 +38,7 @@ class App extends Component {
       'raceSelection': RaceSelectionView,
       'world': WorldView,
       'stables': StablesView,
+      'trainingStart': TrainingStartView,
       'training': TrainingView,
       'trainingFinish': TrainingFinishView
     }

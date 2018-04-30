@@ -20,7 +20,7 @@ export default class WorldView extends Component {
   }
 
   onTrainingClick = () => {
-    this.props.app.setView('training');
+    this.props.app.setView('trainingStart');
   }
 
   render() {
