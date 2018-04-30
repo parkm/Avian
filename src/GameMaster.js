@@ -54,4 +54,9 @@ export default class GameMaster {
     this.inventory.removeItem(feedItem, amount);
     bird.latentGrowth = feed.getStatsEffect().scale(amount).add(bird.latentGrowth).limit(bird.getLatentGrowthMax());
   }
+
+  onTrainingComplete(bird, growth) {
+    bird.latentGrowth = bird.latentGrowth.subtract(growth);
+    bird.currentStats = bird.currentStats.add(growth);
+  }
 }

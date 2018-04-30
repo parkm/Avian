@@ -25,7 +25,8 @@ export default class TrainingView extends Component {
   onLeaveClick = () => {
     if (this.gm.anyProgress()) {
       this.props.app.setView('trainingFinish', {
-        trainingResults: this.gm.getResults()
+        trainingResults: this.gm.getResults(),
+        bird: this.props.bird
       });
     } else {
       this.props.app.setView('world');
@@ -39,7 +40,6 @@ export default class TrainingView extends Component {
   render() {
     return (
       <div>
-        Training
         <canvas ref={r => this.canvas=r}></canvas>
         <Button onClick={this.onLeaveClick}>Leave</Button>
       </div>

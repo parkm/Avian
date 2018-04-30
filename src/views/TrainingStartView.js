@@ -26,6 +26,12 @@ export default class TrainingStartView extends Component {
     };
   }
 
+  onStartClick = () => {
+    this.props.app.setView('training', {
+      bird: this.state.selectedBird
+    });
+  }
+
   onLeaveClick = () => {
     this.props.app.setView('world');
   }
@@ -38,6 +44,11 @@ export default class TrainingStartView extends Component {
       <div>
         Training
         <BirdSelect birds={this.props.app.gm.ownedBirds} onSelect={b => this.setState({selectedBird: b})} />
+        {this.state.selectedBird ? (
+          <div>
+            <Button bsStyle="primary" onClick={this.onStartClick}>Start</Button>
+          </div>
+        ) : null}
         <Button onClick={this.onLeaveClick}>Back</Button>
       </div>
     )
