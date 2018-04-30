@@ -60,6 +60,11 @@ export default class GameMaster {
     });
   }
 
+  isRaceComplete(race) {
+    if (!this.completedRaces[race.raceEvent.id]) return false;
+    return (this.completedRaces[race.raceEvent.id][race.id] === true);
+  }
+
   isEventComplete(raceEvent) {
     let completedRaces = this.completedRaces[raceEvent.id];
     return Object.keys(raceEvent.races).every(raceId => {

@@ -56,8 +56,9 @@ export default class RaceSelectionView extends Component {
   }
 
   componentWillMount() {
-    this.events = this.props.app.gm.getUnlockedEvents();
-    this.playerBirds = this.props.app.gm.ownedBirds;
+    this.gm = this.props.app.gm;
+    this.events = this.gm.getUnlockedEvents();
+    this.playerBirds = this.gm.ownedBirds;
   }
 
   onRaceItemClick = (race) => {
@@ -153,7 +154,10 @@ export default class RaceSelectionView extends Component {
               {
                 Object.values(this.state.selectedEvent.races).map((r, i) => {
                   return (
-                    <ListGroupItem key={i} onClick={_ => this.onRaceItemClick(r)}>{r.name}</ListGroupItem>
+                    <ListGroupItem key={i} onClick={_ => this.onRaceItemClick(r)}>
+                      {this.gm.isRaceComplete(r) ? '✔' : null}
+                      {r.name}
+                    </ListGroupItem>
                   );
                 })
               }
