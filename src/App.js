@@ -25,7 +25,7 @@ class App extends Component {
     this.gm = new GameMaster();
 
     this.state = {
-      view: 'trainingStart',
+      view: 'stables',
       viewProps: {
         race: this.gm.raceEvents['openTrackDay'].races['firstRace'],
         playerBird: this.gm.ownedBirds[0]

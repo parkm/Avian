@@ -11,6 +11,8 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import PanelGroup from 'react-bootstrap/lib/PanelGroup';
 import Panel from 'react-bootstrap/lib/Panel';
+import Tabs from 'react-bootstrap/lib/Tabs';
+import Tab from 'react-bootstrap/lib/Tab';
 
 import BirdStatsDisplay from 'views/components/BirdStatsDisplay';
 import FeedDisplay from 'views/components/FeedDisplay';
@@ -27,7 +29,8 @@ export default class StablesView extends Component {
   constructor() {
     super();
     this.state = {
-      selectedBird: null
+      selectedBird: null,
+      selectedBreedBird: null
     };
   }
 
@@ -94,18 +97,70 @@ export default class StablesView extends Component {
     );
   }
 
+  renderBreedingTab() {
+    let bird = this.state.selectedBird;
+    if (!bird) return null;
+    let breedBirds = this.birds.filter(b => b !== bird)
+    let breedBird = this.state.selectedBreedBird;
+    return (
+      <div>
+        <Grid fluid={true}>
+          <Col sm={10}>
+            <Grid fluid={true}>
+              <Col sm={6}>
+                <h1>
+                  {bird.name}
+                </h1>
+                {bird.genes} genes
+                <BirdStatsDisplay stats={bird.getBirthStats()} />
+              </Col>
+              <Col sm={6}>
+                {breedBird ?
+                  <div>
+                    <h1>
+                      {breedBird.name}
+                    </h1>
+                    {breedBird.genes} genes
+                    <BirdStatsDisplay stats={breedBird.getBirthStats()} />
+                  </div>
+                : <h1>Select a Bird -></h1>}
+              </Col>
+              {breedBird ?
+                <div>
+                  <Button bsStyle="primary">Breed</Button>
+                </div>
+                : null
+              }
+            </Grid>
+          </Col>
+          <Col sm={2}>
+            <BirdSelect birds={breedBirds} onSelect={b => this.setState({selectedBreedBird: b})}/>
+          </Col>
+        </Grid>
+
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
         <Grid fluid={true}>
           <Col sm={1}>
-            <BirdSelect birds={this.birds} onSelect={b => this.setState({selectedBird: b})}/>
+            <BirdSelect birds={this.birds} onSelect={b => this.setState({selectedBird: b, selectedBreedBird: null})}/>
             <Button onClick={this.onLeaveClick}>Leave</Button>
           </Col>
           <Col sm={11}>
-            <div>
-              {this.renderBirdDetails()}
-            </div>
+            <Tabs defaultActiveKey={1} >
+              <Tab eventKey={1} title="General">
+                <div>
+                  {this.renderBirdDetails()}
+                </div>
+              </Tab>
+              <Tab eventKey={2} title="Breeding">
+                  {this.renderBreedingTab()}
+              </Tab>
+            </Tabs>
           </Col>
         </Grid>
       </div>
