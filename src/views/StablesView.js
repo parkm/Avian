@@ -13,10 +13,13 @@ import PanelGroup from 'react-bootstrap/lib/PanelGroup';
 import Panel from 'react-bootstrap/lib/Panel';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
+import Modal from 'react-bootstrap/lib/Modal';
+import FormControl from 'react-bootstrap/lib/FormControl';
 
 import BirdStatsDisplay from 'views/components/BirdStatsDisplay';
 import FeedDisplay from 'views/components/FeedDisplay';
 import BirdSelect from 'views/components/BirdSelect';
+import NewBabyModal from 'views/components/NewBabyModal';
 
 import Bird from 'game/Bird';
 
@@ -32,7 +35,8 @@ export default class StablesView extends Component {
     super();
     this.state = {
       selectedBird: null,
-      selectedBreedBird: null
+      selectedBreedBird: null,
+      newBaby: false
     };
   }
 
@@ -99,6 +103,15 @@ export default class StablesView extends Component {
     );
   }
 
+  onBreedClick = () => {
+    this.setState({newBaby: true});
+  }
+
+  onBabyName = (name) => {
+    this.setState({newBaby: false});
+    console.log(`Baby name is ${name}`);
+  }
+
   renderBreedingTab() {
     let bird = this.state.selectedBird;
     if (!bird) return null;
@@ -106,6 +119,7 @@ export default class StablesView extends Component {
     let breedBird = this.state.selectedBreedBird;
     return (
       <div>
+        <NewBabyModal show={this.state.newBaby} onComplete={this.onBabyName} />
         <Grid fluid={true}>
           <Col sm={10}>
             <Grid fluid={true}>
@@ -136,7 +150,7 @@ export default class StablesView extends Component {
                     {Bird.mergeGenes(bird.genes, breedBird.genes)} genes
                     <BirdStatsDisplay stats={bird.getStats().average(breedBird.getStats())} />
                   </div>
-                  <Button bsStyle="primary">Breed</Button>
+                  <Button bsStyle="primary" onClick={this.onBreedClick}>Breed</Button>
                 </div>
                 : null
               }
