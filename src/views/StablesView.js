@@ -114,7 +114,7 @@ export default class StablesView extends Component {
                   {bird.name}
                 </h1>
                 {bird.genes} genes
-                <BirdStatsDisplay stats={bird.getBirthStats()} />
+                <BirdStatsDisplay stats={bird.getStats()} />
               </Col>
               <Col sm={6}>
                 {breedBird ?
@@ -123,7 +123,7 @@ export default class StablesView extends Component {
                       {breedBird.name}
                     </h1>
                     {breedBird.genes} genes
-                    <BirdStatsDisplay stats={breedBird.getBirthStats()} />
+                    <BirdStatsDisplay stats={breedBird.getStats()} />
                   </div>
                 : <h1>Select a Bird -></h1>}
               </Col>
@@ -134,7 +134,7 @@ export default class StablesView extends Component {
                       Predicted Results
                     </h2>
                     {Bird.mergeGenes(bird.genes, breedBird.genes)} genes
-                    <BirdStatsDisplay stats={breedBird.getBirthStats()} />
+                    <BirdStatsDisplay stats={bird.getStats().average(breedBird.getStats())} />
                   </div>
                   <Button bsStyle="primary">Breed</Button>
                 </div>

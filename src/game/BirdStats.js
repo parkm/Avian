@@ -57,6 +57,11 @@ export default class BirdStats {
     return stats;
   }
 
+  // Returns the average between the current set of stats and the provided stats
+  average(stats) {
+    return this.add(stats).scale(0.5);
+  }
+
   // Returns a duplicate of bird stats
   clone() {
     let stats = {};
