@@ -18,6 +18,8 @@ import BirdStatsDisplay from 'views/components/BirdStatsDisplay';
 import FeedDisplay from 'views/components/FeedDisplay';
 import BirdSelect from 'views/components/BirdSelect';
 
+import Bird from 'game/Bird';
+
 import chocoImg from 'res/gfx/choco.png';
 
 export default class StablesView extends Component {
@@ -127,6 +129,13 @@ export default class StablesView extends Component {
               </Col>
               {breedBird ?
                 <div>
+                  <div>
+                    <h2>
+                      Predicted Results
+                    </h2>
+                    {Bird.mergeGenes(bird.genes, breedBird.genes)} genes
+                    <BirdStatsDisplay stats={breedBird.getBirthStats()} />
+                  </div>
                   <Button bsStyle="primary">Breed</Button>
                 </div>
                 : null

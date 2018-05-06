@@ -11,6 +11,20 @@ export default class Bird {
     'perfect': 20
   };
 
+  // Takes two genes and returns the closest average gene between the two
+  static mergeGenes(gene1, gene2) {
+    let gstr = Bird.GENES_STRENGTH;
+    let avg = (gstr[gene1] + gstr[gene2]) / 2;
+    let dist = [];
+
+    for (let geneName in gstr) {
+      let gval = gstr[geneName];
+      dist.push({name: geneName, val: Math.abs(avg - gval)});
+    }
+
+    return dist.sort((a, b) => a.val - b.val)[0].name;
+  }
+
   constructor(name, sex, genes, birthStats) {
     this.name = name;
     this.sex = sex;
