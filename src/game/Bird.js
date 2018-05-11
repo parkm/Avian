@@ -33,6 +33,8 @@ export default class Bird {
     this.currentStats = birthStats.clone();
     this.maxStats = this.genMaxStats(this.birthStats, this.genes);
     this.latentGrowth = BirdStats.zero();
+    this.mother = null;
+    this.father = null;
   }
 
   genMaxStats(birthStats, genes) {
@@ -66,5 +68,16 @@ export default class Bird {
   // Returns the total amount of growth possible
   getLatentGrowthMax() {
     return this.maxStats.subtract(this.currentStats)
+  }
+
+  // Returns whether the two birds are kin
+  isKin(bird) {
+    if ((this.mother === null && this.father === null) && (bird.mother === null && bird.father === null))
+      return false;
+    return (
+     (this.mother === bird || this.father === bird) ||
+     (bird.mother === this || bird.father === this) ||
+     (this.mother === bird.mother || this.father === bird.father)
+    );
   }
 }

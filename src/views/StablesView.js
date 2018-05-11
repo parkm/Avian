@@ -36,7 +36,7 @@ export default class StablesView extends Component {
     this.state = {
       selectedBird: null,
       selectedBreedBird: null,
-      newBaby: false
+      newBaby: null
     };
   }
 
@@ -104,22 +104,24 @@ export default class StablesView extends Component {
   }
 
   onBreedClick = () => {
-    this.setState({newBaby: true});
+    this.setState({
+      newBaby: this.props.app.gm.onBirdBreed(this.state.selectedBird, this.state.selectedBreedBird)
+    });
   }
 
   onBabyName = (name) => {
-    this.setState({newBaby: false});
-    console.log(`Baby name is ${name}`);
+    this.props.app.gm.onBirdBreedComplete(this.state.newBaby, name);
+    this.setState({newBaby: null});
   }
 
   renderBreedingTab() {
     let bird = this.state.selectedBird;
     if (!bird) return null;
-    let breedBirds = this.birds.filter(b => b !== bird)
+    let breedBirds = this.birds.filter(b => b !== bird && bird.sex !== b.sex && !bird.isKin(b))
     let breedBird = this.state.selectedBreedBird;
     return (
       <div>
-        <NewBabyModal show={this.state.newBaby} onComplete={this.onBabyName} />
+        <NewBabyModal show={this.state.newBaby !== null} sex={this.state.newBaby ? this.state.newBaby.sex : null} onComplete={this.onBabyName} />
         <Grid fluid={true}>
           <Col sm={10}>
             <Grid fluid={true}>

@@ -72,6 +72,21 @@ export default class GameMaster {
     });
   }
 
+  onBirdBreed(birdA, birdB) {
+    let stats = birdA.getStats().average(birdB.getStats());
+    let genes = Bird.mergeGenes(birdA.genes, birdB.genes);
+    let sex = Math.random() > 0.5 ? 'male' : 'female';
+    let bird = new Bird('', sex, genes, stats);
+    bird.mother = birdA.sex === 'female' ? birdA : birdB;
+    bird.father = birdA.sex === 'male' ? birdA : birdB;
+    return bird;
+  }
+
+  onBirdBreedComplete(bird, name) {
+    bird.name = name;
+    this.ownedBirds.push(bird);
+  }
+
   onRaceComplete(race, placing) {
     this.money += race.getMoneyReward(placing);
 
