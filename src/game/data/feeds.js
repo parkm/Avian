@@ -9,6 +9,14 @@ export default function genFeedData() {
         vigor: 0.10,
         accel: 0.05
       }
+    },
+    mimettGreens: {
+      effect: {
+        topMph: 0.50,
+        stamina: 0,
+        vigor: 0,
+        accel: 0
+      }
     }
   }
 

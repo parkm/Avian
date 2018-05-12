@@ -9,7 +9,7 @@ import genFeedData from './game/data/feeds';
 
 export default class GameMaster {
   constructor() {
-    this.money = 0;
+    this.money = 1000;
     this.items = genItemData();
     this.feeds = genFeedData();
     this.inventory = new Inventory();

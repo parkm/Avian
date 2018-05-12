@@ -8,7 +8,11 @@ export default class Inventory {
   }
 
   getItemCount(inventoryItem) {
-    return this.itemsMap.get(inventoryItem.id).count;
+    let item = this.itemsMap.get(inventoryItem.id);
+    if (item)
+      return item.count;
+    else
+      return 0;
   }
 
   getItemsByType(type) {

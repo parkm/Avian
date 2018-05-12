@@ -23,6 +23,10 @@ export default class WorldView extends Component {
     this.props.app.setView('trainingStart');
   }
 
+  onStoreClick = () => {
+    this.props.app.setView('store');
+  }
+
   render() {
     return (
       <div>
@@ -37,6 +41,9 @@ export default class WorldView extends Component {
         </Button>
         <Button bsStyle='success' onClick={this.onTrainingClick}>
           Training <img src={chocoImg} />
+        </Button>
+        <Button bsStyle='success' onClick={this.onStoreClick}>
+          Store $
         </Button>
       </div>
     )
