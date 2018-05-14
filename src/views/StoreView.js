@@ -121,7 +121,7 @@ export default class StoreView extends Component {
               <tbody>
                 {this.itemStock.map(item => {
                   return (
-                    <tr onClick={e => this.onItemClick(item)}>
+                    <tr key={item.name} onClick={e => this.onItemClick(item)}>
                       <td>{item.name}</td>
                       <td>{item.value}</td>
                     </tr>
