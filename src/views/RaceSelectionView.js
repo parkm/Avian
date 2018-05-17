@@ -12,6 +12,20 @@ import Col from 'react-bootstrap/lib/Col';
 import chocoImg from 'res/gfx/choco.png';
 
 class RaceEventButton extends Component {
+  renderItemRewards(itemCountMap) {
+    let out = [];
+    for (let id in itemCountMap) {
+      let itemCount = itemCountMap[id];
+      let item = this.props.gm.items[id];
+      out.push((
+        <div key={id}>
+          {item.name} x{itemCount}
+        </div>
+      ));
+    }
+    return out;
+  }
+
   render() {
     let raceCount = Object.keys(this.props.raceEvent.races).length;
     return (
@@ -25,7 +39,8 @@ class RaceEventButton extends Component {
               Rewards
             </div>
             <div>
-              {this.props.raceEvent.rewards.money}
+              ${this.props.raceEvent.rewards.money}
+              {this.renderItemRewards(this.props.raceEvent.rewards.items)}
             </div>
           </Col>
           <Col sm={4}>
@@ -92,6 +107,20 @@ export default class RaceSelectionView extends Component {
     });
   }
 
+  renderItemRewards(itemCountMap) {
+    let out = [];
+    for (let id in itemCountMap) {
+      let itemCount = itemCountMap[id];
+      let item = this.props.app.gm.items[id];
+      out.push((
+        <div key={id}>
+          {item.name} x{itemCount}
+        </div>
+      ));
+    }
+    return out;
+  }
+
   renderRaceDetails() {
     if (!this.state.selectedRace) return null;
     return (
@@ -105,8 +134,10 @@ export default class RaceSelectionView extends Component {
         <div>
           {this.state.selectedRace.length} {this.state.selectedRace.length == 1 ? 'Mile' : 'Miles'}
         </div>
-        <div>
-          Reward: {this.state.selectedRace.getMoneyReward('1')}
+        <div style={{border: '1px solid black'}}>
+          <h4>Rewards</h4>
+          ${this.state.selectedRace.getMoneyReward('1')}
+          {this.renderItemRewards(this.state.selectedRace.rewards['1'].items)}
         </div>
       </div>
     );
@@ -133,7 +164,7 @@ export default class RaceSelectionView extends Component {
         {
           Object.values(this.events).map((e, i) => {
             return (
-              <RaceEventButton key={i} onClick={_ => this.onEventItemClick(e)} raceEvent={e} />
+              <RaceEventButton key={i} gm={this.props.app.gm} onClick={_ => this.onEventItemClick(e)} raceEvent={e} />
             );
           })
         }

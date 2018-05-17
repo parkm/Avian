@@ -58,7 +58,10 @@ newRaceEvent('openTrackDay', {
   races: {
     'firstRace': new Race('First Race', openTrackDayRacers, 0.1, {
       '1': {
-        money: 100
+        money: 100,
+        items: {
+          'gysahlGreens': 5
+        }
       },
       '2': {
         money: 25
@@ -81,7 +84,10 @@ newRaceEvent('openTrackDay', {
   },
   unlocks: ['rookieWeek'],
   rewards: {
-    money: 5000
+    money: 5000,
+    items: {
+      'gysahlGreens': 25
+    }
   }
 });
 
