@@ -95,6 +95,14 @@ export default class GameMaster {
       if (!this.completedRaces[raceEvent.id]) this.completedRaces[raceEvent.id] = {};
       this.completedRaces[raceEvent.id][race.id] = true;
 
+      let itemRewards = race.rewards[placing.toString()].items;
+      if (itemRewards) {
+        for (let itemId in itemRewards) {
+          let itemCount = itemRewards[itemId];
+          this.inventory.addItem(this.items[itemId], itemCount);
+        }
+      }
+
       if (this.isEventComplete(raceEvent)) {
         this.completedEvents[raceEvent.id] = true;
         raceEvent.unlocks.forEach(eventId => this.unlockedEventIds[eventId] = true);

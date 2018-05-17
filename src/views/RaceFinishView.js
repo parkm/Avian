@@ -50,6 +50,25 @@ export default class RaceFinishView extends Component {
     this.props.app.setView('raceSelection');
   }
 
+  renderItemRewards() {
+    let items = this.props.race.rewards['1'].items;
+    if (this.props.playerPlacing != 1 || !items) return null;
+    return (
+      <div>
+        <h4>Obtained Items:</h4>
+        {Object.keys(items).map((id) => {
+          let itemCount = items[id];
+          let item = this.props.app.gm.items[id];
+          return (
+            <div key={id}>
+              {item.name} x{itemCount}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   render() {
     return (
       <div onClick={this.onMainDivClick}>
@@ -69,6 +88,7 @@ export default class RaceFinishView extends Component {
           <h1>You placed {Util.toOrdinal(this.props.playerPlacing)}</h1>
           <div>Earnings: {this.state.moneyEarned}</div>
           <div>Money: {this.state.moneyTotal}</div>
+          {this.renderItemRewards()}
           <Button bsStyle='primary' onClick={this.onContinueClick}>Continue</Button>
         </div>
       </div>
