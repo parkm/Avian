@@ -16,6 +16,7 @@ import TrainingStartView from './views/TrainingStartView';
 import TrainingView from './views/TrainingView';
 import TrainingFinishView from './views/TrainingFinishView';
 import StoreView from './views/StoreView';
+import InventoryView from './views/InventoryView';
 
 import GameMaster from './GameMaster';
 
@@ -26,7 +27,7 @@ class App extends Component {
     this.gm = new GameMaster();
 
     this.state = {
-      view: 'store',
+      view: 'world',
       viewProps: {
         race: this.gm.raceEvents['openTrackDay'].races['firstRace'],
         playerBird: this.gm.ownedBirds[0]
@@ -42,7 +43,8 @@ class App extends Component {
       'trainingStart': TrainingStartView,
       'training': TrainingView,
       'trainingFinish': TrainingFinishView,
-      'store': StoreView
+      'store': StoreView,
+      'inventory': InventoryView
     }
   }
 

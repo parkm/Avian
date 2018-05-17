@@ -27,6 +27,10 @@ export default class WorldView extends Component {
     this.props.app.setView('store');
   }
 
+  onInventoryClick = () => {
+    this.props.app.setView('inventory');
+  }
+
   render() {
     return (
       <div>
@@ -44,6 +48,9 @@ export default class WorldView extends Component {
         </Button>
         <Button bsStyle='success' onClick={this.onStoreClick}>
           Store $
+        </Button>
+        <Button onClick={this.onInventoryClick}>
+          Inventory
         </Button>
       </div>
     )

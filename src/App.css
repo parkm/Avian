@@ -30,3 +30,7 @@
   -webkit-user-select: none;
   -o-user-select: none;
 }
+
+table {
+  text-align: left;
+}

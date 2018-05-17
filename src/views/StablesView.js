@@ -176,7 +176,7 @@ export default class StablesView extends Component {
             <Button onClick={this.onLeaveClick}>Leave</Button>
           </Col>
           <Col sm={11}>
-            <Tabs id="stablesview-tabs" defaultActiveKey={1} >
+            <Tabs animation={false} id="stablesview-tabs" defaultActiveKey={1} >
               <Tab eventKey={1} title="General">
                 <div>
                   {this.renderBirdDetails()}
