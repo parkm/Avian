@@ -151,7 +151,6 @@ newRaceEvent('rookieWeek', {
       }
     }),
   },
-  unlocks: ['rookieWeek'],
   rewards: {
     money: 10000
   }

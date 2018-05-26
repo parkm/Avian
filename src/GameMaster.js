@@ -96,6 +96,22 @@ export default class GameMaster {
     this.ownedBirds.push(bird);
   }
 
+  onRaceEventComplete(raceEvent) {
+    this.completedEvents[raceEvent.id] = true;
+    if (raceEvent.unlocks) {
+      raceEvent.unlocks.forEach(eventId => this.unlockedEventIds[eventId] = true);
+    }
+    this.money += raceEvent.rewards.money || 0;
+    this.fans += raceEvent.rewards.fans || 0;
+    let itemRewards = raceEvent.rewards.items;
+    if (itemRewards) {
+      for (let itemId in itemRewards) {
+        let itemCount = itemRewards[itemId];
+        this.inventory.addItem(this.items[itemId], itemCount);
+      }
+    }
+  }
+
   onRaceComplete(race, placing) {
     this.money += race.getMoneyReward(placing);
     this.fans += race.getFansReward(placing);
@@ -114,8 +130,7 @@ export default class GameMaster {
       }
 
       if (this.isEventComplete(raceEvent)) {
-        this.completedEvents[raceEvent.id] = true;
-        raceEvent.unlocks.forEach(eventId => this.unlockedEventIds[eventId] = true);
+        this.onRaceEventComplete(raceEvent);
       }
     }
   }

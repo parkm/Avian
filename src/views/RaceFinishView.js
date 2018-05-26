@@ -8,6 +8,80 @@ import Util from '../Util';
 
 import chocoImg from 'res/gfx/choco.png';
 
+class RaceEventFinish extends Component {
+  renderMoneyReward(re) {
+    if (!re.rewards.money) return null;
+    return (
+      <div>Money: {re.rewards.money}</div>
+    );
+  }
+
+  renderFansReward(re) {
+    let fans = re.rewards.fans;
+    if (!fans) return null;
+    return (
+      <div>{fans} {Util.plural(fans, 'fan')}</div>
+    );
+  }
+
+  renderItemsReward(re) {
+    let items = re.rewards.items;
+    if (!items) return null;
+    return (
+      <div>
+        {Object.keys(items).map((id) => {
+          let itemCount = items[id];
+          let item = this.props.app.gm.items[id];
+          return (
+            <div key={id}>
+              {item.name} x{itemCount}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  renderUnlocks(re) {
+    if (!re.unlocks) return null;
+    return (
+      <div>
+        <h3>New Events</h3>
+        <div>
+          {re.unlocks.map(eventId => {
+            let unlock = this.props.app.gm.raceEvents[eventId];
+            return (
+              <div key={eventId}>{unlock.name}</div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    let re = this.props.raceEvent;
+    return (
+      <div>
+        <h1>
+          {re.name} Completed!
+        </h1>
+        <h3>
+          Bonus Reward
+        </h3>
+        <div>
+          {this.renderMoneyReward(re)}
+          {this.renderFansReward(re)}
+          {this.renderItemsReward(re)}
+        </div>
+        <div>
+          {this.renderUnlocks(re)}
+        </div>
+      </div>
+    );
+  }
+}
+
 export default class RaceFinishView extends Component {
   constructor() {
     super();
@@ -18,9 +92,14 @@ export default class RaceFinishView extends Component {
   }
 
   componentWillMount() {
+    this.oldCurrentMoney = this.props.app.gm.money;
+    this.raceMoneyReward = this.props.race.getMoneyReward(this.props.playerPlacing);
+    this.props.app.gm.onRaceComplete(this.props.race, this.props.playerPlacing);
+
     this.setState({
-      moneyEarned: this.props.race.getMoneyReward(this.props.playerPlacing),
-      moneyTotal: this.props.app.gm.money
+      completedEvent: this.props.app.gm.isEventComplete(this.props.race.raceEvent),
+      moneyEarned: this.raceMoneyReward,
+      moneyTotal: this.oldCurrentMoney
     });
 
     if (this.props.race.getMoneyReward(this.props.playerPlacing) > 0) {
@@ -41,12 +120,11 @@ export default class RaceFinishView extends Component {
     clearInterval(this.moneyCountdown);
     this.setState({
       moneyEarned: 0,
-      moneyTotal: this.props.race.getMoneyReward(this.props.playerPlacing) + this.props.app.gm.money
+      moneyTotal: this.raceMoneyReward + this.oldCurrentMoney
     });
   }
 
   onContinueClick = () => {
-    this.props.app.gm.onRaceComplete(this.props.race, this.props.playerPlacing);
     this.props.app.setView('raceSelection');
   }
 
@@ -92,6 +170,7 @@ export default class RaceFinishView extends Component {
           <div>{fans > 0 ? `You acquired ${fans} ${Util.plural(fans, 'fan')}!` : null}</div>
           {this.renderItemRewards()}
           <Button bsStyle='primary' onClick={this.onContinueClick}>Continue</Button>
+          {this.state.completedEvent ? <RaceEventFinish raceEvent={this.props.race.raceEvent} app={this.props.app} /> : null}
         </div>
       </div>
     )
