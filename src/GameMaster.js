@@ -10,6 +10,7 @@ import genFeedData from './game/data/feeds';
 export default class GameMaster {
   constructor() {
     this.money = 1000;
+    this.fans = 0;
     this.items = genItemData();
     this.feeds = genFeedData();
     this.inventory = new Inventory();
@@ -89,6 +90,7 @@ export default class GameMaster {
 
   onRaceComplete(race, placing) {
     this.money += race.getMoneyReward(placing);
+    this.fans += race.getFansReward(placing);
 
     if (placing === 1) {
       let raceEvent = race.raceEvent;

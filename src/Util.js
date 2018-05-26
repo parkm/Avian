@@ -15,4 +15,15 @@ export default class Util {
 
     return num + 'th';
   }
+
+  // Converts a word to a plural form if count is greater than 1
+  // If wordPlural is not defined then it assumes the plural form is just {word} + s
+  static plural(count, word, wordPlural=null) {
+    if (count > 1) {
+      if (wordPlural) return wordPlural;
+      return word + 's';
+    } else {
+      return word;
+    }
+  }
 }

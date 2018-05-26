@@ -72,7 +72,8 @@ newRaceEvent('openTrackDay', {
     }),
     'somethingHarder': new Race('Something Harder', openTrackDayRacers, 0.2, {
       '1': {
-        money: 150
+        money: 150,
+        fans: 1
       },
       '2': {
         money: 30
@@ -85,6 +86,7 @@ newRaceEvent('openTrackDay', {
   unlocks: ['rookieWeek'],
   rewards: {
     money: 5000,
+    fans: 2,
     items: {
       'gysahlGreens': 25
     }

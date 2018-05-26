@@ -14,4 +14,13 @@ export default class Race {
       return 0;
     }
   }
+
+  getFansReward(placing) {
+    let reward = this.rewards[placing];
+    if (reward && reward.fans) {
+      return reward.fans;
+    } else {
+      return 0;
+    }
+  }
 }

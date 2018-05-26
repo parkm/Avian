@@ -70,6 +70,7 @@ export default class RaceFinishView extends Component {
   }
 
   render() {
+    let fans = this.props.race.getFansReward(this.props.playerPlacing);
     return (
       <div onClick={this.onMainDivClick}>
         <h1>
@@ -88,6 +89,7 @@ export default class RaceFinishView extends Component {
           <h1>You placed {Util.toOrdinal(this.props.playerPlacing)}</h1>
           <div>Earnings: {this.state.moneyEarned}</div>
           <div>Money: {this.state.moneyTotal}</div>
+          <div>{fans > 0 ? `You acquired ${fans} ${Util.plural(fans, 'fan')}!` : null}</div>
           {this.renderItemRewards()}
           <Button bsStyle='primary' onClick={this.onContinueClick}>Continue</Button>
         </div>

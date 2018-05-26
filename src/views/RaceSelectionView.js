@@ -9,6 +9,8 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
+import Util from '../Util'
+
 import chocoImg from 'res/gfx/choco.png';
 
 class RaceEventButton extends Component {
@@ -28,6 +30,7 @@ class RaceEventButton extends Component {
 
   render() {
     let raceCount = Object.keys(this.props.raceEvent.races).length;
+    let fans = this.props.raceEvent.rewards.fans;
     return (
       <Button bsClass="btn btn-default race-event-btn" onClick={this.props.onClick}>
         <h1>
@@ -39,7 +42,10 @@ class RaceEventButton extends Component {
               Rewards
             </div>
             <div>
-              ${this.props.raceEvent.rewards.money}
+              <div>
+                ${this.props.raceEvent.rewards.money}
+              </div>
+              {fans > 0 ? `${fans} ${Util.plural(fans, 'fan')}` : null}
               {this.renderItemRewards(this.props.raceEvent.rewards.items)}
             </div>
           </Col>
@@ -123,6 +129,7 @@ export default class RaceSelectionView extends Component {
 
   renderRaceDetails() {
     if (!this.state.selectedRace) return null;
+    let fans = this.state.selectedRace.getFansReward('1');
     return (
       <div>
         <h1>
@@ -136,7 +143,10 @@ export default class RaceSelectionView extends Component {
         </div>
         <div style={{border: '1px solid black'}}>
           <h4>Rewards</h4>
-          ${this.state.selectedRace.getMoneyReward('1')}
+          <div>
+            ${this.state.selectedRace.getMoneyReward('1')}
+          </div>
+          {fans > 0 ? `${fans} ${Util.plural(fans, 'fan')}` : null}
           {this.renderItemRewards(this.state.selectedRace.rewards['1'].items)}
         </div>
       </div>
