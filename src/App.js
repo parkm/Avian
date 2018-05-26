@@ -25,6 +25,9 @@ class App extends Component {
     super();
 
     this.gm = new GameMaster();
+    if (process.env.NODE_ENV === 'development') {
+      window.gm = this.gm;
+    }
 
     this.state = {
       view: 'world',
