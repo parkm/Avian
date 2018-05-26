@@ -73,6 +73,14 @@ export default class GameMaster {
     });
   }
 
+  // Returns a set of race restrictions that did not pass
+  getFailedRaceEventConditions(raceEvent) {
+    let restrict = raceEvent.restrictions;
+    return {
+      fans: (this.fans >= (restrict.fans || 0))
+    };
+  }
+
   onBirdBreed(birdA, birdB) {
     let stats = birdA.getStats().average(birdB.getStats());
     let genes = Bird.mergeGenes(birdA.genes, birdB.genes);

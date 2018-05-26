@@ -14,6 +14,11 @@ import Util from '../Util'
 import chocoImg from 'res/gfx/choco.png';
 
 class RaceEventButton extends Component {
+  componentWillMount() {
+    this.failedConditions = this.props.gm.getFailedRaceEventConditions(this.props.raceEvent);
+    this.isRestricted = Object.values(this.failedConditions).some(x => x == false);
+  }
+
   renderItemRewards(itemCountMap) {
     let out = [];
     for (let id in itemCountMap) {
@@ -28,11 +33,36 @@ class RaceEventButton extends Component {
     return out;
   }
 
+  renderRestrictions(restrict) {
+    if (Object.keys(restrict).length === 0) {
+      return (<div>None</div>);
+    }
+
+    let renderOut = [];
+    let fails = this.failedConditions;
+    let append = (key, passed, children) => {
+      renderOut.push(
+        <div key={key} className={passed ? 'race-event-restriction' : 'race-event-restriction-failed'}>
+          {children}
+        </div>
+      );
+    };
+
+    if (restrict.fans) {
+      append('fans', fails.fans, (
+        <div>{restrict.fans} {Util.plural(restrict.fans, 'fan')}</div>
+      ))
+    }
+
+    return (<div>{renderOut}</div>);
+  }
+
   render() {
     let raceCount = Object.keys(this.props.raceEvent.races).length;
     let fans = this.props.raceEvent.rewards.fans;
+    let restrict = this.props.raceEvent.restrictions;
     return (
-      <Button bsClass="btn btn-default race-event-btn" onClick={this.props.onClick}>
+      <Button disabled={this.isRestricted} bsClass="btn btn-default race-event-btn" onClick={this.props.onClick}>
         <h1>
           {this.props.raceEvent.name}
         </h1>
@@ -56,9 +86,7 @@ class RaceEventButton extends Component {
             <div>
               Restrictions
             </div>
-            <div>
-              None
-            </div>
+            {this.renderRestrictions(restrict)}
           </Col>
         </Grid>
       </Button>

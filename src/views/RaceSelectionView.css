@@ -2,3 +2,7 @@
   width: 80%;
   height: 200px;
 }
+
+.race-event-restriction-failed {
+  color: red;
+}
