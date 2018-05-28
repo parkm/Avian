@@ -30,7 +30,7 @@ class App extends Component {
     }
 
     this.state = {
-      view: 'world',
+      view: 'stables',
       viewProps: {
         race: this.gm.raceEvents['openTrackDay'].races['firstRace'],
         playerBird: this.gm.ownedBirds[0]

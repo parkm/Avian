@@ -15,6 +15,7 @@ import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import Modal from 'react-bootstrap/lib/Modal';
 import FormControl from 'react-bootstrap/lib/FormControl';
+import Table from 'react-bootstrap/lib/Table';
 
 import BirdStatsDisplay from 'views/components/BirdStatsDisplay';
 import FeedDisplay from 'views/components/FeedDisplay';
@@ -36,7 +37,8 @@ export default class StablesView extends Component {
     this.state = {
       selectedBird: null,
       selectedBreedBird: null,
-      newBaby: null
+      newBaby: null,
+      selectedBreedItem: null
     };
   }
 
@@ -105,13 +107,48 @@ export default class StablesView extends Component {
 
   onBreedClick = () => {
     this.setState({
-      newBaby: this.props.app.gm.onBirdBreed(this.state.selectedBird, this.state.selectedBreedBird)
+      newBaby: this.props.app.gm.onBirdBreed(this.state.selectedBird, this.state.selectedBreedBird, this.state.selectedBreedItem),
+      selectedBreedItem: null
     });
   }
 
   onBabyName = (name) => {
     this.props.app.gm.onBirdBreedComplete(this.state.newBaby, name);
     this.setState({newBaby: null});
+  }
+
+  renderBreedItemSelect() {
+    let items = Array.from(this.props.app.gm.inventory.itemsMap.values());
+    return (
+      <div>
+        <h3>Select Breed Item</h3>
+        <Table hover>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Type</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map(item => {
+              return (
+                <tr key={item.name} onClick={e => this.setState({selectedBreedItem: item})}>
+                  <td>{item.name}</td>
+                  <td>{item.type}</td>
+                  <td>{item.count}</td>
+                </tr>
+              );
+            })}
+            <tr onClick={e => this.setState({selectedBreedItem: null})}>
+              <td>No Item</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </Table>
+      </div>
+    );
   }
 
   renderBreedingTab() {
@@ -152,7 +189,19 @@ export default class StablesView extends Component {
                     {Bird.mergeGenes(bird.genes, breedBird.genes)} genes
                     <BirdStatsDisplay stats={bird.getStats().average(breedBird.getStats())} />
                   </div>
-                  <Button bsStyle="primary" onClick={this.onBreedClick}>Breed</Button>
+                  <Grid fluid={true}>
+                    <Col sm={6}>
+                      {this.renderBreedItemSelect()}
+                    </Col>
+                    <Col sm={6}>
+                      <div>
+                        {this.state.selectedBreedItem ? (
+                          <div>Breed Item: {this.state.selectedBreedItem.name}</div>
+                        ) : null }
+                      </div>
+                      <Button bsStyle="primary" onClick={this.onBreedClick}>Breed</Button>
+                    </Col>
+                  </Grid>
                 </div>
                 : null
               }
@@ -172,7 +221,7 @@ export default class StablesView extends Component {
       <div>
         <Grid fluid={true}>
           <Col sm={1}>
-            <BirdSelect birds={this.birds} onSelect={b => this.setState({selectedBird: b, selectedBreedBird: null})}/>
+            <BirdSelect birds={this.birds} onSelect={b => this.setState({selectedBird: b, selectedBreedBird: null, selectedBreedItem: null})}/>
             <Button onClick={this.onLeaveClick}>Leave</Button>
           </Col>
           <Col sm={11}>

@@ -6,6 +6,7 @@ import Inventory from './game/Inventory';
 import genRaceEventsData from './game/data/races';
 import genItemData from './game/data/items';
 import genFeedData from './game/data/feeds';
+import genBreedItemData from './game/data/breed_items';
 
 export default class GameMaster {
   constructor() {
@@ -13,6 +14,7 @@ export default class GameMaster {
     this.fans = 0;
     this.items = genItemData();
     this.feeds = genFeedData();
+    this.breedItems = genBreedItemData();
     this.inventory = new Inventory();
 
     this.inventory.addItem(this.items.gysahlGreens, 99);
@@ -81,11 +83,16 @@ export default class GameMaster {
     };
   }
 
-  onBirdBreed(birdA, birdB) {
+  onBirdBreed(birdA, birdB, breedItem) {
     let stats = birdA.getStats().average(birdB.getStats());
     let genes = Bird.mergeGenes(birdA.genes, birdB.genes);
     let sex = Math.random() > 0.5 ? 'male' : 'female';
     let bird = new Bird('', sex, genes, stats);
+
+    if (breedItem) {
+      this.inventory.removeItem(breedItem, 1);
+    }
+
     bird.mother = birdA.sex === 'female' ? birdA : birdB;
     bird.father = birdA.sex === 'male' ? birdA : birdB;
     return bird;
