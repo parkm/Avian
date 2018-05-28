@@ -70,6 +70,7 @@ export default class GameMaster {
 
   isEventComplete(raceEvent) {
     let completedRaces = this.completedRaces[raceEvent.id];
+    if (!completedRaces) return false;
     return Object.keys(raceEvent.races).every(raceId => {
       return (completedRaces[raceId] == true)
     });
