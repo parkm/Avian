@@ -166,7 +166,14 @@ export default class StablesView extends Component {
                 <h1>
                   {bird.name}
                 </h1>
-                {bird.genes} genes
+                <Grid fluid={true}>
+                  <Col sm={6}>
+                    {bird.genes} genes
+                  </Col>
+                  <Col sm={6}>
+                    {bird.breed.name} Breed
+                  </Col>
+                </Grid>
                 <BirdStatsDisplay stats={bird.getStats()} />
               </Col>
               <Col sm={6}>

@@ -7,6 +7,7 @@ import genRaceEventsData from './game/data/races';
 import genItemData from './game/data/items';
 import genFeedData from './game/data/feeds';
 import genBreedItemData from './game/data/breed_items';
+import genBreedsData from './game/data/breeds';
 
 export default class GameMaster {
   constructor() {
@@ -15,6 +16,7 @@ export default class GameMaster {
     this.items = genItemData();
     this.feeds = genFeedData();
     this.breedItems = genBreedItemData();
+    this.breeds = genBreedsData();
     this.inventory = new Inventory();
 
     this.inventory.addItem(this.items.gysahlGreens, 99);
@@ -25,25 +27,25 @@ export default class GameMaster {
         accel: 5,
         stamina: 5,
         vigor: 10
-      })),
+      }), this.breeds['yellow']),
       new Bird('PlayerBird2', 'female', 'average', new BirdStats({
         topMph: 200,
         accel: 10,
         stamina: 10,
         vigor: 10
-      })),
+      }), this.breeds['yellow']),
       new Bird('SuperBird', 'male', 'wonderful', new BirdStats({
         topMph: 300,
         accel: 30,
         stamina: 30,
         vigor: 30
-      })),
+      }), this.breeds['yellow']),
       new Bird('The Winner', 'female', 'perfect', new BirdStats({
         topMph: 5000,
         accel: 5000,
         stamina: 30,
         vigor: 30
-      }))
+      }), this.breeds['yellow'])
     ];
 
     this.completedRaces = {};
@@ -84,6 +86,43 @@ export default class GameMaster {
     };
   }
 
+  // Returns whether breed recipe matches
+  matchesRecipe(recipe, birdA, birdB, breedItem) {
+    if (recipe.item) {
+      if (!breedItem || breedItem.id !== recipe.item) {
+        return false;
+      }
+    }
+
+    if (recipe.a) {
+      if (birdA.breed.id !== recipe.a.breed && birdB.breed.id !== recipe.a.breed) {
+        return false;
+      }
+    }
+
+    if (recipe.b) {
+      if (birdA.breed.id !== recipe.b.breed && birdB.breed.id !== recipe.b.breed) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  // Returns the breed that matches a breed recipe
+  getMatchingBreed(birdA, birdB, breedItem) {
+    for (let breedId in this.breeds) {
+      let breed = this.breeds[breedId];
+      if (!breed.recipe) continue;
+      if (this.matchesRecipe(breed.recipe, birdA, birdB, breedItem)) {
+        return breed;
+      }
+    }
+
+    // If no breed matches
+    return (Math.random() >= 0.5 ? birdA.breed : birdB.breed);
+  }
+
   onBirdBreed(birdA, birdB, breedItem) {
     let stats = birdA.getStats().average(birdB.getStats());
     let genes = Bird.mergeGenes(birdA.genes, birdB.genes);
@@ -96,6 +135,9 @@ export default class GameMaster {
 
     bird.mother = birdA.sex === 'female' ? birdA : birdB;
     bird.father = birdA.sex === 'male' ? birdA : birdB;
+
+    bird.breed = this.getMatchingBreed(birdA, birdB, breedItem);
+
     return bird;
   }
 

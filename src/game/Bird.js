@@ -25,7 +25,7 @@ export default class Bird {
     return dist.sort((a, b) => a.val - b.val)[0].name;
   }
 
-  constructor(name, sex, genes, birthStats) {
+  constructor(name, sex, genes, birthStats, breed) {
     this.name = name;
     this.sex = sex;
     this.genes = genes;
@@ -35,6 +35,7 @@ export default class Bird {
     this.latentGrowth = BirdStats.zero();
     this.mother = null;
     this.father = null;
+    this.breed = breed;
   }
 
   genMaxStats(birthStats, genes) {
