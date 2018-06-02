@@ -17,6 +17,7 @@ import TrainingView from './views/TrainingView';
 import TrainingFinishView from './views/TrainingFinishView';
 import StoreView from './views/StoreView';
 import InventoryView from './views/InventoryView';
+import ExploreView from './views/ExploreView';
 
 import GameMaster from './GameMaster';
 
@@ -47,7 +48,8 @@ class App extends Component {
       'training': TrainingView,
       'trainingFinish': TrainingFinishView,
       'store': StoreView,
-      'inventory': InventoryView
+      'inventory': InventoryView,
+      'explore': ExploreView
     }
   }
 
