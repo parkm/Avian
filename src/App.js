@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
+import './bootstrap.css'
 import './App.css';
 
 import Button from 'react-bootstrap/lib/Button';
