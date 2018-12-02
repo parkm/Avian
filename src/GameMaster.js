@@ -11,14 +11,19 @@ import genBreedsData from './game/data/breeds';
 
 export default class GameMaster {
   constructor() {
-    this.money = 1000;
-    this.fans = 0;
+    this.version = '0.1.0';
     this.items = genItemData();
     this.feeds = genFeedData();
     this.breedItems = genBreedItemData();
     this.breeds = genBreedsData();
-    this.inventory = new Inventory();
 
+    this.loadDefaultGameData();
+  }
+
+  loadDefaultGameData() {
+    this.money = 1000;
+    this.fans = 0;
+    this.inventory = new Inventory();
     this.inventory.addItem(this.items.gysahlGreens, 99);
 
     this.ownedBirds = [
@@ -53,6 +58,25 @@ export default class GameMaster {
 
     this.raceEvents = genRaceEventsData();
     this.unlockedEventIds = {'openTrackDay': true};
+  }
+
+  loadGameDataFromSaveObject(save) {
+    let gameData = JSON.parse(atob(save.gameData));
+    this.money = gameData.money;
+    this.fans = gameData.fans;
+  }
+
+  genSaveObjectFromGameData(note="") {
+    let gameData = {
+      money: this.money,
+      fans: this.fans
+    }
+    return {
+      version: this.version,
+      date: (new Date()).toISOString(),
+      note: note,
+      gameData: btoa(JSON.stringify(gameData))
+    }
   }
 
   getAllEvents() {

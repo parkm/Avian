@@ -19,6 +19,7 @@ import TrainingFinishView from './views/TrainingFinishView';
 import StoreView from './views/StoreView';
 import InventoryView from './views/InventoryView';
 import ExploreView from './views/ExploreView';
+import OptionsPanel from './views/components/OptionsPanel';
 
 import GameMaster from './GameMaster';
 
@@ -36,7 +37,8 @@ class App extends Component {
       viewProps: {
         race: this.gm.raceEvents['openTrackDay'].races['firstRace'],
         playerBird: this.gm.ownedBirds[0]
-      }
+      },
+      gameSaves: this.getSaves()
     };
 
     this.views = {
@@ -69,10 +71,37 @@ class App extends Component {
       return (<div>View not found</div>);
   }
 
+  getSaves = () => {
+    if (localStorage.getItem('gameSaves')) {
+      return JSON.parse(localStorage.getItem('gameSaves'))
+    } else {
+      return new Array(10).fill(null)
+    }
+  }
+
+  onSaveClick = (save, index, note) => {
+    let saves = this.state.gameSaves;
+    saves[index] = this.gm.genSaveObjectFromGameData(note);
+    localStorage.setItem('gameSaves', JSON.stringify(saves));
+    this.setState({gameSaves: saves});
+  }
+
+  onLoadSaveClick = (save, index) => {
+    this.gm.loadGameDataFromSaveObject(save);
+    this.setView('world');
+  }
+
   render() {
     return (
       <div className="App">
-        {this.renderView()}
+        <div>
+          {this.renderView()}
+        </div>
+        <OptionsPanel
+          gameSaves={this.state.gameSaves}
+          onSaveClick={this.onSaveClick}
+          onLoadSaveClick={this.onLoadSaveClick}
+        />
       </div>
     );
   }

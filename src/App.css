@@ -34,3 +34,9 @@
 table {
   text-align: left;
 }
+
+.options-panel {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
