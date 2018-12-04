@@ -65,13 +65,19 @@ export default class GameMaster {
     this.money = gameData.money;
     this.fans = gameData.fans;
     this.inventory = Inventory.fromJSON(this.items, gameData.inventory);
+    this.completedRaces = gameData.completedRaces,
+    this.completedEvents = gameData.completedEvents,
+    this.unlockedEventIds = gameData.unlockedEventIds
   }
 
   genSaveObjectFromGameData(note="") {
     let gameData = {
       money: this.money,
       fans: this.fans,
-      inventory: this.inventory.toJSON()
+      inventory: this.inventory.toJSON(),
+      completedRaces: this.completedRaces,
+      completedEvents: this.completedEvents,
+      unlockedEventIds: this.unlockedEventIds
     }
     return {
       version: this.version,
