@@ -64,12 +64,14 @@ export default class GameMaster {
     let gameData = JSON.parse(atob(save.gameData));
     this.money = gameData.money;
     this.fans = gameData.fans;
+    this.inventory = Inventory.fromJSON(this.items, gameData.inventory);
   }
 
   genSaveObjectFromGameData(note="") {
     let gameData = {
       money: this.money,
-      fans: this.fans
+      fans: this.fans,
+      inventory: this.inventory.toJSON()
     }
     return {
       version: this.version,

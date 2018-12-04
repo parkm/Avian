@@ -3,6 +3,25 @@ export default class Inventory {
     this.itemsMap = new Map();
   }
 
+  static fromJSON(itemDb, json) {
+    let inv = new Inventory();
+    JSON.parse(json).forEach(item => {
+      let itemId = item[0];
+      let itemCount = item[1];
+      if (!itemDb[itemId]) return;
+      inv.addItem(itemDb[itemId], itemCount);
+    });
+    return inv;
+  }
+
+  toJSON() {
+    let itemsArray = [];
+    this.itemsMap.forEach(item => {
+      itemsArray.push([item.id, item.count]);
+    });
+    return JSON.stringify(itemsArray);
+  }
+
   hasItem(inventoryItem) {
     return this.itemsMap.has(inventoryItem.id);
   }
