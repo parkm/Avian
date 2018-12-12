@@ -3,9 +3,9 @@ import BirdRacer from './BirdRacer';
 export default class RaceController {
   constructor(raceData, racersData, playerBird) {
     this.racers = racersData.map(r => {
-      return new BirdRacer(r.name, r.stats, r.breedId, false);
+      return new BirdRacer(r.name, r.stats, r.breed, false);
     });
-    this.playerRacer = new BirdRacer(playerBird.name, playerBird.getStats(), playerBird.breed.id, true)
+    this.playerRacer = new BirdRacer(playerBird.name, playerBird.getStats(), playerBird.breed, true)
     this.racers.push(this.playerRacer);
 
     this.length = raceData.length;

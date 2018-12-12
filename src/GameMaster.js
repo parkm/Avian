@@ -62,7 +62,7 @@ export default class GameMaster {
     this.completedRaces = {};
     this.completedEvents = {};
 
-    this.raceEvents = genRaceEventsData();
+    this.raceEvents = genRaceEventsData(this.breeds);
     this.unlockedEventIds = {'openTrackDay': true};
   }
 

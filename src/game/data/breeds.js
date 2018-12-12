@@ -2,18 +2,23 @@ import Breed from 'game/Breed';
 
 export default function genBreedsData() {
   let breeds = {
-    yellow: {name: 'Yellow'},
+    yellow: {
+      name: 'Yellow',
+      filter: ''
+    },
     red: {
       name: 'Red',
       recipe: {
         item: 'fireStone'
-      }
+      },
+      filter: ""
     },
     blue: {
       name: 'Blue',
       recipe: {
         item: 'waterStone'
-      }
+      },
+      filter: "hue-rotate(167deg)"
     },
     orange: {
       name: 'Orange',
@@ -24,7 +29,8 @@ export default function genBreedsData() {
         b: {
           breed: 'yellow'
         }
-      }
+      },
+      filter: ""
     }
   }
 

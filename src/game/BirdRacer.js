@@ -1,7 +1,7 @@
 export default class BirdRacer {
-  constructor(name, stats, breedId, isPlayer) {
+  constructor(name, stats, breed, isPlayer) {
     this.name = name;
-    this.breedId = breedId;
+    this.breed = breed;
     this.stats = stats;
     this.elapsedDistance = 0;
     this.completed = false;
@@ -73,7 +73,7 @@ export default class BirdRacer {
 
   getTopMph() {
     let speedBuff = 1;
-    if (this.terrain === 'water' && this.breedId !== 'blue') speedBuff = 0.1;
+    if (this.terrain === 'water' && this.breed.id !== 'blue') speedBuff = 0.1;
 
     if (this.movement === 'trot') {
       return (this.stats.topMph * 0.25) * speedBuff;

@@ -126,7 +126,10 @@ export default class RaceTrackView extends Component {
           return (
             <div key={i} className="racer-container">
               <div ref={r => this.cachedRaceBlock = r} className="race-block">
-                <div className="sprite choco-racer" style={{left: this.getRacerProgressPercent(racer)}}/>
+                <div className="sprite choco-racer" style={{
+                  left: this.getRacerProgressPercent(racer),
+                  filter: racer.breed.cssFilter
+                }}/>
                 <div className="race-line" />
                 <div className="race-block-sky" />
                 <div className="race-block-base-terrain" />

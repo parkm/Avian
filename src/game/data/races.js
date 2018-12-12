@@ -3,7 +3,7 @@ import BirdStats from '../BirdStats';
 import Race from '../Race';
 import RaceEvent from '../RaceEvent';
 
-export default function genRaceEventsData() {
+export default function genRaceEventsData(breeds) {
 let events = {};
 
 let newRaceEvent = (eventId, data) => {
@@ -18,7 +18,7 @@ let openTrackDayRacers = [{
       stamina: 5,
       vigor: 10
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Knight',
     stats: new BirdStats({
@@ -27,7 +27,7 @@ let openTrackDayRacers = [{
       stamina: 6,
       vigor: 10
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Robin',
     stats: new BirdStats({
@@ -36,7 +36,7 @@ let openTrackDayRacers = [{
       stamina: 10,
       vigor: 10
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Edward',
     stats: new BirdStats({
@@ -45,7 +45,7 @@ let openTrackDayRacers = [{
       stamina: 5,
       vigor: 10
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Cid',
     stats: new BirdStats({
@@ -54,7 +54,7 @@ let openTrackDayRacers = [{
       stamina: 2,
       vigor: 20
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }
 ];
 newRaceEvent('openTrackDay', {
@@ -109,7 +109,7 @@ let rookieWeekRacers = [{
       stamina: 5,
       vigor: 10
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Knight',
     stats: new BirdStats({
@@ -118,7 +118,7 @@ let rookieWeekRacers = [{
       stamina: 6,
       vigor: 10
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Robin',
     stats: new BirdStats({
@@ -127,7 +127,7 @@ let rookieWeekRacers = [{
       stamina: 10,
       vigor: 10
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Fox',
     stats: new BirdStats({
@@ -136,7 +136,7 @@ let rookieWeekRacers = [{
       stamina: 5,
       vigor: 10
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Sara',
     stats: new BirdStats({
@@ -145,7 +145,7 @@ let rookieWeekRacers = [{
       stamina: 2,
       vigor: 20
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }
 ];
 newRaceEvent('rookieWeek', {
@@ -177,7 +177,7 @@ let eliteRacesRacers = [{
       stamina: 50,
       vigor: 20
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Hyperion',
     stats: new BirdStats({
@@ -186,7 +186,7 @@ let eliteRacesRacers = [{
       stamina: 30,
       vigor: 20
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Omega',
     stats: new BirdStats({
@@ -195,7 +195,7 @@ let eliteRacesRacers = [{
       stamina: 10,
       vigor: 2
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Ultima',
     stats: new BirdStats({
@@ -204,7 +204,7 @@ let eliteRacesRacers = [{
       stamina: 5,
       vigor: 100
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }, {
     name: 'Yiazmat',
     stats: new BirdStats({
@@ -213,7 +213,7 @@ let eliteRacesRacers = [{
       stamina: 25,
       vigor: 30
     }),
-    breedId: 'yellow'
+    breed: breeds['yellow']
   }
 ];
 newRaceEvent('eliteRaces', {

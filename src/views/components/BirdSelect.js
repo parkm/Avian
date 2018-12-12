@@ -30,7 +30,7 @@ export default class BirdSelect extends Component {
             this.props.birds.map((b, i) => {
               return (
                 <NavItem eventKey={i} key={i} onClick={_ => this.props.onSelect(b)}>
-                  <img src={chocoImg} />
+                  <img src={chocoImg} style={{filter: b.breed.cssFilter}}/>
                   <div>
                     {b.name}
                   </div>
