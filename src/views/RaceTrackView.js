@@ -13,6 +13,7 @@ import ToggleButton from 'react-bootstrap/lib/ToggleButton';
 
 import chocoImg from 'res/gfx/choco.png';
 import finishImg from 'res/gfx/finish.png';
+import waterImg from 'res/gfx/water.png';
 
 import RaceController from 'game/RaceController';
 
@@ -84,6 +85,35 @@ export default class RaceTrackView extends Component {
     this.controller.playerRacer.setMovement(movement);
   }
 
+  terrainIdToImg(terrainId) {
+    switch(terrainId) {
+      case 'water': return waterImg;
+      default: return null;
+    }
+  }
+
+  renderTerrains() {
+    let terrains = this.props.race.terrains;
+    return terrains.map((terrain, i) => {
+      let start = terrain[0];
+      let end = terrain[1];
+      let terrainId = terrain[2];
+      let style = {
+        background: `url(${this.terrainIdToImg(terrainId)}) left center`,
+        width: `${(end-start)*100}%`,
+        left: `${start*100}%`
+      }
+
+      return (
+        <div
+          key={i}
+          className="race-block-terrain"
+          style={style}
+        ></div>
+      )
+    });
+  }
+
   render() {
     return (
       <div>
@@ -98,6 +128,9 @@ export default class RaceTrackView extends Component {
               <div ref={r => this.cachedRaceBlock = r} className="race-block">
                 <div className="sprite choco-racer" style={{left: this.getRacerProgressPercent(racer)}}/>
                 <div className="race-line" />
+                <div className="race-block-sky" />
+                <div className="race-block-base-terrain" />
+                {this.renderTerrains()}
               </div>
               <div className="racer-container-info">
                 <Grid fluid={true}>

@@ -1,9 +1,10 @@
 export default class Race {
-  constructor(name, racers, length, rewards) {
+  constructor(name, racers, length, rewards, terrains=[]) {
     this.name = name;
     this.racers = racers;
     this.length = length;
     this.rewards = rewards;
+    this.terrains = terrains;
   }
 
   getMoneyReward(placing) {

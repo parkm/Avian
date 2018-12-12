@@ -69,7 +69,10 @@ newRaceEvent('openTrackDay', {
       '3': {
         money: 10
       }
-    }),
+    }, [
+      [0.25, 0.28, 'water'],
+      [0.75, 0.80, 'water']
+    ]),
     'somethingHarder': new Race('Something Harder', openTrackDayRacers, 0.2, {
       '1': {
         money: 150,

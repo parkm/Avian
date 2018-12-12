@@ -37,6 +37,29 @@
   z-index: 1;
 }
 
+.race-block-base-terrain {
+  background: url('../res/gfx/grass.png') left center;
+  width: 100%;
+  height: 48px;
+  background-repeat: repeat;
+  position: absolute;
+  bottom: 0px;
+}
+
+.race-block-sky {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(to bottom, rgba(64,150,238,1) 0%, rgba(64,150,238,1) 100%);
+}
+
+.race-block-terrain {
+  height: 48px;
+  background-repeat: repeat;
+  position: absolute;
+  bottom: 0px;
+}
+
 .choco-racer {
   position: absolute;
   top: 0px;
