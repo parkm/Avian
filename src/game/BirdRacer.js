@@ -1,6 +1,7 @@
 export default class BirdRacer {
-  constructor(name, stats, isPlayer) {
+  constructor(name, stats, breedId, isPlayer) {
     this.name = name;
+    this.breedId = breedId;
     this.stats = stats;
     this.elapsedDistance = 0;
     this.completed = false;
@@ -17,6 +18,8 @@ export default class BirdRacer {
     this.deaccelSpeed = null;
 
     this.staminaGainPerSecond = this.staminaMax * (this.stats.vigor / 100);
+
+    this.terrain = 'base'; // Modified by the race controller
   }
 
   frameUpdate(delta) {
@@ -69,10 +72,13 @@ export default class BirdRacer {
   }
 
   getTopMph() {
+    let speedBuff = 1;
+    if (this.terrain === 'water' && this.breedId !== 'blue') speedBuff = 0.1;
+
     if (this.movement === 'trot') {
-      return this.stats.topMph * 0.25;
+      return (this.stats.topMph * 0.25) * speedBuff;
     } else if (this.movement === 'sprint') {
-      return this.stats.topMph;
+      return this.stats.topMph * speedBuff;
     }
   }
 

@@ -33,6 +33,12 @@ export default class GameMaster {
         stamina: 5,
         vigor: 10
       }), this.breeds['yellow']),
+      new Bird('BlueBird', 'male', 'average', new BirdStats({
+        topMph: 30,
+        accel: 5,
+        stamina: 5,
+        vigor: 10
+      }), this.breeds['blue']),
       new Bird('PlayerBird2', 'female', 'average', new BirdStats({
         topMph: 200,
         accel: 10,

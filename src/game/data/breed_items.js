@@ -3,7 +3,9 @@ import BreedItem from '../BreedItem';
 export default function genBreedItemData() {
   let breedItems = {
     carobNut: {},
-    zeioNut: {}
+    zeioNut: {},
+    waterStone: {},
+    fireStone: {}
   }
 
   for (let id in breedItems) {

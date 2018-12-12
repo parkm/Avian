@@ -9,6 +9,12 @@ export default function genBreedsData() {
         item: 'fireStone'
       }
     },
+    blue: {
+      name: 'Blue',
+      recipe: {
+        item: 'waterStone'
+      }
+    },
     orange: {
       name: 'Orange',
       recipe: {

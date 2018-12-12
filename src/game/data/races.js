@@ -17,7 +17,8 @@ let openTrackDayRacers = [{
       accel: 5.25,
       stamina: 5,
       vigor: 10
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Knight',
     stats: new BirdStats({
@@ -25,7 +26,8 @@ let openTrackDayRacers = [{
       accel: 4.80,
       stamina: 6,
       vigor: 10
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Robin',
     stats: new BirdStats({
@@ -33,7 +35,8 @@ let openTrackDayRacers = [{
       accel: 2,
       stamina: 10,
       vigor: 10
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Edward',
     stats: new BirdStats({
@@ -41,7 +44,8 @@ let openTrackDayRacers = [{
       accel: 5,
       stamina: 5,
       vigor: 10
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Cid',
     stats: new BirdStats({
@@ -49,7 +53,8 @@ let openTrackDayRacers = [{
       accel: 8,
       stamina: 2,
       vigor: 20
-    })
+    }),
+    breedId: 'yellow'
   }
 ];
 newRaceEvent('openTrackDay', {
@@ -103,7 +108,8 @@ let rookieWeekRacers = [{
       accel: 5.25,
       stamina: 5,
       vigor: 10
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Knight',
     stats: new BirdStats({
@@ -111,7 +117,8 @@ let rookieWeekRacers = [{
       accel: 4.80,
       stamina: 6,
       vigor: 10
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Robin',
     stats: new BirdStats({
@@ -119,7 +126,8 @@ let rookieWeekRacers = [{
       accel: 2,
       stamina: 10,
       vigor: 10
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Fox',
     stats: new BirdStats({
@@ -127,7 +135,8 @@ let rookieWeekRacers = [{
       accel: 5,
       stamina: 5,
       vigor: 10
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Sara',
     stats: new BirdStats({
@@ -135,7 +144,8 @@ let rookieWeekRacers = [{
       accel: 8,
       stamina: 2,
       vigor: 20
-    })
+    }),
+    breedId: 'yellow'
   }
 ];
 newRaceEvent('rookieWeek', {
@@ -166,7 +176,8 @@ let eliteRacesRacers = [{
       accel: 25,
       stamina: 50,
       vigor: 20
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Hyperion',
     stats: new BirdStats({
@@ -174,7 +185,8 @@ let eliteRacesRacers = [{
       accel: 26,
       stamina: 30,
       vigor: 20
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Omega',
     stats: new BirdStats({
@@ -182,7 +194,8 @@ let eliteRacesRacers = [{
       accel: 120,
       stamina: 10,
       vigor: 2
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Ultima',
     stats: new BirdStats({
@@ -190,7 +203,8 @@ let eliteRacesRacers = [{
       accel: 60,
       stamina: 5,
       vigor: 100
-    })
+    }),
+    breedId: 'yellow'
   }, {
     name: 'Yiazmat',
     stats: new BirdStats({
@@ -198,7 +212,8 @@ let eliteRacesRacers = [{
       accel: 28,
       stamina: 25,
       vigor: 30
-    })
+    }),
+    breedId: 'yellow'
   }
 ];
 newRaceEvent('eliteRaces', {
