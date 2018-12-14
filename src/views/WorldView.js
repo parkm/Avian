@@ -35,6 +35,10 @@ export default class WorldView extends Component {
     this.props.app.setView('explore');
   }
 
+  onFarmClick = () => {
+    this.props.app.setView('farm');
+  }
+
   render() {
     return (
       <div>
@@ -62,6 +66,9 @@ export default class WorldView extends Component {
         <div>
           <Button bsStyle='success' onClick={this.onExploreClick}>
             Explore
+          </Button>
+          <Button bsStyle='success' onClick={this.onFarmClick}>
+            Farm
           </Button>
         </div>
       </div>

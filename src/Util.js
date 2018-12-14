@@ -26,4 +26,9 @@ export default class Util {
       return word;
     }
   }
+
+  // Capitalizes the first letter of a word.
+  static capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.substr(1);
+  }
 }

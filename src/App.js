@@ -19,6 +19,7 @@ import TrainingFinishView from './views/TrainingFinishView';
 import StoreView from './views/StoreView';
 import InventoryView from './views/InventoryView';
 import ExploreView from './views/ExploreView';
+import FarmView from './views/FarmView';
 import OptionsPanel from './views/components/OptionsPanel';
 
 import GameMaster from './GameMaster';
@@ -33,7 +34,7 @@ class App extends Component {
     }
 
     this.state = {
-      view: 'raceSelection',
+      view: 'farm',
       viewProps: {
         race: this.gm.raceEvents['openTrackDay'].races['firstRace'],
         playerBird: this.gm.ownedBirds[0]
@@ -52,7 +53,8 @@ class App extends Component {
       'trainingFinish': TrainingFinishView,
       'store': StoreView,
       'inventory': InventoryView,
-      'explore': ExploreView
+      'explore': ExploreView,
+      'farm': FarmView
     }
   }
 
