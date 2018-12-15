@@ -36,7 +36,8 @@ export default class StoreView extends Component {
   componentWillMount() {
     this.itemStock = [
       'gysahlGreens',
-      'mimettGreens'
+      'mimettGreens',
+      'topGear'
     ].map(iname => this.props.app.gm.items[iname]);
   }
 
@@ -53,7 +54,7 @@ export default class StoreView extends Component {
 
   canBuy() {
     let cost = this.state.buyAmount * this.state.currentItem.value;
-    return this.props.app.gm.money > cost && this.state.buyAmount > 0;
+    return this.props.app.gm.money >= cost && this.state.buyAmount > 0;
   }
 
   onPurchaseClick = () => {
@@ -93,10 +94,13 @@ export default class StoreView extends Component {
   }
 
   renderFeedItemStats(item) {
-    if (!item) return null;
+    if (!item || item.type !== 'feed') return null;
     let stats = new BirdStats(this.props.app.gm.feeds[item.id].effect);
     return (
       <div>
+        <div>
+          Feeds are used to increase latent growth on a bird.
+        </div>
         <BirdStatsDisplay stats={stats} />
       </div>
     )
@@ -122,7 +126,10 @@ export default class StoreView extends Component {
                 {this.itemStock.map(item => {
                   return (
                     <tr key={item.name} onClick={e => this.onItemClick(item)}>
-                      <td>{item.name}</td>
+                      <td>
+                        <img src={item.icon} width="32px"></img>
+                        {item.name}
+                      </td>
                       <td>{item.value}</td>
                     </tr>
                   );
@@ -140,9 +147,7 @@ export default class StoreView extends Component {
           </Col>
         </Grid>
         <div>
-          <div>
-            Feeds are used to increase latent growth on a bird.
-          </div>
+          <div>{currentItem ? currentItem.description || null : null}</div>
           {this.renderFeedItemStats(currentItem)}
         </div>
         <Button onClick={this.onLeaveClick}>Back</Button>
