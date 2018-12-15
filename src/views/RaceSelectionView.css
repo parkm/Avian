@@ -6,3 +6,19 @@
 .race-event-restriction-failed {
   color: red;
 }
+
+.race-item-btn {
+  height: 64px;
+}
+
+.race-item-btn > div {
+  height: 100%;
+}
+
+.race-item-btn > div:hover {
+  filter: brightness(80%);
+}
+
+.race-item-btn > div:active {
+  filter: brightness(50%);
+}

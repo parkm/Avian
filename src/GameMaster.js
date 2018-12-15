@@ -25,6 +25,7 @@ export default class GameMaster {
     this.fans = 0;
     this.inventory = new Inventory();
     this.inventory.addItem(this.items.gysahlGreens, 99);
+    this.inventory.addItem(this.items.topGear, 2);
 
     this.ownedBirds = [
       new Bird('PlayerBird', 'male', 'average', new BirdStats({

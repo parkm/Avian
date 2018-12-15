@@ -8,10 +8,34 @@ import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import Panel from 'react-bootstrap/lib/Panel';
+import Glyphicon  from 'react-bootstrap/lib/Glyphicon';
 
 import Util from '../Util'
 
 import chocoImg from 'res/gfx/choco.png';
+
+class RaceItemButton extends Component {
+  renderItem() {
+    if (!this.props.item) return;
+    return (
+      <div>
+        <img src={this.props.item.icon}/>
+        <Glyphicon glyph="glyphicon glyphicon-remove" onClick={e => this.props.onRemove(this.props.index)}/>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className="race-item-btn">
+        <Panel onClick={x => this.props.onClick(this.props.index)}>
+          {this.renderItem()}
+        </Panel>
+      </div>
+    );
+  }
+}
 
 class RaceEventButton extends Component {
   componentWillMount() {
@@ -100,7 +124,9 @@ export default class RaceSelectionView extends Component {
     this.state = {
       selectedEvent: null,
       selectedRace: null,
-      playerBird: null
+      playerBird: null,
+      raceItems: [null, null, null, null],
+      selectedRaceItemIndex: null
     };
   }
 
@@ -108,6 +134,13 @@ export default class RaceSelectionView extends Component {
     this.gm = this.props.app.gm;
     this.events = this.gm.getUnlockedEvents();
     this.playerBirds = this.gm.ownedBirds;
+  }
+
+  componentWillUnmount() {
+    this.state.raceItems.forEach(item => {
+      if (!item) return;
+      this.gm.inventory.addItem(item, 1);
+    });
   }
 
   onRaceItemClick = (race) => {
@@ -213,6 +246,63 @@ export default class RaceSelectionView extends Component {
     );
   }
 
+  renderRaceItemButtons() {
+    return this.state.raceItems.map((item, i) => {
+      return (
+        <Col sm={3}>
+          <RaceItemButton
+            index={i}
+            onClick={this.onRaceItemButtonClick}
+            onRemove={this.onRaceItemRemoveClick}
+            item={this.state.raceItems[i]}
+          />
+        </Col>
+      );
+    });
+  }
+
+  onRaceItemButtonClick = (index) => {
+    if (index === this.state.selectedRaceItemIndex) {
+      this.setState({selectedRaceItemIndex: null});
+    } else {
+      this.setState({selectedRaceItemIndex: index});
+    }
+  }
+
+  onRaceItemRemoveClick = (index) => {
+    let raceItems = this.state.raceItems;
+    this.gm.inventory.addItem(raceItems[index], 1);
+    raceItems[index] = null;
+    this.setState({selectedRaceItemIndex: null, raceItems: raceItems});
+  }
+
+  renderRaceItemList() {
+    return (
+      <ListGroup>
+        {
+          this.gm.inventory.getItemsByType('raceItem').map((item, i) => {
+            return (
+              <ListGroupItem key={i} onClick={_ => this.onRaceItemClick(item)}>
+                <img src={item.icon} /> {item.name} x{item.count} - {item.description}
+              </ListGroupItem>
+            );
+          })
+        }
+      </ListGroup>
+    );
+  }
+
+  onRaceItemClick = (item) => {
+    let raceItems = this.state.raceItems;
+    let index = this.state.selectedRaceItemIndex;
+    if (raceItems[index] !== null) {
+      this.gm.inventory.addItem(raceItems[index], 1);
+    }
+    raceItems[index] = item;
+    this.gm.inventory.removeItem(item, 1);
+    this.setState({raceItems: raceItems});
+  }
+
   renderRaceSelection() {
     return (
       <div>
@@ -241,6 +331,13 @@ export default class RaceSelectionView extends Component {
                 })
               }
             </ListGroup>
+            <div>
+              <h2>Items</h2>
+              <Grid fluid={true}>
+                {this.renderRaceItemButtons()}
+              </Grid>
+              {this.state.selectedRaceItemIndex === null ? null : this.renderRaceItemList()}
+            </div>
           </Col>
           <Col xs={6} md={4}>
             {this.state.selectedRace ? this.renderRaceDetails() : this.renderEventDetails()}
