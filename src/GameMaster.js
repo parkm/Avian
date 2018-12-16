@@ -8,6 +8,7 @@ import genItemData from './game/data/items';
 import genFeedData from './game/data/feeds';
 import genBreedItemData from './game/data/breed_items';
 import genBreedsData from './game/data/breeds';
+import genRaceItemData from './game/data/race_items';
 
 export default class GameMaster {
   constructor() {
@@ -16,6 +17,7 @@ export default class GameMaster {
     this.feeds = genFeedData();
     this.breedItems = genBreedItemData();
     this.breeds = genBreedsData();
+    this.raceItems = genRaceItemData();
 
     this.loadDefaultGameData();
   }

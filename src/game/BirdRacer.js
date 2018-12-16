@@ -1,3 +1,5 @@
+import StatBuff from './StatBuff'
+
 export default class BirdRacer {
   constructor(name, stats, breed, isPlayer) {
     this.name = name;
@@ -20,6 +22,8 @@ export default class BirdRacer {
     this.staminaGainPerSecond = this.staminaMax * (this.stats.vigor / 100);
 
     this.terrain = 'base'; // Modified by the race controller
+
+    this.buffs = [];
   }
 
   frameUpdate(delta) {
@@ -44,7 +48,9 @@ export default class BirdRacer {
     let distance = milesPerMs * delta;
     this.elapsedDistance += distance;
 
-    if (!this.isPlayer) {
+    if (this.isPlayer) {
+      this.handleBuffs(delta);
+    } else {
       this.handleAi(delta);
     }
   }
@@ -53,6 +59,20 @@ export default class BirdRacer {
     if (this.movement === 'trot' && this.stamina >= this.staminaMax) {
       this.setMovement('sprint');
     }
+  }
+
+  handleBuffs(delta) {
+    let removeBuffs = [];
+    this.buffs.forEach(buff => {
+      buff.frameUpdate(delta);
+      if (buff.completed) {
+        removeBuffs.push(this.buffs.indexOf(buff));
+      }
+    });
+
+    removeBuffs.forEach(index => {
+      this.buffs.splice(index, 1);
+    });
   }
 
   updateStamina(delta) {
@@ -74,6 +94,12 @@ export default class BirdRacer {
   getTopMph() {
     let speedBuff = 1;
     if (this.terrain === 'water' && this.breed.id !== 'blue') speedBuff = 0.1;
+
+    this.buffs.forEach(buff => {
+      if (buff.statBuffPerc.topMph) {
+        speedBuff += buff.statBuffPerc.topMph;
+      }
+    });
 
     if (this.movement === 'trot') {
       return (this.stats.topMph * 0.25) * speedBuff;
@@ -97,5 +123,11 @@ export default class BirdRacer {
 
   getStaminaPercent() {
     return this.stamina / this.staminaMax;
+  }
+
+  applyStatBuff(raceItem, icon) {
+    console.log(icon);
+    let buff = new StatBuff(raceItem.statBuffPerc, raceItem.duration, icon);
+    this.buffs.push(buff);
   }
 }

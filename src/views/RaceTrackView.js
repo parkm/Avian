@@ -22,6 +22,7 @@ export default class RaceTrackView extends Component {
     super();
 
     this.state = {
+      raceStarted: false,
       raceFinished: false
     };
   }
@@ -29,6 +30,7 @@ export default class RaceTrackView extends Component {
   componentWillMount() {
     this.racers = this.props.race.racers;
     this.controller = new RaceController(this.props.race, this.racers, this.props.playerBird);
+    this.setState({raceItems: this.props.raceItems});
   }
 
   raceLoop = () => {
@@ -47,6 +49,7 @@ export default class RaceTrackView extends Component {
   onRaceStart = () => {
     console.log('Race start!')
 
+    this.setState({raceStarted: true});
     this.loopStartTime = Date.now();
     requestAnimationFrame(this.raceLoop);
   }
@@ -83,6 +86,22 @@ export default class RaceTrackView extends Component {
 
   onMovementChange = (movement) => {
     this.controller.playerRacer.setMovement(movement);
+  }
+
+  onRaceItemClick = (item, slotIndex) => {
+    if (!this.state.raceStarted) return;
+    let items = this.state.raceItems;
+    items[slotIndex] = null;
+    this.props.app.gm.inventory.removeItem(item, 1);
+    this.setState({raceItems: items});
+    this.useRaceItem(item);
+  }
+
+  useRaceItem = (item) => {
+    let raceItem = this.props.app.gm.raceItems[item.id];
+    if (raceItem.type === 'stat_buff') {
+      this.controller.applyStatBuff(raceItem, item.icon);
+    }
   }
 
   terrainIdToImg(terrainId) {
@@ -157,6 +176,37 @@ export default class RaceTrackView extends Component {
                             <ToggleButton value={'sprint'}>Sprint</ToggleButton>
                           </ToggleButtonGroup>
                         </ButtonToolbar>
+                      </div>
+                    ) : null}
+                  </Col>
+                  <Col sm={4}>
+                    {racer.isPlayer ? (
+                      <ButtonToolbar>
+                        {
+                          this.state.raceItems.map((item, i) => {
+                            if (!item) return null;
+                            return (<Button onClick={e => this.onRaceItemClick(item, i)}><img width="32px" src={item.icon}/></Button>)
+                          })
+                        }
+                      </ButtonToolbar>
+                    ) : null}
+                  </Col>
+                  <Col sm={4}>
+                    {racer.isPlayer ? (
+                      <div>
+                        {
+                          this.controller.playerRacer.buffs.map((buff, i) => {
+                            console.log(buff);
+                            return (
+                              <div>
+                                <img width="32px" src={buff.icon}/>
+                                <div>
+                                  {((buff.duration - buff.elapsed) / 1000).toFixed(1)}
+                                </div>
+                              </div>
+                            )
+                          })
+                        }
                       </div>
                     ) : null}
                   </Col>

@@ -160,6 +160,7 @@ export default class RaceSelectionView extends Component {
   onRaceStartClick = () => {
     this.props.app.setView('raceTrack', {
       race: this.state.selectedRace,
+      raceItems: this.state.raceItems,
       playerBird: this.state.playerBird
     });
   }
@@ -282,7 +283,7 @@ export default class RaceSelectionView extends Component {
         {
           this.gm.inventory.getItemsByType('raceItem').map((item, i) => {
             return (
-              <ListGroupItem key={i} onClick={_ => this.onRaceItemClick(item)}>
+              <ListGroupItem key={i} onClick={_ => this.onRaceBuffItemClick(item)}>
                 <img src={item.icon} /> {item.name} x{item.count} - {item.description}
               </ListGroupItem>
             );
@@ -292,7 +293,7 @@ export default class RaceSelectionView extends Component {
     );
   }
 
-  onRaceItemClick = (item) => {
+  onRaceBuffItemClick = (item) => {
     let raceItems = this.state.raceItems;
     let index = this.state.selectedRaceItemIndex;
     if (raceItems[index] !== null) {

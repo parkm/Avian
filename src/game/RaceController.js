@@ -33,6 +33,10 @@ export default class RaceController {
     });
   }
 
+  applyStatBuff(raceItem, icon) {
+    this.playerRacer.applyStatBuff(raceItem, icon);
+  }
+
   currentTerrain(racer) {
     for (let i=0; i<this.terrains.length; ++i) {
       let t = this.terrains[i];
