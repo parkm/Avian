@@ -8,11 +8,18 @@ export default function genItemData() {
     carobNut: {name: 'Carob Nut', type: 'breedItem', value: 500},
     zeioNut: {name: 'Zeio Nut', type: 'breedItem', value: 1000},
     fireStone: {name: 'Fire Stone', type: 'breedItem', value: 5000},
-    waterStone: {name: 'Water Stone', type: 'breedItem', value: 5000},
+    waterStone: {
+      name: 'Water Crystal', type: 'breedItem', value: 5000,
+      description: 'Infuses offspring with elements of water.'
+    },
     topGear: {
       name: 'Top Gear', type: 'raceItem', value: 500,
       description: 'Increases Top Speed by 25% for 20 seconds.',
       icon: topGearIcon
+    },
+    goodFormula: {
+      name: 'Good Formula', type: 'breedItem', value: 5000,
+      description: 'Guarantees offspring with good genes.'
     }
   }
 

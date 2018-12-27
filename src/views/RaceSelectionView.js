@@ -97,7 +97,7 @@ class RaceEventButton extends Component {
             </div>
             <div>
               <div>
-                ${this.props.raceEvent.rewards.money}
+                {this.props.raceEvent.rewards.money > 0 ? ('$' + this.props.raceEvent.rewards.money) : null}
               </div>
               {fans > 0 ? `${fans} ${Util.plural(fans, 'fan')}` : null}
               {this.renderItemRewards(this.props.raceEvent.rewards.items)}

@@ -5,7 +5,10 @@ export default function genBreedItemData() {
     carobNut: {},
     zeioNut: {},
     waterStone: {},
-    fireStone: {}
+    fireStone: {},
+    goodFormula: {
+      genes: 'good'
+    }
   }
 
   for (let id in breedItems) {
