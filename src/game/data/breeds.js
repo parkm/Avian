@@ -55,7 +55,7 @@ export default function genBreedsData() {
           breed: 'yellow'
         }
       },
-      filter: ""
+      filter: "hue-rotate(332deg) saturate(238%) brightness(86%)"
     }
   }
 

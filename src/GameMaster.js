@@ -67,7 +67,7 @@ export default class GameMaster {
     this.unlockedStoreItems = ['gysahlGreens'];
 
     this.raceEvents = genRaceEventsData(this.breeds);
-    this.unlockedEventIds = {'openTrackDay': true, 'wetlands': true, 'forest': true, 'mountain': true};
+    this.unlockedEventIds = {'openTrackDay': true, 'wetlands': true, 'forest': true, 'mountain': true, 'dune': true};
   }
 
   loadGameDataFromSaveObject(save) {

@@ -464,6 +464,93 @@ newRaceEvent('mountain', {
       [0.28, 0.75, 'mountain'],
     ]),
   },
+  unlocks: ['dune'],
+  rewards: {
+    fans: 5,
+    items: {
+      'fireStone': 1
+    }
+  }
+});
+
+let duneRacers = [{
+    name: 'Cactuar',
+    stats: new BirdStats({
+      topMph: 35,
+      accel: 5.25,
+      stamina: 5,
+      vigor: 10
+    }),
+    breed: breeds['green']
+  }, {
+    name: 'Lobivia',
+    stats: new BirdStats({
+      topMph: 37,
+      accel: 4.90,
+      stamina: 6,
+      vigor: 10
+    }),
+    breed: breeds['green']
+  }, {
+    name: 'Toumeya',
+    stats: new BirdStats({
+      topMph: 41,
+      accel: 3,
+      stamina: 10,
+      vigor: 10
+    }),
+    breed: breeds['green']
+  }, {
+    name: 'Ruby',
+    stats: new BirdStats({
+      topMph: 36,
+      accel: 5,
+      stamina: 4,
+      vigor: 10
+    }),
+    breed: breeds['red']
+  }, {
+    name: 'Mainyu',
+    stats: new BirdStats({
+      topMph: 42,
+      accel: 8,
+      stamina: 2,
+      vigor: 80
+    }),
+    breed: breeds['orange']
+  }
+];
+newRaceEvent('dune', {
+  name: 'Dunes',
+  restrictions: {},
+  races: {
+    '0': new Race('First Race', duneRacers, 0.25, {
+      '1': {
+        money: 600
+      },
+      '2': {
+        money: 50
+      },
+      '3': {
+        money: 20
+      }
+    }, [
+      [0, 1, 'dune'],
+    ]),
+    '1': new Race('Second Race', duneRacers, 0.25, {
+      '1': {
+        money: 650
+      },
+      '2': {
+        money: 60
+      },
+      '3': {
+        money: 25
+      }
+    }, [
+      [0, 1, 'dune'],
+    ])
+  },
   rewards: {
     fans: 5,
     items: {

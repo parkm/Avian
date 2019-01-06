@@ -16,6 +16,7 @@ import finishImg from 'res/gfx/finish.png';
 import waterImg from 'res/gfx/water.png';
 import forestImg from 'res/gfx/forest.png';
 import mountainImg from 'res/gfx/mountain.png';
+import duneImg from 'res/gfx/dune.png';
 
 import RaceController from 'game/RaceController';
 
@@ -111,6 +112,7 @@ export default class RaceTrackView extends Component {
       case 'water': return waterImg;
       case 'forest': return forestImg;
       case 'mountain': return mountainImg;
+      case 'dune': return duneImg;
       default: return null;
     }
   }

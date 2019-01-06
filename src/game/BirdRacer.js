@@ -93,6 +93,7 @@ export default class BirdRacer {
 
   getTerrainSpeedBuff() {
     if (this.terrain === 'water' && this.breed.id !== 'blue') return 0.1;
+    if (this.terrain === 'dune' && this.breed.id !== 'orange') return 0.2;
     if (this.terrain === 'forest' && this.breed.id !== 'green') return 0.75;
     if (this.terrain === 'forest') {
       if (this.breed.id === 'green') {
