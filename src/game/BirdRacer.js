@@ -91,17 +91,28 @@ export default class BirdRacer {
     }
   }
 
-  getTopMph() {
-    let speedBuff = 1;
-    if (this.terrain === 'water' && this.breed.id !== 'blue') speedBuff = 0.1;
-    if (this.terrain === 'forest' && this.breed.id !== 'green') speedBuff = 0.75;
+  getTerrainSpeedBuff() {
+    if (this.terrain === 'water' && this.breed.id !== 'blue') return 0.1;
+    if (this.terrain === 'forest' && this.breed.id !== 'green') return 0.75;
     if (this.terrain === 'forest') {
       if (this.breed.id === 'green') {
-        speedBuff = 1.25
+        return 1.25;
       } else {
-        speedBuff = 0.75
+        return 0.75;
       }
     }
+    if (this.terrain === 'mountain') {
+      if (this.breed.id === 'red') {
+        return 1.25;
+      } else {
+        return 0.75;
+      }
+    }
+    return 1;
+  }
+
+  getTopMph() {
+    let speedBuff = this.getTerrainSpeedBuff();
 
     this.buffs.forEach(buff => {
       if (buff.statBuffPerc.topMph) {

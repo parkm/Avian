@@ -15,6 +15,7 @@ import chocoImg from 'res/gfx/choco.png';
 import finishImg from 'res/gfx/finish.png';
 import waterImg from 'res/gfx/water.png';
 import forestImg from 'res/gfx/forest.png';
+import mountainImg from 'res/gfx/mountain.png';
 
 import RaceController from 'game/RaceController';
 
@@ -109,6 +110,7 @@ export default class RaceTrackView extends Component {
     switch(terrainId) {
       case 'water': return waterImg;
       case 'forest': return forestImg;
+      case 'mountain': return mountainImg;
       default: return null;
     }
   }
