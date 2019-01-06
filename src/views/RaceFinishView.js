@@ -157,12 +157,16 @@ export default class RaceFinishView extends Component {
         <h2>
           1st place: {this.props.placings['1'].name}
         </h2>
-        <h3>
-          2nd place: {this.props.placings['2'].name}
-        </h3>
-        <h3>
-          3rd place: {this.props.placings['3'].name}
-        </h3>
+        {this.props.placings['2'] ? (
+          <h3>
+            2nd place: {this.props.placings['2'].name}
+          </h3>
+        ) : null}
+        {this.props.placings['3'] ? (
+          <h3>
+            3rd place: {this.props.placings['3'].name}
+          </h3>
+        ) : null}
         <div className="race-finish-overlay">
           <h1>You placed {Util.toOrdinal(this.props.playerPlacing)}</h1>
           <div>Earnings: {this.state.moneyEarned}</div>

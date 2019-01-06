@@ -362,7 +362,7 @@ newRaceEvent('forest', {
       [0.28, 0.75, 'forest'],
     ]),
   },
-  unlocks: ['mountain'],
+  unlocks: ['mountain', 'bonus1'],
   rewards: {
     fans: 5,
     itemUnlocks: ['fireStone'],
@@ -371,6 +371,131 @@ newRaceEvent('forest', {
     }
   }
 });
+
+let bonusRacers = [{
+    name: 'Squall',
+    stats: new BirdStats({
+      topMph: 70,
+      accel: 10.25,
+      stamina: 10,
+      vigor: 20
+    }),
+    breed: breeds['black']
+  }, {
+    name: 'Cloud',
+    stats: new BirdStats({
+      topMph: 72,
+      accel: 8.90,
+      stamina: 12,
+      vigor: 20
+    }),
+    breed: breeds['yellow']
+  }, {
+    name: 'Lightning',
+    stats: new BirdStats({
+      topMph: 75,
+      accel: 12,
+      stamina: 10,
+      vigor: 20
+    }),
+    breed: breeds['pink']
+  }, {
+    name: 'Cecil',
+    stats: new BirdStats({
+      topMph: 60,
+      accel: 7,
+      stamina: 60,
+      vigor: 60
+    }),
+    breed: breeds['blue']
+  }, {
+    name: 'Terra',
+    stats: new BirdStats({
+      topMph: 73,
+      accel: 10,
+      stamina: 11,
+      vigor: 20
+    }),
+    breed: breeds['green']
+  }
+];
+newRaceEvent('bonus1', {
+  name: 'Bonus 1',
+  restrictions: {
+    fans: 100
+  },
+  races: {
+    '0': new Race('First Race', bonusRacers, 1.25, {
+      '1': {
+        money: 2000
+      },
+      '2': {
+        money: 500
+      },
+      '3': {
+        money: 200
+      }
+    }),
+    '1': new Race('Second Race', bonusRacers, 1.50, {
+      '1': {
+        money: 2200
+      },
+      '2': {
+        money: 500
+      },
+      '3': {
+        money: 200
+      }
+    }),
+  },
+  unlocks: ['bonus2'],
+  rewards: {
+    fans: 50,
+    itemUnlocks: ['sylkisGreens'],
+    items: {
+      'sylkisGreens': 10
+    }
+  }
+});
+
+let bonus2Racers = [{
+    name: 'Teioh',
+    stats: new BirdStats({
+      topMph: 80,
+      accel: 10.25,
+      stamina: 20,
+      vigor: 15
+    }),
+    breed: breeds['black']
+  }
+];
+newRaceEvent('bonus2', {
+  name: 'Bonus 2',
+  restrictions: {
+    fans: 150
+  },
+  races: {
+    '0': new Race('First Race', bonus2Racers, 1.25, {
+      '1': {
+        money: 3000
+      },
+      '2': {
+        money: 0
+      },
+      '3': {
+        money: 0
+      }
+    })
+  },
+  rewards: {
+    fans: 100,
+    itemUnlocks: ['carobNut'],
+    items: {
+      'carobNut': 1
+    }
+  }
+});
+
 
 let mountainRacers = [{
     name: 'Rubicante',

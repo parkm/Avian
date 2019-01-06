@@ -56,6 +56,14 @@ export default function genBreedsData() {
         }
       },
       filter: "hue-rotate(332deg) saturate(238%) brightness(86%)"
+    },
+    black: {
+      name: 'Black',
+      filter: "brightness(55%) grayscale(100%) contrast(158%)"
+    },
+    pink: {
+      name: 'Pink',
+      filter: "hue-rotate(289deg)"
     }
   }
 

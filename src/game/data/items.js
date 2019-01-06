@@ -5,6 +5,7 @@ export default function genItemData() {
   let items = {
     gysahlGreens: {name: 'Gysahl Greens', type: 'feed', value: 100},
     mimettGreens: {name: 'Mimett Greens', type: 'feed', value: 150},
+    sylkisGreens: {name: 'Sylkis Greens', type: 'feed', value: 1250},
     carobNut: {name: 'Carob Nut', type: 'breedItem', value: 500},
     zeioNut: {name: 'Zeio Nut', type: 'breedItem', value: 1000},
     fireStone: {name: 'Fire Stone', type: 'breedItem', value: 5000},

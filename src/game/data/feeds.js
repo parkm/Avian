@@ -17,6 +17,14 @@ export default function genFeedData() {
         vigor: 0,
         accel: 0
       }
+    },
+    sylkisGreens: {
+      effect: {
+        topMph: 1,
+        stamina: 1,
+        vigor: 1,
+        accel: 0.5
+      }
     }
   }
 
