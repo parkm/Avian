@@ -14,6 +14,7 @@ import ToggleButton from 'react-bootstrap/lib/ToggleButton';
 import chocoImg from 'res/gfx/choco.png';
 import finishImg from 'res/gfx/finish.png';
 import waterImg from 'res/gfx/water.png';
+import forestImg from 'res/gfx/forest.png';
 
 import RaceController from 'game/RaceController';
 
@@ -107,6 +108,7 @@ export default class RaceTrackView extends Component {
   terrainIdToImg(terrainId) {
     switch(terrainId) {
       case 'water': return waterImg;
+      case 'forest': return forestImg;
       default: return null;
     }
   }

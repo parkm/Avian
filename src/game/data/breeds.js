@@ -20,6 +20,18 @@ export default function genBreedsData() {
       },
       filter: "hue-rotate(167deg)"
     },
+    green: {
+      name: 'Green',
+      recipe: {
+        a: {
+          breed: 'blue'
+        },
+        b: {
+          breed: 'yellow'
+        }
+      },
+      filter: "hue-rotate(92deg)"
+    },
     orange: {
       name: 'Orange',
       recipe: {

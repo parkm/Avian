@@ -34,11 +34,7 @@ export default class StoreView extends Component {
   }
 
   componentWillMount() {
-    this.itemStock = [
-      'gysahlGreens',
-      'mimettGreens',
-      'topGear'
-    ].map(iname => this.props.app.gm.items[iname]);
+    this.itemStock = this.props.app.gm.unlockedStoreItems.map(iname => this.props.app.gm.items[iname]);
   }
 
   onItemClick(item) {

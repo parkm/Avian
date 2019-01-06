@@ -94,6 +94,14 @@ export default class BirdRacer {
   getTopMph() {
     let speedBuff = 1;
     if (this.terrain === 'water' && this.breed.id !== 'blue') speedBuff = 0.1;
+    if (this.terrain === 'forest' && this.breed.id !== 'green') speedBuff = 0.75;
+    if (this.terrain === 'forest') {
+      if (this.breed.id === 'green') {
+        speedBuff = 1.25
+      } else {
+        speedBuff = 0.75
+      }
+    }
 
     this.buffs.forEach(buff => {
       if (buff.statBuffPerc.topMph) {

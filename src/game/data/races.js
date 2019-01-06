@@ -185,6 +185,7 @@ newRaceEvent('rookieWeek', {
       }
     }),
   },
+  unlocks: ['wetlands'],
   rewards: {
     fans: 5,
     items: {
@@ -272,10 +273,100 @@ newRaceEvent('wetlands', {
       [0.28, 0.75, 'water'],
     ]),
   },
+  unlocks: ['forest'],
   rewards: {
     fans: 5,
+    itemUnlocks: ['topGear'],
     items: {
-      'waterStone': 1
+      'topGear': 1
+    }
+  }
+});
+
+let forestRacers = [{
+    name: 'Yuffie',
+    stats: new BirdStats({
+      topMph: 35,
+      accel: 5.25,
+      stamina: 5,
+      vigor: 10
+    }),
+    breed: breeds['green']
+  }, {
+    name: 'Knight',
+    stats: new BirdStats({
+      topMph: 37,
+      accel: 4.90,
+      stamina: 6,
+      vigor: 10
+    }),
+    breed: breeds['yellow']
+  }, {
+    name: 'Robin',
+    stats: new BirdStats({
+      topMph: 41,
+      accel: 3,
+      stamina: 10,
+      vigor: 10
+    }),
+    breed: breeds['yellow']
+  }, {
+    name: 'Emerald',
+    stats: new BirdStats({
+      topMph: 36,
+      accel: 5,
+      stamina: 4,
+      vigor: 10
+    }),
+    breed: breeds['green']
+  }, {
+    name: 'Malboro',
+    stats: new BirdStats({
+      topMph: 42,
+      accel: 8,
+      stamina: 2,
+      vigor: 80
+    }),
+    breed: breeds['green']
+  }
+];
+newRaceEvent('forest', {
+  name: 'Forest',
+  restrictions: {},
+  races: {
+    '0': new Race('First Race', forestRacers, 0.25, {
+      '1': {
+        money: 250
+      },
+      '2': {
+        money: 50
+      },
+      '3': {
+        money: 20
+      }
+    }, [
+      [0.25, 0.28, 'forest'],
+      [0.75, 0.80, 'forest']
+    ]),
+    '1': new Race('Second Race', forestRacers, 0.25, {
+      '1': {
+        money: 300
+      },
+      '2': {
+        money: 60
+      },
+      '3': {
+        money: 25
+      }
+    }, [
+      [0.28, 0.75, 'forest'],
+    ]),
+  },
+  rewards: {
+    fans: 5,
+    itemUnlocks: ['fireStone'],
+    items: {
+      'fireStone': 1
     }
   }
 });

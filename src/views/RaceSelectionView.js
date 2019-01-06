@@ -57,6 +57,16 @@ class RaceEventButton extends Component {
     return out;
   }
 
+  renderItemUnlocks(itemUnlocks) {
+    if (!itemUnlocks) return;
+    return itemUnlocks.map(itemId => {
+      let item = this.props.gm.items[itemId];
+      return (
+        <div>Store Stock +{item.name}</div>
+      );
+    });
+  }
+
   renderRestrictions(restrict) {
     if (Object.keys(restrict).length === 0) {
       return (<div>None</div>);
@@ -100,6 +110,7 @@ class RaceEventButton extends Component {
                 {this.props.raceEvent.rewards.money > 0 ? ('$' + this.props.raceEvent.rewards.money) : null}
               </div>
               {fans > 0 ? `${fans} ${Util.plural(fans, 'fan')}` : null}
+              {this.renderItemUnlocks(this.props.raceEvent.rewards.itemUnlocks)}
               {this.renderItemRewards(this.props.raceEvent.rewards.items)}
             </div>
           </Col>

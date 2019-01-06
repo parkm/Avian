@@ -64,9 +64,10 @@ export default class GameMaster {
 
     this.completedRaces = {};
     this.completedEvents = {};
+    this.unlockedStoreItems = ['gysahlGreens'];
 
     this.raceEvents = genRaceEventsData(this.breeds);
-    this.unlockedEventIds = {'openTrackDay': true, 'wetlands': true};
+    this.unlockedEventIds = {'openTrackDay': true, 'wetlands': true, 'forest': true};
   }
 
   loadGameDataFromSaveObject(save) {
@@ -74,9 +75,10 @@ export default class GameMaster {
     this.money = gameData.money;
     this.fans = gameData.fans;
     this.inventory = Inventory.fromJSON(this.items, gameData.inventory);
-    this.completedRaces = gameData.completedRaces,
-    this.completedEvents = gameData.completedEvents,
-    this.unlockedEventIds = gameData.unlockedEventIds
+    this.completedRaces = gameData.completedRaces;
+    this.completedEvents = gameData.completedEvents;
+    this.unlockedEventIds = gameData.unlockedEventIds;
+    this.unlockedStoreItems = gameData.unlockedStoreItems;
   }
 
   genSaveObjectFromGameData(note="") {
@@ -86,7 +88,8 @@ export default class GameMaster {
       inventory: this.inventory.toJSON(),
       completedRaces: this.completedRaces,
       completedEvents: this.completedEvents,
-      unlockedEventIds: this.unlockedEventIds
+      unlockedEventIds: this.unlockedEventIds,
+      unlockedStoreItems: this.unlockedStoreItems
     }
     return {
       version: this.version,
@@ -200,6 +203,11 @@ export default class GameMaster {
         let itemCount = itemRewards[itemId];
         this.inventory.addItem(this.items[itemId], itemCount);
       }
+    }
+
+    let itemUnlocks = raceEvent.rewards.itemUnlocks;
+    if (itemUnlocks) {
+      this.unlockedStoreItems = this.unlockedStoreItems.concat(itemUnlocks);
     }
   }
 

@@ -12,6 +12,10 @@ export default function genItemData() {
       name: 'Water Crystal', type: 'breedItem', value: 5000,
       description: 'Infuses offspring with elements of water.'
     },
+    fireStone: {
+      name: 'Fire Crystal', type: 'breedItem', value: 5000,
+      description: 'Infuses offspring with elements of fire.'
+    },
     topGear: {
       name: 'Top Gear', type: 'raceItem', value: 500,
       description: 'Increases Top Speed by 25% for 20 seconds.',
